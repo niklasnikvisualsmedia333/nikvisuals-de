@@ -4,7 +4,9 @@ Only limited, approved local copies are included. The owner supplied `nikvisuals
 
 | Local file | Owner-supplied original source | Intended use |
 | --- | --- | --- |
-| `public/images/niklas-portrait.webp` | Google Drive: [portrait](https://drive.google.com/file/d/1L-t8oZZclESu9WgplwYMYs017_yZVNkR/view) | Neutral founder image in hero, About and `/links/`. |
+| `public/images/niklas-portrait.webp` | Google Drive: [portrait](https://drive.google.com/file/d/1L-t8oZZclESu9WgplwYMYs017_yZVNkR/view) | Hero only: neutral founder image, never historical proof. |
+| `public/images/niklas-bts-direction.webp` | Google Drive: [behind-the-scenes direction image](https://drive.google.com/file/d/1FlPknVke36kaMQnib1i7PM87DSkT8AcT/view) | About only: Niklas at a real production; general execution context, not AI/Growth proof. |
+| `public/images/niklas-portrait-arsenal.webp` | Google Drive: [clean Arsenal portrait](https://drive.google.com/file/d/11tARlzRgldcTq4i7XBA74zUxBPmvToMO/view) | `/links/` profile image only. |
 | `public/images/lapstore-logo.png` | Google Drive: [LapStore logo](https://drive.google.com/file/d/1vrlvYmQVC6gx0AeWTne4Wn1Db0s_ZM5y/view) | LapStore historical case and prior-work strip only. |
 | `public/images/sms-group-event.webp` | Google Drive: [SMS group event stage](https://drive.google.com/file/d/1U-0f6mLLmNrbb8fDom-hC3CBVAafzdM_/view) | SMS group historical case only. |
 | `public/images/sms-group-logo.png` | Google Drive: [SMS group logo](https://drive.google.com/file/d/1XVoTkrjjWPXzdb8GNuz4N6Tro5P2Tg1K/view) | SMS group historical case and prior-work strip only. |
@@ -14,4 +16,4 @@ Only limited, approved local copies are included. The owner supplied `nikvisuals
 | `public/images/hilchenbach.jpg` | [YouTube video poster](https://i.ytimg.com/vi/5iZrmH-16NY/maxresdefault.jpg) | Stadt Hilchenbach historical case; links to its verified YouTube film. |
 | `public/fonts/manrope-variable.ttf` | [Google Fonts Manrope](https://github.com/google/fonts/tree/main/ofl/manrope) (SIL Open Font License) | Self-hosted display and body font. |
 
-The hero contains no named-client material. Client logos and media appear only within the historical-work section and its clearly qualified collaboration strip. No video embed loads by default; video destinations open only after a click.
+The hero contains no named-client material. Client logos and media appear only within the historical-work section. No video embed loads by default; video destinations open only after a click.

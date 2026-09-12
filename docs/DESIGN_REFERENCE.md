@@ -21,5 +21,6 @@ No Keravonos text, logo, typography files, imagery, package structure, customer 
 - Founder-led neutral hero; client visual evidence appears only in the earlier-work context.
 - Full-width sections, `1280px` content maximum, rounded pills for actions and deliberate asymmetric media.
 - Direct, factual copy rather than AI/consulting slogans. The link hub is functional and uses no marketing claim.
-- Historical reviews show one clear five-star Google rating. Their calm CSS strip pauses on hover and becomes static, horizontally scrollable content with reduced motion.
-- The About portrait keeps its natural 4:5 framing; the IHK case uses a sharp native frame from the original workshop footage.
+- Historical reviews show one clear five-star Google rating in a single responsive row; on narrow screens it scrolls horizontally without duplicating cards.
+- The Hero, About and `/links/` use distinct founder/execution images. About uses real BTS production context; the IHK case uses a sharp native frame from the original workshop footage.
+- Prefer removing repeated client names, logos, proof and decorative copy over adding another visual layer.
