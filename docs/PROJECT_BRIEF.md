@@ -18,7 +18,7 @@ Professional independent work since 2021, master’s studies in Entrepreneurship
 
 ## Visual direction
 
-Keravonos-inspired but distinct visual energy: warm cream, deep ink, electric blue, acid-lime details, large tight self-hosted Manrope type and alternating high-contrast modules. The hero uses a neutral founder portrait, never named-client material. About uses a distinct real production image; `/links/` uses another founder portrait. Project media and logos live only in the qualified historical-work section. The historical-review area makes the five-star Google signal clear without repeating the same cards. No stock/AI illustration and lightweight CSS interactions only. See `DESIGN_REFERENCE.md`.
+Warm cream, deep ink, electric blue, soft blue, large tight self-hosted Manrope type and alternating high-contrast modules. The Hero uses general BTS production imagery for execution context, never named-client AI/Growth proof. About and `/links/` intentionally share the current clean profile portrait. Project media and logos live only in the qualified historical-work section. The historical-review area makes the five-star Google signal clear without repeating the same cards. Reviews and the Link Hub are linked in the main navigation. No stock/AI illustration and lightweight CSS interactions only. See `DESIGN_REFERENCE.md`.
 
 ## Copy standard
 

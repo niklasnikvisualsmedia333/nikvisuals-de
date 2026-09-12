@@ -14,9 +14,10 @@ for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.htm
  assert(html.includes('★★★★★'));
  assert(!html.includes('<article class="testimonial"><span'));
  assert(html.includes('ihk-workshop-2026.webp'));
- assert(html.includes('niklas-portrait.webp'));
- assert(html.includes('niklas-bts-direction.webp'));
- assert.equal((html.match(/<img src="[^\"]*niklas-portrait\.webp/g) || []).length, 1);
+ assert(html.includes('niklas-production-hero.webp'));
+ assert(html.includes('niklas-current-profile.webp'));
+ assert(html.includes('id="bewertungen"'));
+ assert(html.includes(`href="${base}${lang === 'en' ? 'en/' : ''}links/"`));
  assert(!html.includes('class="collaboration"'));
  assert(html.includes('Vorschau') || html.includes('Preview'));
  assert(!html.includes('Formspree') && !html.includes('n8n'));
@@ -34,8 +35,8 @@ for (const [lang, path] of [['de', 'dist/links/index.html'], ['en', 'dist/en/lin
  assert(html.includes(`lang="${lang}"`));
  assert(html.includes('noindex,nofollow'));
  assert(html.includes('class="link-hub"'));
- assert(html.includes('niklas-portrait-arsenal.webp'));
- assert(!html.includes('niklas-portrait.webp'));
+ assert(html.includes('niklas-current-profile.webp'));
+ assert(!html.includes('niklas-production-hero.webp'));
  assert(!html.includes('Ein Link. Alle Wege.'));
  assert(html.includes('Kontakt') || html.includes('Contact'));
  assert(!html.includes('<iframe'));

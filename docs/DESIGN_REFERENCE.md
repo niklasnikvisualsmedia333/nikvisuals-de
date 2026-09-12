@@ -14,13 +14,14 @@ Reviewed 2026-09-12: Keravonos uses a dark, high-contrast canvas; Montserrat-sty
 
 No Keravonos text, logo, typography files, imagery, package structure, customer quotes, navigation, layouts, or brand green. NikVisuals remains substantially shorter and never makes its historical media clients appear to be AI-consulting references.
 
-## NikVisuals v2 tokens
+## NikVisuals tokens
 
-- Cream `#f7f3eb`, ink `#17191d`, electric blue `#425bf4`, acid lime `#c9ff38`, soft violet `#eee9ff`.
+- Cream `#f7f5ef`, ink `#17181c`, electric blue `#425bf4`, darker action blue `#334be8`, soft blue `#e9ecff` and neutral borders `#d8d6d0`.
 - Self-hosted Manrope variable font (SIL Open Font License); no third-party font request at runtime.
-- Founder-led neutral hero; client visual evidence appears only in the earlier-work context.
+- Hero uses a general production BTS image for execution context; it never identifies a client or proves AI/Growth work.
 - Full-width sections, `1280px` content maximum, rounded pills for actions and deliberate asymmetric media.
 - Direct, factual copy rather than AI/consulting slogans. The link hub is functional and uses no marketing claim.
 - Historical reviews show one clear five-star Google rating in a single responsive row; on narrow screens it scrolls horizontally without duplicating cards.
-- The Hero, About and `/links/` use distinct founder/execution images. About uses real BTS production context; the IHK case uses a sharp native frame from the original workshop footage.
+- About and `/links/` intentionally share the current clean profile image. The IHK case uses a sharp native frame from the original workshop footage.
+- Keep the Hero desktop headline to roughly two or three lines. Reviews and Links stay in the main navigation.
 - Prefer removing repeated client names, logos, proof and decorative copy over adding another visual layer.
