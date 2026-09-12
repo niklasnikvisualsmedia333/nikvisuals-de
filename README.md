@@ -33,7 +33,7 @@ Build checks TypeScript, builds client and temporary server bundles, prerenders 
 - `index.html`, `en/index.html`: language-specific metadata.
 - `AGENTS.md`: permanent content, implementation and safety boundaries.
 
-No backend, analytics, external fonts, embedded videos or secrets. Contact links open the visitor's email application. The preview includes a short hosting/privacy notice; the legal notice links to the existing NikVisuals website.
+No backend, analytics, external fonts, embedded videos or secrets. The contact form is a local validation-only preview: it prevents submission, does not send/store data, and points visitors to email. TODO: add an explicitly approved endpoint and privacy review before enabling delivery. The preview includes a short hosting/privacy notice; the legal notice links to the existing NikVisuals website.
 
 ## Deployment
 

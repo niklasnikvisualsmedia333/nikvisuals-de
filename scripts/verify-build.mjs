@@ -9,6 +9,9 @@ for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.htm
  assert.equal((html.match(/class="case case-/g) || []).length, 4);
  assert.equal((html.match(/<h1 /g) || []).length, 1);
  assert(html.includes('mailto:info@nikvisuals.de'));
+ assert(html.includes('class="contact-form"'));
+ assert(html.includes('Vorschau') || html.includes('Preview'));
+ assert(!html.includes('Formspree') && !html.includes('n8n'));
  assert(html.includes(`href="${base}en/"`));
  for (const match of html.matchAll(/(?:src|href)="([^"#]+)"/g)) {
   const url = match[1];

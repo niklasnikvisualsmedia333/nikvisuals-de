@@ -8,6 +8,8 @@ Inventory checked 2026-09-11/12. Only a limited public homepage, portfolio and A
 | `public/images/hilchenbach.jpg` | https://i.ytimg.com/vi/5iZrmH-16NY/maxresdefault.jpg | Stadt Hilchenbach case | Temporary video poster, 1280×720, ~209 KB. Public portfolio title: Hilchenbach am Rothaarsteig VON OBEN! Drohnenaufnahmen. |
 | `public/images/behind-the-scenes.jpg` | https://static.wixstatic.com/media/27d619_236b212f2bf74f3b9405988b391e7576~mv2.jpg/v1/fit/w_1200,h_1000,q_85/file.jpg | About production context | Temporary resized Wix image, 1200×675, ~322 KB. Shows production work, not presented as a portrait or a fifth case. |
 
+V2 reuses the local LapStore and Hilchenbach posters as a deliberate hero collage, in addition to their respective cases. No new external assets were sourced for v2.
+
 Source pages:
 - https://www.nikvisuals.de/portfolio — LapStore and Hilchenbach posters and video IDs.
 - https://www.nikvisuals.de/videoproduktionen-mittelstand-siegen — behind-the-scenes image.

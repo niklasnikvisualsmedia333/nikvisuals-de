@@ -1,7 +1,7 @@
 # NikVisuals implementation guardrails
 
 ## Product
-Build a concise, premium, founder-led digital business card for NikVisuals by Niklas Brüne. Visitors should understand it in about three minutes and consume it in under five. Keep content sparse; remove rather than add sections. German is primary. Preserve the neutral editorial direction, generous spacing and restrained interactions.
+Build a concise, premium, founder-led digital business card for NikVisuals by Niklas Brüne. Visitors should understand it in about three minutes and consume it in under five. Keep content sparse; remove rather than add sections. German is primary. The v2 direction is energetic, media-led and contemporary: large tight grotesk type, cream/dark/blue contrast, acid-lime details, asymmetric project media and a few purposeful CSS interactions. It is inspired by patterns observed on Keravonos, never copied from it. See `docs/DESIGN_REFERENCE.md`.
 
 ## Stack and delivery
 React 19, TypeScript, Vite 7, Tailwind CSS 4, npm, Node 22 (22.12+). Use the lockfile, `npm ci`, `npm run dev`, `npm run build`, `npm run preview`. Build includes type checking, static prerendering and deployment checks. No extra testing frameworks for straightforward UI.
@@ -27,10 +27,10 @@ Only general AI use cases, process analysis, knowledge work, existing-tool proto
 ## Scope and safety
 This is a public PREVIEW, always `noindex,nofollow` (currently also noarchive). Preserve preview robots.txt. No production canonical, production sitemap, production CNAME or custom domain. DNS, Wix, Microsoft 365 and email configuration are outside authorization. Do not change them. A future production launch requires explicit authorization before changing these constraints.
 
-Contact is `mailto:info@nikvisuals.de`. No fake form/backend/success flow. No CMS, database, analytics, cookies, authentication, frontend secrets, heavy animation libraries or third-party font requests. Never commit credentials or `.env` files. No unrelated repository changes.
+Contact is `mailto:info@nikvisuals.de`. A frontend-only dummy contact form is allowed: it must validate locally, prevent default submission, send/store/transmit no data and state honestly that delivery is not connected, with the email fallback visible. Keep its fields and clear TODO for future endpoint integration. No CMS, database, analytics, cookies, authentication, frontend secrets, heavy animation libraries or third-party font requests. Never commit credentials or `.env` files. No unrelated repository changes.
 
 ## Assets, accessibility and verification
-Use suitable public NikVisuals-owned assets with local optimized copies; record every source and intended use in `docs/ASSET_SOURCES.md`. Don't scrape the whole Wix site, download many alternatives, use random stock, fabricate logos or associate unrelated imagery with a client. Neutral typographic artwork is permitted when appropriate real assets aren't readily available. Video posters link to verified video URLs; do not load video embeds by default.
+Use suitable public NikVisuals-owned assets with local optimized copies; record every source and intended use in `docs/ASSET_SOURCES.md`. Don't scrape the whole Wix site, download many alternatives, use random stock, fabricate logos or associate unrelated imagery with a client. Neutral typographic artwork is permitted when appropriate real assets aren't readily available. Video posters link to verified video URLs; do not load video embeds by default. The collaboration name strip must stay clearly labelled as prior Media, Content, Workshops and Business Development work, never evidence for the current AI/Growth focus.
 
 Use system/self-hosted fonts, semantic landmarks/headings, meaningful alt text, reserved image dimensions, lazy loading below the fold, visible focus, keyboard-operable menus, adequate contrast, touch targets and reduced-motion support. Check around 390px and 1440px, direct EN loading, image loading, anchor/menu behavior and console errors. The build checks noindex, four cases, language output and base-path asset resolution. Review all final copy for overclaims. Keep git clean after committing and pushing authorized work.
 

@@ -3,6 +3,9 @@
 ## Implemented
 
 - Complete responsive German homepage and concise English equivalent with real static HTML and working language navigation.
+- V2 visual system: media-led asymmetric hero, high-contrast focus rows, credibility markers, dynamic selected-work composition, qualified collaboration name strip, stronger About treatment and integrated contact form.
+- Contact form validates required inputs locally and has no endpoint, network request, storage or false success state; it displays an honest email fallback only after a valid local submit.
+- Design reference reviewed and recorded in `docs/DESIGN_REFERENCE.md`; v2 uses a distinct cream/ink/electric-blue/acid-lime system with local system grotesk typography.
 - React 19, TypeScript, Vite 7, Tailwind 4; minimal dependencies and system fonts.
 - Current services separated from four accurately labelled previous cases; study/practice context and concise personal About.
 - Three local public NikVisuals assets, two lightweight video links, email contact and verified social destinations.
@@ -14,7 +17,7 @@
 
 ## Temporary/placeholders
 
-- SMS group and IHK Siegen use labelled neutral typographic artwork pending verified client-specific imagery.
+- SMS group and IHK Siegen use labelled premium typographic artwork pending verified client-specific imagery.
 - About uses a production photo instead of a dedicated founder portrait.
 - Legal notice links to the existing website; preview-specific privacy summary is included. Full production legal/privacy review belongs to the production-launch task.
 
@@ -24,6 +27,6 @@ None for the first preview. Production domain migration is deliberately outside 
 
 ## Next highest-value steps
 
-1. Review the design and German/English positioning on the deployed preview.
-2. Supply approved SMS group/IHK imagery and a preferred founder portrait.
-3. When ready, commission a separate production-launch pass for legal content, updated study/exchange wording and domain/metadata migration.
+1. Supply approved SMS group/IHK imagery and a preferred founder portrait.
+2. Add an explicitly approved form delivery endpoint and complete a production privacy review when the preview moves toward launch.
+3. Commission a separate production-launch pass for legal content, updated study/exchange wording and domain/metadata migration.
