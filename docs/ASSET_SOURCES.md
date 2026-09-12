@@ -1,37 +1,17 @@
-# Prototype asset sources
+# Asset sources
 
-Inventory checked 2026-09-11/12. Only a limited public homepage, portfolio and About inventory was fetched. No full-site archive. The owner authorized small local prototype copies of NikVisuals public work. Sources establish provenance, not a general license for reuse outside this project.
+Only limited, approved local copies are included. The owner supplied `nikvisuals-codex-asset-pack-2026-09-12.zip` on 2026-09-12; its web-ready files are used only at the placements below. Originals and the archive are not committed.
 
-| Local file | Direct source | Placement | Prototype status |
-| --- | --- | --- | --- |
-| `public/images/lapstore.jpg` | https://i.ytimg.com/vi/hWaSx8RWAg8/maxresdefault.jpg | LapStore case | Temporary video poster, 1280×720, ~84 KB. The video is explicitly listed as a LapStore production in the public NikVisuals portfolio. |
-| `public/images/hilchenbach.jpg` | https://i.ytimg.com/vi/5iZrmH-16NY/maxresdefault.jpg | Stadt Hilchenbach case | Temporary video poster, 1280×720, ~209 KB. Public portfolio title: Hilchenbach am Rothaarsteig VON OBEN! Drohnenaufnahmen. |
-| `public/images/behind-the-scenes.jpg` | https://static.wixstatic.com/media/27d619_236b212f2bf74f3b9405988b391e7576~mv2.jpg/v1/fit/w_1200,h_1000,q_85/file.jpg | About production context | Temporary resized Wix image, 1200×675, ~322 KB. Shows production work, not presented as a portrait or a fifth case. |
+| Local file | Owner-supplied original source | Intended use |
+| --- | --- | --- |
+| `public/images/niklas-portrait.webp` | Google Drive: [portrait](https://drive.google.com/file/d/1L-t8oZZclESu9WgplwYMYs017_yZVNkR/view) | Neutral founder image in hero, About and `/links/`. |
+| `public/images/lapstore-logo.png` | Google Drive: [LapStore logo](https://drive.google.com/file/d/1vrlvYmQVC6gx0AeWTne4Wn1Db0s_ZM5y/view) | LapStore historical case and prior-work strip only. |
+| `public/images/sms-group-event.webp` | Google Drive: [SMS group event stage](https://drive.google.com/file/d/1U-0f6mLLmNrbb8fDom-hC3CBVAafzdM_/view) | SMS group historical case only. |
+| `public/images/sms-group-logo.png` | Google Drive: [SMS group logo](https://drive.google.com/file/d/1XVoTkrjjWPXzdb8GNuz4N6Tro5P2Tg1K/view) | SMS group historical case and prior-work strip only. |
+| `public/images/hilchenbach-logo.png` | Google Drive: [Hilchenbach logo](https://drive.google.com/file/d/1QZA6Fw_UaSVAwYsM348IaS25Ja48cU0f/view) | Stadt Hilchenbach historical case and prior-work strip only. |
+| `public/images/ihk-workshop.webp` | Google Drive: [IHK workshop source video](https://drive.google.com/file/d/1TiEMCYicfqE0kIzRKPFBt7g0BG49ftho/view) | IHK Siegen historical workshop case only. |
+| `public/images/lapstore.jpg` | [YouTube video poster](https://i.ytimg.com/vi/hWaSx8RWAg8/maxresdefault.jpg) | LapStore historical case; links to its verified YouTube film. |
+| `public/images/hilchenbach.jpg` | [YouTube video poster](https://i.ytimg.com/vi/5iZrmH-16NY/maxresdefault.jpg) | Stadt Hilchenbach historical case; links to its verified YouTube film. |
+| `public/fonts/manrope-variable.ttf` | [Google Fonts Manrope](https://github.com/google/fonts/tree/main/ofl/manrope) (SIL Open Font License) | Self-hosted display and body font. |
 
-V2 reuses the local LapStore and Hilchenbach posters as a deliberate hero collage, in addition to their respective cases. No new external assets were sourced for v2.
-
-Source pages:
-- https://www.nikvisuals.de/portfolio — LapStore and Hilchenbach posters and video IDs.
-- https://www.nikvisuals.de/videoproduktionen-mittelstand-siegen — behind-the-scenes image.
-- https://www.nikvisuals.de/ — social destinations and public contact/legal links.
-
-Video destinations are linked from the corresponding posters; no YouTube embed or network request is made until clicked:
-- https://www.youtube.com/watch?v=hWaSx8RWAg8
-- https://www.youtube.com/watch?v=5iZrmH-16NY
-
-## Intentional fallbacks
-
-SMS group and IHK Siegen have neutral typographic project artwork, clearly labelled as such. They contain no fabricated logo or claimed project photograph. Replace with approved, attributable assets when available. A dedicated Niklas portrait was not reliably identified during the limited inventory; the About uses a clearly captioned production scene instead. There is no hero image. The favicon and founder monogram are original simple typography, not externally sourced assets.
-
-## Verified public social links
-
-The existing NikVisuals homepage explicitly links to:
-- https://www.linkedin.com/in/niklas-br%C3%BCne-b61877243/
-- https://www.instagram.com/nikvisualsmedia/
-- https://www.youtube.com/@nikvisualsmedia
-
-These were verified as homepage link destinations; logged-in platform profile content was not required or independently audited.
-
-## Technical reference
-
-https://github.com/niklasnikvisualsmedia333/pizza-and-prototypes — package and Vite configuration inspected through GitHub API. Reused the stack, environment-driven base and multi-entry principle; no visual design, client content or assets copied.
+The hero contains no named-client material. Client logos and media appear only within the historical-work section and its clearly qualified collaboration strip. No video embed loads by default; video destinations open only after a click.

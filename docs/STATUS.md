@@ -2,31 +2,23 @@
 
 ## Implemented
 
-- Complete responsive German homepage and concise English equivalent with real static HTML and working language navigation.
-- V2 visual system: media-led asymmetric hero, high-contrast focus rows, credibility markers, dynamic selected-work composition, qualified collaboration name strip, stronger About treatment and integrated contact form.
-- Contact form validates required inputs locally and has no endpoint, network request, storage or false success state; it displays an honest email fallback only after a valid local submit.
-- Design reference reviewed and recorded in `docs/DESIGN_REFERENCE.md`; v2 uses a distinct cream/ink/electric-blue/acid-lime system with local system grotesk typography.
-- React 19, TypeScript, Vite 7, Tailwind 4; minimal dependencies and system fonts.
-- Current services separated from four accurately labelled previous cases; study/practice context and concise personal About.
-- Three local public NikVisuals assets, two lightweight video links, email contact and verified social destinations.
-- Preview noindex in both HTML entries, robots.txt, favicon, localized metadata, no canonical or CNAME.
-- GitHub repository and Pages Actions configuration; Node 22 deployment workflow.
-- Build passes: TypeScript, prerendering, four cases, language/asset base paths and preview safety. npm installation reports zero known vulnerabilities.
-- Mobile 390px and desktop 1440px visual review; mobile menu opens, closes after navigation, and supports Escape. All three images load, four cases render, no horizontal overflow at tested widths, no browser warnings/errors, and English direct loading works.
-- Durable guardrails, content data, product brief, run/deploy instructions and asset provenance.
+- Responsive German homepage, concise English equivalent, and static `/links/` and `/en/links/` hubs.
+- Client-neutral founder portrait hero; three current focus areas; short practice/study bridge; exactly four qualified historical cases.
+- Owner-supplied media for SMS group and IHK Siegen, plus only historical-case logo placement.
+- Clearly labelled historical review section with Google rating signal, three paraphrased feedback summaries and a click-only YouTube feedback link.
+- Local-only validated contact form, self-hosted Manrope font, no analytics, cookies, embeds, endpoint or stored form data.
+- Preview safety: noindex/noarchive, robots disallow, no canonical, no CNAME, direct DE/EN static HTML and base-path verification.
 
 ## Temporary/placeholders
 
-- SMS group and IHK Siegen use labelled premium typographic artwork pending verified client-specific imagery.
-- About uses a production photo instead of a dedicated founder portrait.
-- Legal notice links to the existing website; preview-specific privacy summary is included. Full production legal/privacy review belongs to the production-launch task.
+- The form remains an intentional local preview interface; direct email is the usable contact route.
+- Legal notice remains on the existing website. A full production legal/privacy review belongs to launch work.
 
 ## Genuine blockers
 
-None for the first preview. Production domain migration is deliberately outside scope.
+None for this preview.
 
 ## Next highest-value steps
 
-1. Supply approved SMS group/IHK imagery and a preferred founder portrait.
-2. Add an explicitly approved form delivery endpoint and complete a production privacy review when the preview moves toward launch.
-3. Commission a separate production-launch pass for legal content, updated study/exchange wording and domain/metadata migration.
+1. Approve a real form-delivery service and production privacy wording when a live form is wanted.
+2. Complete production-domain, metadata and legal work only with explicit launch authorization.

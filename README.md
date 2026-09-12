@@ -5,6 +5,8 @@ A concise German/English preview of the next NikVisuals website, by Niklas Brün
 - Repository: https://github.com/niklasnikvisualsmedia333/nikvisuals-de
 - German preview: https://niklasnikvisualsmedia333.github.io/nikvisuals-de/
 - English preview: https://niklasnikvisualsmedia333.github.io/nikvisuals-de/en/
+- German link hub: https://niklasnikvisualsmedia333.github.io/nikvisuals-de/links/
+- English link hub: https://niklasnikvisualsmedia333.github.io/nikvisuals-de/en/links/
 
 ## Local development
 
@@ -22,18 +24,19 @@ npm run build
 npm run preview
 ```
 
-Build checks TypeScript, builds client and temporary server bundles, prerenders both languages into static HTML, removes the temporary server output and verifies preview safety and local asset paths. `dist/index.html` and `dist/en/index.html` are independently loadable; no history fallback is needed. React hydrates the prerendered page for the mobile menu. Most page functionality works without JavaScript.
+Build checks TypeScript, builds client and temporary server bundles, prerenders all four language/page entries into static HTML, removes the temporary server output and verifies preview safety and local asset paths. `dist/index.html`, `dist/en/index.html`, `dist/links/index.html` and `dist/en/links/index.html` are independently loadable; no history fallback is needed. React hydrates the prerendered page for the mobile menu and local form validation. Most page functionality works without JavaScript.
 
 ## Editing
 
 - `src/content/site.ts`: German/English content, projects, verified social/video links.
 - `src/pages/Home.tsx`: shared page composition.
+- `src/pages/Links.tsx`: shared mobile-first link hub.
 - `src/styles/global.css`: responsive design and tokens; Tailwind 4 is integrated through Vite.
 - `public/images`: small local prototype image set.
 - `index.html`, `en/index.html`: language-specific metadata.
 - `AGENTS.md`: permanent content, implementation and safety boundaries.
 
-No backend, analytics, external fonts, embedded videos or secrets. The contact form is a local validation-only preview: it prevents submission, does not send/store data, and points visitors to email. TODO: add an explicitly approved endpoint and privacy review before enabling delivery. The preview includes a short hosting/privacy notice; the legal notice links to the existing NikVisuals website.
+No backend, analytics, external font request, embedded videos or secrets. Manrope is served from `public/fonts`. The contact form is a local validation-only preview: it prevents submission, does not send/store data, and points visitors to email. TODO: add an explicitly approved endpoint and privacy review before enabling delivery. The preview includes a short hosting/privacy notice; the legal notice links to the existing NikVisuals website.
 
 ## Deployment
 
@@ -53,4 +56,4 @@ GitHub Pages serves this robots.txt at the project path; crawlers normally consu
 
 ## Verification
 
-`npm run build` runs `scripts/verify-build.mjs`. It checks both static routes, one H1 per page, exactly four cases, noindex, email CTA, working language/asset paths, preview robots and no CNAME. Follow this with a browser check of mobile/desktop layout and interactions after meaningful UI changes. See `docs/STATUS.md` for the verified prototype state.
+`npm run build` runs `scripts/verify-build.mjs`. It checks all static routes, one H1 on each homepage, exactly four cases, noindex, email CTA, working language/asset paths, preview robots and no CNAME. Follow this with a browser check of mobile/desktop layout and interactions after meaningful UI changes. See `docs/STATUS.md` for the verified prototype state.

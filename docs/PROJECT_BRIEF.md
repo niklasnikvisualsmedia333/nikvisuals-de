@@ -6,7 +6,7 @@ Primary headline: “AI, Growth & Marketing für ambitionierte B2B-Unternehmen.�
 
 ## Page architecture
 
-Minimal header → media-led hero → three compact current areas → short study/practice bridge → four previous projects plus explicitly-qualified collaboration strip → personal About → frontend-only contact form and direct email → minimal footer. German primary, concise English equivalent with real static output at `/en/`. No extra case pages, service packages, timeline, showreel, testimonial or press wall.
+Minimal header → founder-led, client-neutral hero → three compact current areas → short study/practice bridge → four previous projects plus explicitly-qualified collaboration strip → clearly qualified historical feedback → personal About → frontend-only contact form and direct email → minimal footer. German primary, concise English equivalent with real static output at `/en/`. A mobile-first static link hub is also available at `/links/` and `/en/links/`.
 
 Current areas: AI & Prozesse; Growth, GTM & Business Development; Marketing & Content. Existing tools, research and pragmatic execution define the scope; no custom software agency positioning.
 
@@ -18,7 +18,7 @@ Professional independent work since 2021, master’s studies in Entrepreneurship
 
 ## Visual direction
 
-Keravonos-inspired but distinct visual energy: warm cream, deep ink, electric blue, acid-lime details, large tight local grotesk type and alternating high-contrast modules. The hero uses an asymmetric collage from real NikVisuals material. Project media alternates with intentional typographic previews where verified imagery is missing. System fonts, local images, no stock/AI illustration and lightweight CSS interactions only. See `DESIGN_REFERENCE.md`.
+Keravonos-inspired but distinct visual energy: warm cream, deep ink, electric blue, acid-lime details, large tight self-hosted Manrope type and alternating high-contrast modules. The hero uses a neutral founder portrait, never named-client material. Project media and logos live only in the qualified historical-work section. No stock/AI illustration and lightweight CSS interactions only. See `DESIGN_REFERENCE.md`.
 
 The contact form validates in the browser only and never sends, stores or claims to have sent data. Its status message tells visitors to use the direct email fallback until an approved endpoint exists.
 

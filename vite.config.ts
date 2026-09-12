@@ -6,5 +6,5 @@ export default defineConfig(({ mode, isSsrBuild }) => {
  const env = loadEnv(mode, process.cwd(), 'VITE_');
  const base = env.VITE_BASE_PATH || '/nikvisuals-de/';
  if (!base.startsWith('/') || !base.endsWith('/')) throw new Error('VITE_BASE_PATH must start and end with /');
- return { base, plugins: [react(), tailwindcss()], build: { rollupOptions: isSsrBuild ? {} : { input: { de: resolve('index.html'), en: resolve('en/index.html') } } } };
+ return { base, plugins: [react(), tailwindcss()], build: { rollupOptions: isSsrBuild ? {} : { input: { de: resolve('index.html'), en: resolve('en/index.html'), links: resolve('links/index.html'), enLinks: resolve('en/links/index.html') } } } };
 });

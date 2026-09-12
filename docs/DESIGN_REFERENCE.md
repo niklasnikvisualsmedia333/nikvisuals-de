@@ -1,4 +1,4 @@
-# Design reference — Keravonos to NikVisuals v2
+# Design reference — Keravonos to NikVisuals v3
 
 Reviewed 2026-09-12: Keravonos uses a dark, high-contrast canvas; Montserrat-style bold grotesk typography; large statement hierarchy; rounded green calls to action; substantial media panels; alternating section colour; and package rows that make dense information quick to scan.
 
@@ -17,5 +17,6 @@ No Keravonos text, logo, typography files, imagery, package structure, customer 
 ## NikVisuals v2 tokens
 
 - Cream `#f7f3eb`, ink `#17191d`, electric blue `#425bf4`, acid lime `#c9ff38`, soft violet `#eee9ff`.
-- Local system grotesk stack headed by Avenir Next where available; no external font request.
+- Self-hosted Manrope variable font (SIL Open Font License); no third-party font request at runtime.
+- Founder-led neutral hero; client visual evidence appears only in the earlier-work context.
 - Full-width sections, `1280px` content maximum, rounded pills for actions and deliberate asymmetric media.
