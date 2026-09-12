@@ -20,3 +20,6 @@ No Keravonos text, logo, typography files, imagery, package structure, customer 
 - Self-hosted Manrope variable font (SIL Open Font License); no third-party font request at runtime.
 - Founder-led neutral hero; client visual evidence appears only in the earlier-work context.
 - Full-width sections, `1280px` content maximum, rounded pills for actions and deliberate asymmetric media.
+- Direct, factual copy rather than AI/consulting slogans. The link hub is functional and uses no marketing claim.
+- Historical reviews show one clear five-star Google rating. Their calm CSS strip pauses on hover and becomes static, horizontally scrollable content with reduced motion.
+- The About portrait keeps its natural 4:5 framing; the IHK case uses a sharp native frame from the original workshop footage.
