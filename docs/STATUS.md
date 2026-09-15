@@ -2,22 +2,18 @@
 
 ## Implemented
 
-- Responsive German homepage, concise English equivalent, and static `/links/` and `/en/links/` hubs.
-- Owner-supplied business/collaboration Hero still; compact timeline for 2021 self-employment, Bachelor, current Master’s studies and Tulsa exchange; current clean profile portrait in About and `/links/`.
-- Projects grouped as Business, Workshops & Community and historical Media & Production; clear preview slots for two SMS videos and one further Hilchenbach project.
-- Owner-supplied media for SMS group and a sharp genuine IHK Siegen workshop image, plus only historical-case logo placement.
-- Clearly labelled historical review section with unmistakable five-star Google proof, three evidence-backed paraphrased feedback summaries, a compact non-repeating responsive row and a click-only YouTube feedback link.
-- Removed the repeating hero marquee/stamp and duplicate collaboration strip; Reviews and Links are discoverable from the main navigation.
-- Direct, factual German and English copy throughout; functional `/links/` labels, a natural 4:5 About portrait and a cream/ink/electric-blue/soft-blue palette.
-- Dark-by-default light/dark mode retained locally; background loops load only in Media & Production, with mobile-specific source and reduced-motion/Save-Data fallback.
-- Eight evidence-backed review summaries with five-star cards and a compact video-feedback selection; email can be copied from Home and Links.
-- Local-only validated contact form, self-hosted Manrope font, no analytics, cookies, embeds, endpoint or stored form data.
-- Preview safety: noindex/noarchive, robots disallow, no canonical, no CNAME, direct DE/EN static HTML and base-path verification.
+- Responsive German and English homepages, link hubs and static `/videos/` and `/en/videos/` archives.
+- Three selectable solo Hero variants via `?hero=1`, `?hero=2` and `?hero=3`; Hero 1 is the default.
+- Background markers and timeline cover self-employment since 2021, B.A. Media Studies & Management and the ongoing M.Sc. at Universität Siegen.
+- Three finished Business, Workshops & Community cards and three finished Media & Production cards; no unfinished public project cards.
+- Eight contextualised review summaries, five-star proof, compact feedback links and reduced-motion support.
+- The 33 owner-supplied YouTube URLs appear as click-only cards in both video archives; no YouTube embed loads automatically.
+- Dark-by-default theme with saved light choice, dynamic browser theme colour, local email-preparing contact form and preview safety.
 
 ## Temporary/placeholders
 
 - The form remains an intentional local preview interface; direct email is the usable contact route.
-- Legal notice remains on the existing website. A full production legal/privacy review belongs to launch work.
+- Several video titles cannot be verified from public metadata in this environment, so the archive uses neutral selected-video labels for those entries.
 
 ## Genuine blockers
 
@@ -25,6 +21,6 @@ None for this preview.
 
 ## Next highest-value steps
 
-1. Approve a real form-delivery service and production privacy wording when a live form is wanted.
-2. Complete production-domain, metadata and legal work only with explicit launch authorization.
-3. Reverify the Google rating and review count before production launch.
+1. Reverify the Google rating and review count before production launch.
+2. Add verified titles for the neutral video cards if an authoritative video list becomes available.
+3. Complete production-domain, metadata and legal work only with explicit launch authorization.

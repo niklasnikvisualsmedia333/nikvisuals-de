@@ -12,18 +12,18 @@ Reviewed 2026-09-12: Keravonos uses a dark, high-contrast canvas; Montserrat-sty
 
 ## Not copied
 
-No Keravonos text, logo, typography files, imagery, package structure, customer quotes, navigation, layouts, or brand green. NikVisuals remains substantially shorter and never makes its historical media clients appear to be AI-consulting references.
+No Keravonos text, logo, typography files, imagery, package structure, customer quotes, navigation, layouts, or brand green. NikVisuals remains substantially shorter and never makes its earlier media clients appear to be AI-consulting references.
 
 ## NikVisuals tokens
 
 - Cream `#f7f5ef`, ink `#17181c`, electric blue `#425bf4`, darker action blue `#334be8`, soft blue `#e9ecff` and neutral borders `#d8d6d0`.
 - Self-hosted Manrope variable font (SIL Open Font License); no third-party font request at runtime.
-- Hero uses a general business/collaboration still for current-positioning context; it never identifies a client or proves AI/Growth work. Historical camera production sits in Media & Production.
+- Hero uses a solo founder still selected through a manual query preview for current-positioning context; it never identifies a client or proves AI/Growth work. Earlier camera production sits in Media & Production.
 - Full-width sections, `1280px` content maximum, rounded pills for actions and deliberate asymmetric media.
 - Direct, factual copy rather than AI/consulting slogans. The link hub is functional and uses no marketing claim.
-- Historical reviews show one clear five-star Google rating in a single responsive row; on narrow screens it scrolls horizontally without duplicating cards.
+- Earlier reviews show one clear five-star Google rating in a continuous responsive row; duplicate animation cards remain hidden from assistive technology.
 - About and `/links/` intentionally share the current clean profile image. The IHK case uses a sharp native frame from the original workshop footage.
 - Keep the Hero desktop headline to roughly two or three lines. Reviews and Links stay in the main navigation.
 - Prefer removing repeated client names, logos, proof and decorative copy over adding another visual layer.
 - Dark is the first-visit theme; light is a deliberate saved choice. Keep the compact blue token system consistent.
-- Video cards open verified YouTube destinations on click. Tech Meets Problems remains a short, external community-project reference.
+- Video cards and the archive open YouTube destinations on click. Tech Meets Problems remains a short, external community-project reference.

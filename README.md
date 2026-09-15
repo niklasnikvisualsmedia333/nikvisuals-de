@@ -24,7 +24,7 @@ npm run build
 npm run preview
 ```
 
-Build checks TypeScript, builds client and temporary server bundles, prerenders all four language/page entries into static HTML, removes the temporary server output and verifies preview safety and local asset paths. `dist/index.html`, `dist/en/index.html`, `dist/links/index.html` and `dist/en/links/index.html` are independently loadable; no history fallback is needed. React hydrates the prerendered page for the mobile menu and local form validation. Most page functionality works without JavaScript.
+Build checks TypeScript, builds client and temporary server bundles, prerenders all six language/page entries into static HTML, removes the temporary server output and verifies preview safety and local asset paths. `dist/index.html`, `dist/en/index.html`, `dist/links/index.html`, `dist/en/links/index.html`, `dist/videos/index.html` and `dist/en/videos/index.html` are independently loadable; no history fallback is needed. React hydrates the prerendered page for the mobile menu and local form validation. Most page functionality works without JavaScript.
 
 ## Editing
 
@@ -56,4 +56,4 @@ GitHub Pages serves this robots.txt at the project path; crawlers normally consu
 
 ## Verification
 
-`npm run build` runs `scripts/verify-build.mjs`. It checks all static routes, one H1 on each homepage, exactly four cases, noindex, email CTA, working language/asset paths, preview robots and no CNAME. Follow this with a browser check of mobile/desktop layout and interactions after meaningful UI changes. See `docs/STATUS.md` for the verified prototype state.
+`npm run build` runs `scripts/verify-build.mjs`. It checks all static routes, one H1 on each homepage, the required static routes and video library, noindex, email CTA, working language/asset paths, preview robots and no CNAME. Follow this with a browser check of mobile/desktop layout and interactions after meaningful UI changes. See `docs/STATUS.md` for the verified prototype state.
