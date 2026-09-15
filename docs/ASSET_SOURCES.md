@@ -9,6 +9,7 @@ Only approved local copies are committed. The owner supplied the Master Media Po
 | `public/images/niklas-current-profile.webp` | [Google Drive profile portrait](https://drive.google.com/file/d/1L-t8oZZclESu9WgplwYMYs017_yZVNkR/view) | About and `/links/`; personal introduction only. |
 | `public/images/media-loop-*` and posters | Owner-supplied Master Media Pool, Bundle 03 | Silent Media & Production panel; it remains off under reduced motion or Save-Data. |
 | `public/images/ihk-workshop-presenting.webp` | [Google Drive IHK Siegen workshop, 19 May 2026](https://drive.google.com/file/d/1JmI3sErfave0xjyW7KDFB6jyznN0zHRH/view) | Genuine IHK workshop case only; never general AI/consulting proof. |
+| `public/images/videos/n-mEm6ob4qc.webp` | YouTube oEmbed / thumbnail for [Pizza & Prototypes | Tech Meets Problems Event Recap](https://www.youtube.com/watch?v=n-mEm6ob4qc) | Local WebP thumbnail for the verified Event & Community archive entry. |
 | `public/images/lapstore.jpg`, `hilchenbach.jpg` | Verified YouTube poster images for the linked films | Respective project cards only. |
 | `public/images/lapstore-logo-web.webp` | Tightly cropped web derivative of the supplied `lapstore-logo.png`; original retained unchanged | LapStore project card logo; avoids the source file's large transparent canvas. |
 | `public/images/lapstore-logo.png`, `sms-group-logo.png`, `hilchenbach-logo.png` | Owner-supplied clean logo files / Google Drive records | Compact collaboration strip and relevant project context only; never attached to current AI/Growth claims. |

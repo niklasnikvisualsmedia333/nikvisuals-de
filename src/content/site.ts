@@ -24,7 +24,7 @@ const enBusiness:Project[]=[
 const deMedia:Project[]=[];
 const enMedia:Project[]=[];
 const review=(name:string,role:string,context:string,text:string)=>({name,role,context,text});
-export const collaborations=[{name:'LapStore',logo:'lapstore-logo.png'},{name:'SMS group',logo:'sms-group-logo.png'},{name:'Stadt Hilchenbach',logo:'hilchenbach-logo.png'}];
+export const collaborations=[{name:'LapStore',logo:'lapstore-logo.png'},{name:'SMS group',logo:'sms-group-logo.png'},{name:'Stadt Hilchenbach',logo:'hilchenbach-logo.png'},{name:'IHK Siegen'},{name:'Startpunkt57'},{name:'Entrepreneurship Center Siegen'}];
 const deReviews=[
  review('Cord Boschen','LapStore GmbH','Produktvideos & Content','Individuelle Beratung und Umsetzung, abgestimmt auf die konkreten Anforderungen von LapStore.'),
  review('Steffen Kellermann','Bezirksschornsteinfeger & Energieberater','Imagefilm','Strukturierte und entspannte Begleitung. Auch ohne Erfahrung mit Videoproduktion war jederzeit klar, was als Nächstes passiert.'),
@@ -33,7 +33,12 @@ const deReviews=[
  review('Erik Van den Bril','Vesprima','Imagefilm & Social Media','Unkomplizierte und professionelle Zusammenarbeit, gute Ideen und schnelle Umsetzung.'),
  review('Yvonne Straßer','Siegerland Center','Imagefilm & Social Media','Angenehme und professionelle Zusammenarbeit mit innovativen Ideen und einem starken Ergebnis.'),
  review('Dierk Stamer','','Event-Dokumentation / Oldtimer-Tour','Gründliche Planung, hoher Einsatz am Set und sehr schnelle Postproduktion.'),
- review('Kristina Burazin','','Imagefilm & Web-Fotografie','Mehrfach für Imagefilm und Web-Fotografie beauftragt.')
+ review('Kristina Burazin','','Imagefilm & Web-Fotografie','Mehrfach für Imagefilm und Web-Fotografie beauftragt.'),
+ review('Sylvia Paul','Lebenshilfe Wohnen NRW gGmbH','Musikvideo & Social-Media-Assets','5-Sterne-Bewertung zum Inklusionsprojekt Tempo machen.'),
+ review('Oskar von Katte','','Musikvideo','5-Sterne-Bewertung zu einem Musikvideo mit Planung, Drehtag an vier Orten und Drohnenaufnahmen.'),
+ review('Jörn Müllers','','Videoproduktion','5-Sterne-Bewertung zu einer strukturierten Videoproduktion.'),
+ review('Tobias Wurm','','Abstimmung & Kommunikation','5-Sterne-Bewertung zu Feedbackschleifen und Kommunikation.'),
+ review('Michael Schunk','','Strategische Zusammenarbeit','5-Sterne-Bewertung zum strukturierten Arbeitsansatz.')
 ];
 const enReviews=[
  review('Cord Boschen','LapStore GmbH','Product videos & content','Individual advice and delivery tailored to LapStore’s specific requirements.'),
@@ -43,7 +48,12 @@ const enReviews=[
  review('Erik Van den Bril','Vesprima','Image film & social media','Straightforward, professional collaboration, good ideas and fast delivery.'),
  review('Yvonne Straßer','Siegerland Center','Image film & social media','A pleasant, professional collaboration with innovative ideas and a strong result.'),
  review('Dierk Stamer','','Event documentation / classic-car tour','Thorough planning, strong commitment on set and very fast post-production.'),
- review('Kristina Burazin','','Image film & web photography','Engaged repeatedly for an image film and web photography.')
+ review('Kristina Burazin','','Image film & web photography','Engaged repeatedly for an image film and web photography.'),
+ review('Sylvia Paul','Lebenshilfe Wohnen NRW gGmbH','Music video & social assets','Five-star rating for the Tempo machen inclusion project.'),
+ review('Oskar von Katte','','Music video','Five-star rating for a music-video project with planning, a four-location shoot and drone work.'),
+ review('Jörn Müllers','','Video production','Five-star rating for structured video production.'),
+ review('Tobias Wurm','','Feedback & communication','Five-star rating for feedback loops and communication.'),
+ review('Michael Schunk','','Strategic collaboration','Five-star rating for a structured working approach.')
 ];
 const feedback=(en=false)=>[
  {name:'Kerstin Broh',href:videoUrl('ObgIseEQ0ME'),role:'Stadt Hilchenbach'},

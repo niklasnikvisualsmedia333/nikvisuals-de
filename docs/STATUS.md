@@ -6,8 +6,8 @@
 - Default solo Hero with manual `?hero=1`, `?hero=2` and `?hero=3` previews, plus image focal-point rules for the IHK workshop case.
 - Three expandable current-focus rows with pre-rendered details, a concise study/practice bridge and timeline.
 - One unified four-card project grid (SMS group, IHK Siegen, LapStore and Tech Meets Problems), followed by a single ambient Media & Production panel; the collaboration logos remain a manually scrollable proof strip.
-- All 33 supplied YouTube destinations audited for reachability and public metadata. Each has a local WebP thumbnail, real title, category and factual DE/EN summary in `src/content/videos.ts`; all remain click-only.
-- The video archive is grouped into eight semantic, anchor-linked sections with B2B & Corporate first.
+- All 34 supplied YouTube destinations audited for reachability and public metadata, including the verified Tech Meets Problems event recap. Each has a local WebP thumbnail, source title, shorter portfolio title, category and factual DE/EN summary in `src/content/videos.ts`; all remain click-only.
+- The video archive is grouped into nine semantic, anchor-linked sections with B2B & Corporate first. Collaboration and review strips support native scrolling, visible controls and calm autoplay with reduced-motion support.
 - Dark-by-default theme with saved light choice, local email-preparing form and preview safety.
 
 ## Temporary/placeholders
