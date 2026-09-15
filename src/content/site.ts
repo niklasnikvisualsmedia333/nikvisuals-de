@@ -2,9 +2,10 @@ export type Language = 'de' | 'en';
 export type LinkType = 'video' | 'website' | 'project';
 export type Project = { title:string; organization:string; text:string; image:string; alt:string; href?:string; linkType?:LinkType; logo?:string; imagePosition?:string; mobileImagePosition?:string; imageScale?:string; mobileImageScale?:string };
 export type Video = { id:string; title:string; category:string };
+export type SocialPlatform = 'linkedin' | 'instagram' | 'youtube' | 'facebook';
 export const links = {
   email:'mailto:info@nikvisuals.de', website:'https://www.nikvisuals.de/', youtube:'https://www.youtube.com/@nikvisualsmedia', reviews:'https://share.google/wyFLVDpDy64XB1M2c', tmp:'https://techmeetsproblems.com/',
-  socials:[{label:'LinkedIn',href:'https://www.linkedin.com/in/niklas-br%C3%BCne-b61877243/'},{label:'Instagram',href:'https://www.instagram.com/nikvisualsmedia/'},{label:'YouTube',href:'https://www.youtube.com/@nikvisualsmedia/'}]
+  socials:[{platform:'linkedin' as SocialPlatform,label:'LinkedIn',href:'https://www.linkedin.com/in/niklas-br%C3%BCne-b61877243/'},{platform:'instagram' as SocialPlatform,label:'Instagram',href:'https://www.instagram.com/nikvisualsmedia/'},{platform:'youtube' as SocialPlatform,label:'YouTube',href:'https://www.youtube.com/@nikvisualsmedia/'},{platform:'facebook' as SocialPlatform,label:'Facebook',href:'https://www.facebook.com/nikvisualsmedia'}]
 };
 const videoUrl=(id:string)=>`https://www.youtube.com/watch?v=${id}`;
 const project=(title:string,organization:string,text:string,image:string,alt:string,href?:string,linkType?:LinkType,logo?:string,imagePosition?:string,mobileImagePosition?:string,imageScale?:string,mobileImageScale?:string):Project=>({title,organization,text,image,alt,href,linkType,logo,imagePosition,mobileImagePosition,imageScale,mobileImageScale});
