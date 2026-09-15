@@ -6,7 +6,7 @@ Primary headline: “AI, Growth & Marketing für ambitionierte B2B-Unternehmen.�
 
 ## Page architecture
 
-Minimal header → founder-led, client-neutral hero → three compact current areas → short study/practice bridge → four previous projects → clearly qualified historical feedback → personal About → frontend-only contact form and direct email → minimal footer. German primary, concise English equivalent with real static output at `/en/`. A mobile-first static link hub is also available at `/links/` and `/en/links/`.
+Minimal header → founder-led, client-neutral production hero → three compact current areas → short study/practice bridge → four previous projects with optional further insights → a small curated video selection and Tech Meets Problems card → clearly qualified historical feedback → personal About → frontend-only contact form and direct email → minimal footer. German primary, concise English equivalent with real static output at `/en/`. A mobile-first static link hub is also available at `/links/` and `/en/links/`.
 
 Current areas: AI & Prozesse; Growth, GTM & Business Development; Marketing & Content. Existing tools, research and pragmatic execution define the scope; no custom software agency positioning.
 
@@ -18,7 +18,7 @@ Professional independent work since 2021, master’s studies in Entrepreneurship
 
 ## Visual direction
 
-Warm cream, deep ink, electric blue, soft blue, large tight self-hosted Manrope type and alternating high-contrast modules. The Hero uses general BTS production imagery for execution context, never named-client AI/Growth proof. About and `/links/` intentionally share the current clean profile portrait. Project media and logos live only in the qualified historical-work section. The historical-review area makes the five-star Google signal clear without repeating the same cards. Reviews and the Link Hub are linked in the main navigation. No stock/AI illustration and lightweight CSS interactions only. See `DESIGN_REFERENCE.md`.
+Warm cream, deep ink, electric blue, soft blue, large tight self-hosted Manrope type and alternating high-contrast modules. The Hero uses an owner-supplied general production still; it never names a client or proves AI/Growth work. The system-aware light/dark mode can be changed in the header and is retained locally. About and `/links/` use the current clean profile portrait. Project media and logos live only in the qualified historical-work section. Curated video cards open verified YouTube destinations only after a click. Tech Meets Problems is a small external community-project reference, not an offer. The historical-review area makes the five-star Google signal clear without repeating the same cards. No stock/AI illustration and lightweight CSS interactions only. See `DESIGN_REFERENCE.md`.
 
 ## Copy standard
 

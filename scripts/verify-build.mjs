@@ -13,9 +13,10 @@ for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.htm
  assert(html.includes('Was Kunden sagen') || html.includes('What clients say'));
  assert(html.includes('★★★★★'));
  assert(!html.includes('<article class="testimonial"><span'));
- assert(html.includes('ihk-workshop-2026.webp'));
- assert(html.includes('niklas-production-hero.webp'));
+ assert(html.includes('ihk-workshop-presenting.webp'));
  assert(html.includes('niklas-current-profile.webp'));
+assert(html.includes('whiteboard-presentation.webp'));
+ assert(html.includes('tmp-tech-talk.webp'));
  assert(html.includes('id="bewertungen"'));
  assert(html.includes(`href="${base}${lang === 'en' ? 'en/' : ''}links/"`));
  assert(!html.includes('class="collaboration"'));
@@ -42,5 +43,6 @@ for (const [lang, path] of [['de', 'dist/links/index.html'], ['en', 'dist/en/lin
  assert(!html.includes('<iframe'));
 }
 assert((await readFile('dist/robots.txt', 'utf8')).includes('Disallow: /'));
+await access('dist/images/production-rig-winter.webp');
 await assert.rejects(access('dist/CNAME'));
 console.log('Verified: four prerendered DE/EN pages, four cases, noindex, local assets and Pages paths, no CNAME.');
