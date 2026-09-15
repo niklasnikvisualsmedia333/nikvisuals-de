@@ -6,7 +6,7 @@ Primary headline: “AI, Growth & Marketing für ambitionierte B2B-Unternehmen.�
 
 ## Page architecture
 
-Minimal header → founder-led solo-image hero → three current areas → short study/practice bridge and compact timeline → projects grouped as Business, Workshops & Community and Media & Production → earlier review proof → personal About → email-preparing contact form and direct email → minimal footer. German primary, concise English equivalent with real static output at `/en/`.
+Minimal header → founder-led solo-image hero → three expandable current areas → short study/practice bridge and compact timeline → collaboration signal → projects grouped as Business, Workshops & Community and Media & Production → compact review proof → personal About → email-preparing contact form and direct email → minimal footer. German primary, concise English equivalent with real static output at `/en/`.
 
 Current areas: AI & Prozesse; Growth, GTM & Business Development; Marketing & Content. Existing tools, research and pragmatic execution define the scope; no custom software agency positioning.
 
@@ -18,7 +18,7 @@ Professional independent work since 2021, master’s studies in Entrepreneurship
 
 ## Visual direction
 
-Warm cream, deep ink, electric blue and soft blue, large tight self-hosted Manrope type and alternating high-contrast modules. The Hero uses one of three owner-supplied solo founder stills selected via `?hero=1`, `?hero=2` or `?hero=3`. Dark is the default; light remains a saved visitor choice. About and `/links/` use the current clean profile portrait. A muted responsive background loop appears only in Media & Production, after it approaches the viewport. The video archive holds click-only links for the supplied YouTube library. Tech Meets Problems is a community-project reference, not an offer. Review cards each show five stars in a calm continuous strip, with project context. No stock/AI illustration and lightweight CSS interactions only. See `DESIGN_REFERENCE.md`.
+Warm cream, deep ink, electric blue and soft blue, large tight self-hosted Manrope type and alternating high-contrast modules. The Hero uses one of three owner-supplied solo founder stills selected via `?hero=1`, `?hero=2` or `?hero=3`. Dark is the default; light remains a saved visitor choice. About and `/links/` use the current clean profile portrait. A muted responsive background loop appears only in Media & Production, after it approaches the viewport. The video archive holds 33 audited, click-only YouTube cards with local thumbnails, factual categories and DE/EN summaries. Tech Meets Problems is a community-project reference, not an offer. Review cards each show five stars in a compact horizontally scrollable row, with project context. No stock/AI illustration and lightweight CSS interactions only. See `DESIGN_REFERENCE.md`.
 
 ## Copy standard
 

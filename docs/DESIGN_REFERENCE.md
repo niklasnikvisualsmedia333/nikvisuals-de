@@ -21,9 +21,9 @@ No Keravonos text, logo, typography files, imagery, package structure, customer 
 - Hero uses a solo founder still selected through a manual query preview for current-positioning context; it never identifies a client or proves AI/Growth work. Earlier camera production sits in Media & Production.
 - Full-width sections, `1280px` content maximum, rounded pills for actions and deliberate asymmetric media.
 - Direct, factual copy rather than AI/consulting slogans. The link hub is functional and uses no marketing claim.
-- Earlier reviews show one clear five-star Google rating in a continuous responsive row; duplicate animation cards remain hidden from assistive technology.
+- Earlier reviews show one clear five-star Google rating in a compact responsive row without duplicated cards.
 - About and `/links/` intentionally share the current clean profile image. The IHK case uses a sharp native frame from the original workshop footage.
 - Keep the Hero desktop headline to roughly two or three lines. Reviews and Links stay in the main navigation.
 - Prefer removing repeated client names, logos, proof and decorative copy over adding another visual layer.
 - Dark is the first-visit theme; light is a deliberate saved choice. Keep the compact blue token system consistent.
-- Video cards and the archive open YouTube destinations on click. Tech Meets Problems remains a short, external community-project reference.
+- Video cards and the archive use local thumbnails and open verified YouTube destinations on click. Tech Meets Problems remains a short, external community-project reference.

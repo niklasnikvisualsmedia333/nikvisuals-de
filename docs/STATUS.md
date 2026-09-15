@@ -3,17 +3,15 @@
 ## Implemented
 
 - Responsive German and English homepages, link hubs and static `/videos/` and `/en/videos/` archives.
-- Three selectable solo Hero variants via `?hero=1`, `?hero=2` and `?hero=3`; Hero 1 is the default.
-- Background markers and timeline cover self-employment since 2021, B.A. Media Studies & Management and the ongoing M.Sc. at Universität Siegen.
-- Three finished Business, Workshops & Community cards and three finished Media & Production cards; no unfinished public project cards.
-- Eight contextualised review summaries, five-star proof, compact feedback links and reduced-motion support.
-- The 33 owner-supplied YouTube URLs appear as click-only cards in both video archives; no YouTube embed loads automatically.
-- Dark-by-default theme with saved light choice, dynamic browser theme colour, local email-preparing contact form and preview safety.
+- Default solo Hero with manual `?hero=1`, `?hero=2` and `?hero=3` previews, plus image focal-point rules for the IHK workshop case.
+- Three expandable current-focus rows with pre-rendered details, a concise study/practice bridge and timeline.
+- Three Business, Workshops & Community cards; three Media & Production cards; a compact collaboration-logo marquee and a non-repeating, horizontally scrollable review row with five-star Google proof.
+- All 33 supplied YouTube destinations audited for reachability and public metadata. Each has a local WebP thumbnail, real title, category and factual DE/EN summary in `src/content/videos.ts`; all remain click-only.
+- Dark-by-default theme with saved light choice, local email-preparing form and preview safety.
 
 ## Temporary/placeholders
 
-- The form remains an intentional local preview interface; direct email is the usable contact route.
-- Several video titles cannot be verified from public metadata in this environment, so the archive uses neutral selected-video labels for those entries.
+- The form is intentionally local; direct email is the active contact route.
 
 ## Genuine blockers
 
@@ -22,5 +20,5 @@ None for this preview.
 ## Next highest-value steps
 
 1. Reverify the Google rating and review count before production launch.
-2. Add verified titles for the neutral video cards if an authoritative video list becomes available.
+2. Recheck external YouTube titles and availability periodically.
 3. Complete production-domain, metadata and legal work only with explicit launch authorization.

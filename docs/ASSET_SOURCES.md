@@ -1,21 +1,19 @@
 # Asset sources
 
-Only limited, approved local copies are included. The owner supplied `NikVisuals Master Media Pool – Bundles 01-03 – Web-Ready.zip` on 2026-09-14; its selected web-ready files are used only at the placements below. Earlier processed alternatives that are no longer rendered are not retained. Originals and archives are not committed.
+Only approved local copies are committed. The owner supplied the Master Media Pool on 2026-09-14; archives, source files and unused alternatives remain outside the repository.
 
-| Local file | Owner-supplied original source | Intended use |
+| Local file | Source | Intended use and guardrail |
 | --- | --- | --- |
-| `public/images/niklas-speaking-desk-office.webp`, `niklas-working-desk-office.webp`, `niklas-startpunkt57-seated-portrait.webp` | Owner-supplied Master Media Pool, Bundle 01 Founder & Personal. | Solo Hero variants only; no named client or AI/Growth claim. |
-| `public/images/production-rig-winter.webp` | Owner-supplied Master Media Pool, Bundle 01 (`production-bts-cinema-rig-winter-01.webp`). | Earlier Media & Production card only; never AI/Growth proof. |
-| `public/images/media-loop-desktop.mp4`, `media-loop-mobile.mp4` and matching posters | Owner-supplied Master Media Pool, Bundle 03 (`nikvisuals-background-loop-*`). | Silent earlier-media ambient panel only. Desktop and mobile sources are selected by viewport; it remains a poster under reduced motion or Save-Data. |
-| `public/images/niklas-current-profile.webp` | Google Drive: [current profile portrait](https://drive.google.com/file/d/1L-t8oZZclESu9WgplwYMYs017_yZVNkR/view) | About and `/links/` only; the duplicate is intentional for personal introduction and link hub. |
-| `public/images/lapstore-logo.png` | Google Drive: [LapStore logo](https://drive.google.com/file/d/1vrlvYmQVC6gx0AeWTne4Wn1Db0s_ZM5y/view) | LapStore earlier case only. |
-| `public/images/sms-group-event.webp` | Google Drive: [SMS group event stage](https://drive.google.com/file/d/1U-0f6mLLmNrbb8fDom-hC3CBVAafzdM_/view) | SMS group earlier case only. |
-| `public/images/sms-group-logo.png` | Google Drive: [SMS group logo](https://drive.google.com/file/d/1XVoTkrjjWPXzdb8GNuz4N6Tro5P2Tg1K/view) | SMS group earlier case only. |
-| `public/images/hilchenbach-logo.png` | Google Drive: [Hilchenbach logo](https://drive.google.com/file/d/1QZA6Fw_UaSVAwYsM348IaS25Ja48cU0f/view) | Stadt Hilchenbach earlier case only. |
-| `public/images/ihk-workshop-presenting.webp` | [Google Drive: IHK Siegen workshop, 19 May 2026](https://drive.google.com/file/d/1JmI3sErfave0xjyW7KDFB6jyznN0zHRH/view), selected in the owner-supplied Master Media Pool. | IHK Siegen earlier workshop case only; genuine event context, never a general AI/consulting claim. |
-| `public/images/lapstore.jpg` | [YouTube video poster](https://i.ytimg.com/vi/hWaSx8RWAg8/maxresdefault.jpg) | LapStore earlier case; links to its verified YouTube film. |
-| `public/images/hilchenbach.jpg` | [YouTube video poster](https://i.ytimg.com/vi/5iZrmH-16NY/maxresdefault.jpg) | Stadt Hilchenbach earlier case; links to its verified YouTube film. |
-| `public/images/tmp-tech-talk.webp` | [Google Drive: Tech Meets Problems image](https://drive.google.com/file/d/1EmGEwumPp-N1aQgjiS_DD_oBC9v4tHug/view), selected in the owner-supplied Master Media Pool. | Compact Tech Meets Problems community-project card only; not a customer reference or current consulting claim. |
+| `public/images/niklas-speaking-desk-office.webp` | Owner-supplied Master Media Pool, Bundle 01 Founder & Personal | Default Hero only; a general work setting with no client or service claim. |
+| `public/images/niklas-working-desk-office.webp`, `niklas-startpunkt57-seated-portrait.webp` | Owner-supplied Master Media Pool, Bundle 01 Founder & Personal | Manual Hero preview variants only. |
+| `public/images/niklas-current-profile.webp` | [Google Drive profile portrait](https://drive.google.com/file/d/1L-t8oZZclESu9WgplwYMYs017_yZVNkR/view) | About and `/links/`; personal introduction only. |
+| `public/images/media-loop-*` and posters | Owner-supplied Master Media Pool, Bundle 03 | Silent Media & Production panel; it remains off under reduced motion or Save-Data. |
+| `public/images/ihk-workshop-presenting.webp` | [Google Drive IHK Siegen workshop, 19 May 2026](https://drive.google.com/file/d/1JmI3sErfave0xjyW7KDFB6jyznN0zHRH/view) | Genuine IHK workshop case only; never general AI/consulting proof. |
+| `public/images/lapstore.jpg`, `hilchenbach.jpg` | Verified YouTube poster images for the linked films | Respective project cards only. |
+| `public/images/lapstore-logo.png`, `sms-group-logo.png`, `hilchenbach-logo.png` | Owner-supplied clean logo files / Google Drive records | Compact collaboration strip and relevant project context only; never attached to current AI/Growth claims. |
+| `public/images/sms-group-event.webp` | [Google Drive SMS group event stage](https://drive.google.com/file/d/1U-0f6mLLmNrbb8fDom-hC3CBVAafzdM_/view) | SMS group media case only. |
+| `public/images/tmp-tech-talk.webp` | [Google Drive Tech Meets Problems image](https://drive.google.com/file/d/1EmGEwumPp-N1aQgjiS_DD_oBC9v4tHug/view) | Compact community-project card, never client proof. |
+| `public/images/videos/*.webp` | Public YouTube thumbnails from the verified NikVisuals Media video URLs; title/channel verified through YouTube oEmbed and page metadata on 2026-09-15 | Local, click-only cards in `/videos/` and `/en/videos/`; no YouTube embed loads automatically. |
 | `public/fonts/manrope-variable.ttf` | [Google Fonts Manrope](https://github.com/google/fonts/tree/main/ofl/manrope) (SIL Open Font License) | Self-hosted display and body font. |
 
-The Hero contains no named-client material. Client logos and media appear only within the earlier-work section. No video embed loads by default; video destinations open only after a click.
+The Hero has no named-client material. Video and external media open only after a visitor clicks.

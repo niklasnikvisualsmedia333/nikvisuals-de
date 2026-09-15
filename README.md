@@ -28,7 +28,8 @@ Build checks TypeScript, builds client and temporary server bundles, prerenders 
 
 ## Editing
 
-- `src/content/site.ts`: German/English content, projects, verified social/video links.
+- `src/content/site.ts`: German/English content, projects and verified social links.
+- `src/content/videos.ts`: audited YouTube titles, categories, factual summaries and local thumbnail mapping.
 - `src/pages/Home.tsx`: shared page composition.
 - `src/pages/Links.tsx`: shared mobile-first link hub.
 - `src/styles/global.css`: responsive design and tokens; Tailwind 4 is integrated through Vite.
