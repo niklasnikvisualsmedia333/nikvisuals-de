@@ -39,12 +39,10 @@ make('SO7sqUkx9pM','Sprengung der Autobahnbrücke A45 Lüdenscheid | Talbrücke 
 const pick=(ids:string[])=>ids.map(id=>videos.find(video=>video.id===id)!);
 export const videoSections=[
  {id:'b2b',title:{de:'B2B & Corporate',en:'B2B & Corporate'},items:pick(['8Nb_wHCHVk8','WR4BBw6HSGc','WwuJh_wi3dE'])},
- {id:'imagefilm',title:{de:'Imagefilm',en:'Image Films'},items:pick(['hXbhESu1Mv8','_0ooFK6AV6M','WiW-drQkj9U','njQ9DBAihV8','c9jnXEILfSk','orSF_UAh60I'])},
+ {id:'imagefilm',title:{de:'Imagefilm & Recruiting',en:'Image films & recruiting'},items:pick(['hXbhESu1Mv8','_0ooFK6AV6M','WiW-drQkj9U','njQ9DBAihV8','c9jnXEILfSk','orSF_UAh60I','WOt-zZXKTBM'])},
  {id:'produkt',title:{de:'Produkt & Werbung',en:'Product & Advertising'},items:pick(['hWaSx8RWAg8','px-t2uLdcjM','WugwOPGH9Iw','m2sf6etIURs','H3YjnDhKUYQ'])},
  {id:'feedback',title:{de:'Kundenfeedback',en:'Client Feedback'},items:pick(['BDR6sHFXoiI','ObgIseEQ0ME','oE9I8w93pvc','-9XjGPp35Ds'])},
- {id:'recruiting',title:{de:'Recruiting',en:'Recruiting'},items:pick(['WOt-zZXKTBM'])},
- {id:'immobilien',title:{de:'Immobilien',en:'Real Estate'},items:pick(['YhN2u5-05JY'])},
  {id:'event',title:{de:'Event & Community',en:'Events & Community'},items:pick(['n-mEm6ob4qc','Gkx1ZFXN9kI','jiiriepdEBE','8_4-DPbOR2k','B1tixD5BTGM','Q8rnwmJusQ0','XSJKev1qAhM','MSodJRZr4Uw'])},
  {id:'presse',title:{de:'Presse & Behind the Scenes',en:'Press & Behind the Scenes'},items:pick(['XAmfUMlUiWE','rIf3DnQTIYg','Yam3awPbyO4'])},
- {id:'drohne',title:{de:'Drohne & Spezialprojekte',en:'Drone & Special Projects'},items:pick(['5iZrmH-16NY','h7GD0uyyoyQ','SO7sqUkx9pM'])}
+ {id:'drohne',title:{de:'Drohne, Immobilien & Spezialprojekte',en:'Drone, real estate & special projects'},items:pick(['5iZrmH-16NY','h7GD0uyyoyQ','SO7sqUkx9pM','YhN2u5-05JY'])}
 ];
