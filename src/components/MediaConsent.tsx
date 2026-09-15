@@ -9,7 +9,7 @@ const storageKey = 'nikvisuals-media-consent-v1';
 export function MediaConsentProvider({ children, lang }: { children: ReactNode; lang: Language }) {
   const [ready, setReady] = useState(false), [allowed, setAllowed] = useState(false), [settings, setSettings] = useState(false), [pending, setPending] = useState<Pending | null>(null), [active, setActive] = useState<Pending | null>(null);
   const closeButton = useRef<HTMLButtonElement>(null), de = lang === 'de';
-  useEffect(() => { setAllowed(localStorage.getItem(storageKey) === 'allowed'); setReady(true); }, []);
+  useEffect(() => { const stored = localStorage.getItem(storageKey); setAllowed(stored === 'allowed'); setSettings(stored === null); setReady(true); }, []);
   useEffect(() => { if (!active) return; closeButton.current?.focus(); const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') { setActive(null); active.trigger?.focus(); } }; document.addEventListener('keydown', onKey); return () => document.removeEventListener('keydown', onKey); }, [active]);
   const choose = (next: boolean) => { localStorage.setItem(storageKey, next ? 'allowed' : 'necessary'); setAllowed(next); setSettings(false); if (next && pending) { setActive(pending); setPending(null); } if (!next) { setActive(null); setPending(null); } };
   const value = { openSettings: () => setSettings(true), playVideo: (video: Pending) => { if (allowed) setActive(video); else { setPending(video); setSettings(true); } } };
