@@ -36,7 +36,7 @@ Build checks TypeScript, builds client and temporary server bundles, prerenders 
 - `index.html`, `en/index.html`: language-specific metadata.
 - `AGENTS.md`: permanent content, implementation and safety boundaries.
 
-No backend, analytics, external font request, embedded videos or secrets. Manrope is served from `public/fonts`. The contact form is a local validation-only preview: it prevents submission, does not send/store data, and points visitors to email. TODO: add an explicitly approved endpoint and privacy review before enabling delivery. The preview includes a short hosting/privacy notice; the legal notice links to the existing NikVisuals website.
+No backend, analytics, external font request, embedded videos or secrets. Manrope is served from `public/fonts`. The contact form validates locally and prepares a `mailto:` only after the visitor chooses to continue; it does not store or transmit form data itself. Delivery happens in the visitor's email app. TODO: add an explicitly approved endpoint and privacy review before enabling direct delivery. The preview includes a short hosting/privacy notice; the legal notice links to the existing NikVisuals website.
 
 ## Deployment
 

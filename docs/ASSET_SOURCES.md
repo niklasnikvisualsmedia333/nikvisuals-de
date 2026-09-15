@@ -4,7 +4,9 @@ Only limited, approved local copies are included. The owner supplied `NikVisuals
 
 | Local file | Owner-supplied original source | Intended use |
 | --- | --- | --- |
-| `public/images/production-rig-winter.webp` | Owner-supplied Master Media Pool, Bundle 01 (`Asset_Inventory_*`). | Hero only: general production context without a named client or AI/Growth claim. |
+| `public/images/hero-business-collaboration.webp` | Owner-supplied Master Media Pool, Bundle 01 (`niklas-business-collaboration-laptop-02.webp`). | Hero only: general business/collaboration context without a named client or AI/Growth claim. |
+| `public/images/production-rig-winter.webp` | Owner-supplied Master Media Pool, Bundle 01 (`production-bts-cinema-rig-winter-01.webp`). | Historical Media & Production card only; never AI/Growth proof. |
+| `public/images/media-loop-desktop.mp4`, `media-loop-mobile.mp4` and matching posters | Owner-supplied Master Media Pool, Bundle 03 (`nikvisuals-background-loop-*`). | Silent historical-media ambient panel only. Desktop and mobile sources are selected by viewport; it remains a poster under reduced motion or Save-Data. |
 | `public/images/niklas-current-profile.webp` | Google Drive: [current profile portrait](https://drive.google.com/file/d/1L-t8oZZclESu9WgplwYMYs017_yZVNkR/view) | About and `/links/` only; the duplicate is intentional for personal introduction and link hub. |
 | `public/images/lapstore-logo.png` | Google Drive: [LapStore logo](https://drive.google.com/file/d/1vrlvYmQVC6gx0AeWTne4Wn1Db0s_ZM5y/view) | LapStore historical case only. |
 | `public/images/sms-group-event.webp` | Google Drive: [SMS group event stage](https://drive.google.com/file/d/1U-0f6mLLmNrbb8fDom-hC3CBVAafzdM_/view) | SMS group historical case only. |
