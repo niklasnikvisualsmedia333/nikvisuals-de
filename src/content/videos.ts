@@ -35,3 +35,14 @@ make('H3YjnDhKUYQ','LEMONAID LIMETTE COMMERCIAL | Charitea Drink Spec AD',['Prod
 make('WR4BBw6HSGc','SMS group Schwertransport LinkedIn Video',['Corporate','Corporate'],['LinkedIn-Video für SMS group zum Thema Schwertransport.','LinkedIn video for SMS group about heavy transport.'],'SMS group'),
 make('8Nb_wHCHVk8','SMS group Campus Eröffnung Aftermovie mit Interviews',['Event','Event'],['Aftermovie mit Interviews zur Eröffnung des SMS-group-Campus.','Aftermovie with interviews from the SMS group campus opening.'],'SMS group')
 ];
+const byId=(id:string)=>videos.find(video=>video.id===id)!;
+export const videoSections=[
+ {id:'b2b',title:{de:'B2B & Corporate',en:'B2B & corporate'},items:['8Nb_wHCHVk8','WR4BBw6HSGc','WwuJh_wi3dE','hWaSx8RWAg8','hXbhESu1Mv8','WOt-zZXKTBM','_0ooFK6AV6M','WiW-drQkj9U','px-t2uLdcjM','WugwOPGH9Iw'].map(byId)},
+ {id:'imagefilm',title:{de:'Imagefilm & Marke',en:'Image films & brands'},items:['c9jnXEILfSk','orSF_UAh60I','YhN2u5-05JY'].map(byId)},
+ {id:'orte',title:{de:'Institutionen, Tourismus & Orte',en:'Institutions, tourism & places'},items:['njQ9DBAihV8','5iZrmH-16NY'].map(byId)},
+ {id:'feedback',title:{de:'Kundenfeedback',en:'Client feedback'},items:['BDR6sHFXoiI','ObgIseEQ0ME','oE9I8w93pvc','-9XjGPp35Ds'].map(byId)},
+ {id:'werbung',title:{de:'Produkt & Werbung',en:'Product & advertising'},items:['m2sf6etIURs','H3YjnDhKUYQ'].map(byId)},
+ {id:'event',title:{de:'Event & Community',en:'Events & community'},items:['Gkx1ZFXN9kI','jiiriepdEBE','8_4-DPbOR2k','B1tixD5BTGM','Q8rnwmJusQ0','XSJKev1qAhM','MSodJRZr4Uw'].map(byId)},
+ {id:'presse',title:{de:'Presse, Founder & Behind the Scenes',en:'Press, founder & behind the scenes'},items:['XAmfUMlUiWE','rIf3DnQTIYg','Yam3awPbyO4'].map(byId)},
+ {id:'drohne',title:{de:'Drohne & besondere Projekte',en:'Drone & special projects'},items:['h7GD0uyyoyQ','SO7sqUkx9pM'].map(byId)}
+];

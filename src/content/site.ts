@@ -1,33 +1,27 @@
 export type Language = 'de' | 'en';
 export type LinkType = 'video' | 'website' | 'project';
-export type Project = { title:string; organization:string; text:string; image:string; alt:string; href?:string; linkType?:LinkType; logo?:string; imagePosition?:string; mobileImagePosition?:string };
+export type Project = { title:string; organization:string; text:string; image:string; alt:string; href?:string; linkType?:LinkType; logo?:string; imagePosition?:string; mobileImagePosition?:string; imageScale?:string; mobileImageScale?:string };
 export type Video = { id:string; title:string; category:string };
 export const links = {
   email:'mailto:info@nikvisuals.de', website:'https://www.nikvisuals.de/', youtube:'https://www.youtube.com/@nikvisualsmedia', reviews:'https://share.google/wyFLVDpDy64XB1M2c', tmp:'https://techmeetsproblems.com/',
   socials:[{label:'LinkedIn',href:'https://www.linkedin.com/in/niklas-br%C3%BCne-b61877243/'},{label:'Instagram',href:'https://www.instagram.com/nikvisualsmedia/'},{label:'YouTube',href:'https://www.youtube.com/@nikvisualsmedia/'}]
 };
 const videoUrl=(id:string)=>`https://www.youtube.com/watch?v=${id}`;
-const project=(title:string,organization:string,text:string,image:string,alt:string,href?:string,linkType?:LinkType,logo?:string,imagePosition?:string,mobileImagePosition?:string):Project=>({title,organization,text,image,alt,href,linkType,logo,imagePosition,mobileImagePosition});
+const project=(title:string,organization:string,text:string,image:string,alt:string,href?:string,linkType?:LinkType,logo?:string,imagePosition?:string,mobileImagePosition?:string,imageScale?:string,mobileImageScale?:string):Project=>({title,organization,text,image,alt,href,linkType,logo,imagePosition,mobileImagePosition,imageScale,mobileImageScale});
 const deBusiness:Project[]=[
-  project('Workshops','IHK Siegen','Praxisnahe Workshops zu digitaler Kommunikation, Social Media, Short-Form-Video und Content.','ihk-workshop-presenting.webp','Niklas Brüne bei einem IHK-Siegen-Workshop.',undefined,undefined,undefined,'center 18%','center 14%'),
-  project('Community-Format','Tech Meets Problems','Ein 2026 mitentwickeltes Community-Format in Siegen. Ich unterstütze Strategie, Organisation, Marketing und Kommunikation.','tmp-tech-talk.webp','Tech Meets Problems Veranstaltung.',links.tmp,'website'),
-  project('Content & Business Development','LapStore','Langjährige Produkt-Content-Arbeit. Später kamen Wettbewerbsanalyse, B2B-Strategie und Business-Development-Themen hinzu.','lapstore.jpg','Vorschau eines LapStore Videos.',videoUrl('hWaSx8RWAg8'),'video','lapstore-logo.png')
+  project('Corporate Media','SMS group','Wiederholte Corporate-, Industrie- und Eventproduktionen mit komplexer Abstimmung und teils kurzen Lieferzeiten.','sms-group-event.webp','Bühne bei einer SMS-group-Veranstaltung.','https://www.youtube.com/@nikvisualsmedia','project','sms-group-logo.png'),
+  project('Workshops','IHK Siegen','Praxisnahe Workshops zu digitaler Kommunikation, Social Media, Short-Form-Video und Content.','ihk-workshop-presenting.webp','Niklas Brüne bei einem IHK-Siegen-Workshop.',undefined,undefined,undefined,'center 30%','center 26%','1.12','1.08'),
+  project('Content & Business Development','LapStore','Langjährige Produkt-Content-Arbeit. Später kamen Wettbewerbsanalyse, B2B-Strategie und Business-Development-Themen hinzu.','lapstore.jpg','Vorschau eines LapStore Videos.',videoUrl('hWaSx8RWAg8'),'video','lapstore-logo-web.png'),
+  project('Community-Format','Tech Meets Problems','Ein 2026 mitentwickeltes Community-Format in Siegen. Ich unterstütze Strategie, Organisation, Marketing und Kommunikation.','tmp-tech-talk.webp','Tech Meets Problems Veranstaltung.',links.tmp,'website')
 ];
 const enBusiness:Project[]=[
-  project('Workshops','IHK Siegen','Practical workshops on digital communication, social media, short-form video and content.','ihk-workshop-presenting.webp','Niklas Brüne leading an IHK Siegen workshop.',undefined,undefined,undefined,'center 18%','center 14%'),
-  project('Community format','Tech Meets Problems','A community format co-developed in Siegen in 2026. I support strategy, organisation, marketing and communication.','tmp-tech-talk.webp','Tech Meets Problems event.',links.tmp,'website'),
-  project('Content & Business Development','LapStore','Long-term product-content work, later joined by competitor analysis, B2B strategy and business-development topics.','lapstore.jpg','Preview of a LapStore video.',videoUrl('hWaSx8RWAg8'),'video','lapstore-logo.png')
-];
-const deMedia:Project[]=[
-  project('Corporate Media','SMS group','Wiederholte Corporate-, Industrie- und Eventproduktionen mit komplexer Abstimmung und teils kurzen Lieferzeiten.','sms-group-event.webp','Bühne bei einer SMS-group-Veranstaltung.','https://www.youtube.com/@nikvisualsmedia','project','sms-group-logo.png'),
-  project('Drohne & Content','Stadt Hilchenbach','Drohnen- und Content-Produktion für Tourismus und Stadtmarketing, ergänzt um Social Media und Distribution.','hilchenbach.jpg','Landschaftsaufnahme aus einem Stadt-Hilchenbach-Video.',videoUrl('5iZrmH-16NY'),'video','hilchenbach-logo.png'),
-  project('Produktion','NikVisuals','Praxis am Set – von Planung und Bildgestaltung bis zur Umsetzung.','production-rig-winter.webp','Kamera-Rig bei einer NikVisuals-Produktion.')
-];
-const enMedia:Project[]=[
   project('Corporate media','SMS group','Repeated corporate, industrial and event productions with complex coordination and, at times, short delivery timelines.','sms-group-event.webp','Stage at an SMS group event.','https://www.youtube.com/@nikvisualsmedia','project','sms-group-logo.png'),
-  project('Drone & content','Stadt Hilchenbach','Drone and content production for tourism and city marketing, supported by social media and distribution.','hilchenbach.jpg','Landscape from a Stadt Hilchenbach video.',videoUrl('5iZrmH-16NY'),'video','hilchenbach-logo.png'),
-  project('Production','NikVisuals','Practical work on set, from planning and composition to delivery.','production-rig-winter.webp','Camera rig during a NikVisuals production.')
+  project('Workshops','IHK Siegen','Practical workshops on digital communication, social media, short-form video and content.','ihk-workshop-presenting.webp','Niklas Brüne leading an IHK Siegen workshop.',undefined,undefined,undefined,'center 30%','center 26%','1.12','1.08'),
+  project('Content & Business Development','LapStore','Long-term product-content work, later joined by competitor analysis, B2B strategy and business-development topics.','lapstore.jpg','Preview of a LapStore video.',videoUrl('hWaSx8RWAg8'),'video','lapstore-logo-web.png'),
+  project('Community format','Tech Meets Problems','A community format co-developed in Siegen in 2026. I support strategy, organisation, marketing and communication.','tmp-tech-talk.webp','Tech Meets Problems event.',links.tmp,'website')
 ];
+const deMedia:Project[]=[];
+const enMedia:Project[]=[];
 const review=(name:string,role:string,context:string,text:string)=>({name,role,context,text});
 export const collaborations=[{name:'LapStore',logo:'lapstore-logo.png'},{name:'SMS group',logo:'sms-group-logo.png'},{name:'Stadt Hilchenbach',logo:'hilchenbach-logo.png'}];
 const deReviews=[

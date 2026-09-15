@@ -10,6 +10,7 @@ Only approved local copies are committed. The owner supplied the Master Media Po
 | `public/images/media-loop-*` and posters | Owner-supplied Master Media Pool, Bundle 03 | Silent Media & Production panel; it remains off under reduced motion or Save-Data. |
 | `public/images/ihk-workshop-presenting.webp` | [Google Drive IHK Siegen workshop, 19 May 2026](https://drive.google.com/file/d/1JmI3sErfave0xjyW7KDFB6jyznN0zHRH/view) | Genuine IHK workshop case only; never general AI/consulting proof. |
 | `public/images/lapstore.jpg`, `hilchenbach.jpg` | Verified YouTube poster images for the linked films | Respective project cards only. |
+| `public/images/lapstore-logo-web.webp` | Tightly cropped web derivative of the supplied `lapstore-logo.png`; original retained unchanged | LapStore project card logo; avoids the source file's large transparent canvas. |
 | `public/images/lapstore-logo.png`, `sms-group-logo.png`, `hilchenbach-logo.png` | Owner-supplied clean logo files / Google Drive records | Compact collaboration strip and relevant project context only; never attached to current AI/Growth claims. |
 | `public/images/sms-group-event.webp` | [Google Drive SMS group event stage](https://drive.google.com/file/d/1U-0f6mLLmNrbb8fDom-hC3CBVAafzdM_/view) | SMS group media case only. |
 | `public/images/tmp-tech-talk.webp` | [Google Drive Tech Meets Problems image](https://drive.google.com/file/d/1EmGEwumPp-N1aQgjiS_DD_oBC9v4tHug/view) | Compact community-project card, never client proof. |

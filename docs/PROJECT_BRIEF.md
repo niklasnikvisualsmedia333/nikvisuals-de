@@ -6,7 +6,7 @@ Primary headline: “AI, Growth & Marketing für ambitionierte B2B-Unternehmen.�
 
 ## Page architecture
 
-Minimal header → founder-led solo-image hero → three expandable current areas → short study/practice bridge and compact timeline → collaboration signal → projects grouped as Business, Workshops & Community and Media & Production → compact review proof → personal About → email-preparing contact form and direct email → minimal footer. German primary, concise English equivalent with real static output at `/en/`.
+Minimal header → founder-led solo-image hero → three expandable current areas → short study/practice bridge and compact timeline → collaboration signal → one four-card selected-project grid → one ambient Media & Production panel → compact review proof → personal About → email-preparing contact form and direct email → minimal footer. German primary, concise English equivalent with real static output at `/en/`.
 
 Current areas: AI & Prozesse; Growth, GTM & Business Development; Marketing & Content. Existing tools, research and pragmatic execution define the scope; no custom software agency positioning.
 

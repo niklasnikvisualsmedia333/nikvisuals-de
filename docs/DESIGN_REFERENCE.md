@@ -26,4 +26,4 @@ No Keravonos text, logo, typography files, imagery, package structure, customer 
 - Keep the Hero desktop headline to roughly two or three lines. Reviews and Links stay in the main navigation.
 - Prefer removing repeated client names, logos, proof and decorative copy over adding another visual layer.
 - Dark is the first-visit theme; light is a deliberate saved choice. Keep the compact blue token system consistent.
-- Video cards and the archive use local thumbnails and open verified YouTube destinations on click. Tech Meets Problems remains a short, external community-project reference.
+- Video cards use local thumbnails, SVG play affordances and open verified YouTube destinations on click. The archive is grouped by topic with B2B & Corporate first. Tech Meets Problems remains a short, external community-project reference.
