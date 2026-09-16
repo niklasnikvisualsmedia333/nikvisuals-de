@@ -159,7 +159,7 @@ const collaborations = [
     name: "LapStore",
     logo: "lapstore-logo-web.webp",
     href: "https://www.lapstore.de/",
-    scale: 1.62,
+    scale: 1.95,
     surface: "light",
   },
   {
@@ -261,12 +261,21 @@ function useSeamlessCarousel(
       }
       return null;
     };
-    const init = requestAnimationFrame(() => {
-      position = m.offsetLeft;
-      v.scrollLeft = position;
-      position = v.scrollLeft;
-      initialized = true;
-    });
+    let lastWidth = 0;
+    const syncToCanonical = () => {
+      if (!m.offsetWidth) return;
+      if (!initialized || Math.abs(lastWidth - m.offsetWidth) > 1) {
+        position = m.offsetLeft;
+        v.scrollLeft = position;
+        position = v.scrollLeft;
+        lastWidth = m.offsetWidth;
+        initialized = true;
+      }
+    };
+    const init = requestAnimationFrame(syncToCanonical);
+    const resizeObserver = new ResizeObserver(syncToCanonical);
+    resizeObserver.observe(v);
+    resizeObserver.observe(m);
     const onScroll = () => {
       if (initialized && performance.now() >= autoUntil) {
         position = recenter() ?? v.scrollLeft;
@@ -334,6 +343,7 @@ function useSeamlessCarousel(
     frame = requestAnimationFrame(tick);
     return () => {
       cancelAnimationFrame(init);
+      resizeObserver.disconnect();
       v.removeEventListener("scroll", onScroll);
       for (const event of ["pointerdown", "touchstart"])
         v.removeEventListener(event, onStart);
@@ -658,6 +668,27 @@ function WorkshopCase({ lang }: { lang: Language }) {
     </article>
   );
 }
+function BehindTheScenes({ lang }: { lang: Language }) {
+  const viewport = useRef<HTMLDivElement>(null), [paused, setPaused] = useState(false);
+  const base = import.meta.env.BASE_URL;
+  const items = [
+    { image: "production-rig-winter.webp", de: "Kamera-Setup bei einer Winterproduktion", en: "Camera rig on a winter production" },
+    { image: "niklas-bschool-workshop-facilitation.webp", de: "Produktion und Facilitation im Business-Kontext", en: "Production and facilitation in a business setting" },
+    { image: "niklas-speaking-desk-office.webp", de: "Vorbereitung und Umsetzung am Set", en: "Preparing and working on set" },
+  ];
+  useEffect(() => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const node = viewport.current;
+    if (!node) return;
+    const timer = window.setInterval(() => {
+      if (paused || document.hidden) return;
+      const next = node.scrollLeft + node.clientWidth * 0.86;
+      node.scrollTo({ left: next >= node.scrollWidth - node.clientWidth - 4 ? 0 : next, behavior: "smooth" });
+    }, 4600);
+    return () => window.clearInterval(timer);
+  }, [paused]);
+  return <section className="bts section"><div className="wrap"><div className="bts-heading"><div><p className="eyebrow">Behind the scenes</p><h2>{lang === "de" ? "Produktion in der Praxis." : "Production behind the scenes."}</h2></div><p>{lang === "de" ? "NikVisuals ist founder-led. Je nach Umfang arbeite ich mit professionellem Equipment sowie spezialisierten Freelancern und Projektteams." : "NikVisuals is founder-led. Depending on the scope, productions use professional equipment and specialist freelancers or project teams."}</p></div><div className="bts-window" ref={viewport} tabIndex={0} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>{items.map((item) => <figure key={item.image}><img src={base + "images/" + item.image} alt={lang === "de" ? item.de : item.en} width="1280" height="800" loading="lazy" decoding="async" /><figcaption>{lang === "de" ? item.de : item.en}</figcaption></figure>)}</div></div></section>;
+}
 function AmbientMedia({ lang }: { lang: Language }) {
   const ref = useRef<HTMLElement>(null),
     [ready, setReady] = useState(false),
@@ -745,12 +776,14 @@ function ReviewCard({
   clone,
   expanded,
   onToggle,
+  onPlayVideo,
 }: {
   review: Review;
   lang: Language;
   clone: boolean;
   expanded: boolean;
   onToggle?: () => void;
+  onPlayVideo?: (review: Review, trigger: HTMLElement) => void;
 }) {
   const text = review.quote[lang],
     long = text.length > 185,
@@ -788,6 +821,7 @@ function ReviewCard({
               : "Read more"}
         </button>
       )}
+      {review.testimonialVideoId && !clone && onPlayVideo && <button type="button" className="review-video-link" onClick={(event) => onPlayVideo(review, event.currentTarget)}>{lang === "de" ? "Video-Feedback ansehen" : "Watch video testimonial"}</button>}
       <span className="review-context">{review.projectContext}</span>
       <footer>
         <strong>{review.name}</strong>
@@ -830,6 +864,7 @@ function Reviews({ lang }: { lang: Language }) {
             pause();
             setExpanded(expanded === review.id ? null : review.id);
           }}
+          onPlayVideo={(current, trigger) => playVideo({ id: current.testimonialVideoId!, title: current.name, trigger })}
           key={review.id}
         />
       ))}
@@ -1177,6 +1212,7 @@ export function Home({ lang }: { lang: Language }) {
           </div>
         </section>
         <AmbientMedia lang={lang} />
+        <BehindTheScenes lang={lang} />
         <Reviews lang={lang} />
         <section id="ueber-mich" className="about section">
           <div className="wrap about-grid">

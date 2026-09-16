@@ -12,6 +12,7 @@ export type Review = {
   exactQuote: boolean;
   source: ReviewSource;
   sourceUrl?: string;
+  testimonialVideoId?: string;
   featured: boolean;
 };
 
@@ -37,7 +38,7 @@ export const reviews: Review[] = [
     quote: {
       de: 'NikVisuals Media hat für unseren Heizungs - und Sanitärbetrieb einen Imagefilm gedreht. Alles verlief total unkompliziert und professionell !!! NikVisuals ist auf jeden Fall absolut weiterzuempfehlen !! Gerne wieder :)',
       en: 'Frank Vorländer describes the image-film production as straightforward and professional and strongly recommends the collaboration.',
-    }, exactQuote: true, source: 'google', sourceUrl: googleProfile, featured: true,
+    }, exactQuote: true, source: 'google', sourceUrl: googleProfile, testimonialVideoId: 'BDR6sHFXoiI', featured: true,
   },
   {
     id: 'joern-muellers', name: 'Jörn Müllers', roleOrCompany: 'SMS group', projectContext: 'Videoproduktion', stars: 5,
@@ -58,21 +59,21 @@ export const reviews: Review[] = [
     quote: {
       de: 'Steffen Kellermann hebt die strukturierte, entspannte Begleitung hervor. Auch ohne Erfahrung mit Videoproduktion wusste er jederzeit, was als Nächstes passiert. Das Ergebnis übertraf seine Erwartungen deutlich.',
       en: 'Steffen Kellermann highlights the structured, relaxed guidance. Even without production experience, he always knew what would happen next, and the result clearly exceeded his expectations.',
-    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=wFaeFX5gxeA', featured: true,
+    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=wFaeFX5gxeA', testimonialVideoId: 'wFaeFX5gxeA', featured: true,
   },
   {
     id: 'kerstin-broh', name: 'Kerstin Broh', roleOrCompany: 'Tourismus & Stadtmarketing · Stadt Hilchenbach', projectContext: 'Content & Veröffentlichung', stars: 5,
     quote: {
       de: 'Kerstin Broh beschreibt die Zusammenarbeit als professionell, reibungslos und termintreu. Die abgestimmte Veröffentlichung sorgte zusätzlich für starke organische Reichweite und regionale Medienresonanz.',
       en: 'Kerstin Broh describes the work as professional, smooth and on schedule. Coordinated publishing also led to strong organic reach and regional media coverage.',
-    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=ObgIseEQ0ME', featured: true,
+    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=ObgIseEQ0ME', testimonialVideoId: 'ObgIseEQ0ME', featured: true,
   },
   {
     id: 'yvonne-strasser', name: 'Yvonne Straßer', roleOrCompany: 'Siegerland Center', projectContext: 'Videoproduktion', stars: 5,
     quote: {
       de: 'Yvonne Straßer hebt die unkomplizierte Abstimmung, die professionelle Umsetzung und das Ergebnis der gemeinsamen Videoproduktion hervor.',
       en: 'Yvonne Straßer highlights the straightforward coordination, professional production and the final video result.',
-    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=oE9I8w93pvc', featured: true,
+    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=oE9I8w93pvc', testimonialVideoId: 'oE9I8w93pvc', featured: true,
   },
   {
     id: 'dierk-stamer', name: 'Dierk Stamer', projectContext: 'Oldtimer-Treffen & Ausfahrt', stars: 5,
@@ -84,7 +85,7 @@ export const reviews: Review[] = [
   {
     id: 'erik-van-den-bril', name: 'Erik Van den Bril', roleOrCompany: 'Vesprima', projectContext: 'Video-Feedback', stars: 5,
     quote: { de: 'Absolut empfehlenswert!', en: 'Erik Van den Bril recommends the collaboration without reservation.' },
-    exactQuote: true, source: 'google', sourceUrl: googleProfile, featured: false,
+    exactQuote: true, source: 'google', sourceUrl: googleProfile, testimonialVideoId: '-9XjGPp35Ds', featured: false,
   },
   {
     id: 'leander-solms', name: 'Leander Solms', projectContext: 'Einblick in die Medienproduktion', stars: 5,

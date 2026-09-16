@@ -22,10 +22,13 @@ assert.equal((videoPage.match(/data-thumbnail-play/g) || []).length, 1, 'VideoCa
 assert(/<a href=\{base\}>DE<\/a>[\s\S]*?<span>\/<\/span>[\s\S]*?<a href=\{base \+ "en\/"\}>EN<\/a>/.test(home), 'language switch must remain DE / EN');
 assert(css.includes('.languages>span{display:inline-flex;align-items:center;justify-content:center;height:42px'), 'language slash must use flex centering');
 assert(home.includes('data-ambient-media') && home.includes('href={archive}'), 'homepage media panel and video archive link must exist');
+assert(home.includes('BehindTheScenes') && home.includes('production-rig-winter.webp') && home.includes('niklas-bschool-workshop-facilitation.webp'), 'behind-the-scenes gallery must exist');
 assert(!/lapstore-logo-web\.png/.test(site + home), 'broken LapStore PNG path must not return');
 assert(!/University of Tulsa|B-School|histori/i.test(home + site), 'removed copy must not return');
 assert(home.includes('project.organization !== "LapStore"'), 'LapStore project badge must be excluded');
 assert(home.includes('WorkshopCase') && home.includes('Einblicke ansehen'), 'workshops need the expandable gallery');
+for (const id of ['BDR6sHFXoiI', 'ObgIseEQ0ME', 'oE9I8w93pvc', 'wFaeFX5gxeA', '-9XjGPp35Ds']) assert(reviews.includes(`testimonialVideoId: '${id}'`), `review testimonial video missing: ${id}`);
+assert(home.includes('Video-Feedback ansehen') && home.includes('!clone'), 'canonical review cards need video actions without clone controls');
 
 const logos = ['lapstore-logo-web.webp', 'sms-group-logo.png', 'hilchenbach-logo.png', 'ihk-siegen-logo.png', 'startpunkt57-logo.svg', 'entrepreneurship-center-logo.png', 'siegerland-center-logo.svg', 'reifen-thomas-logo.png', 'vorlaender-logo.svg'];
 for (const logo of logos) { assert(home.includes(logo), `missing logo reference: ${logo}`); await access(`public/images/${logo}`); await access(`dist/images/${logo}`); }
