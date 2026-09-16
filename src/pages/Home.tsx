@@ -6,6 +6,8 @@ import { Arrow } from "../components/Arrow";
 import { PlayIcon } from "../components/PlayIcon";
 import { ThemeIcon } from "../components/ThemeIcon";
 import { SocialIcon } from "../components/SocialIcon";
+import { CopyEmailButton } from "../components/CopyEmailButton";
+import { SiteFooter } from "../components/SiteFooter";
 import { useMediaConsent } from "../components/MediaConsent";
 import { featuredReviews, type Review } from "../content/reviews";
 const ids = ["leistungen", "arbeiten", "bewertungen", "ueber-mich"];
@@ -107,23 +109,6 @@ function ContactForm({ lang }: { lang: Language }) {
     </form>
   );
 }
-function CopyEmailButton({ lang }: { lang: Language }) {
-  const c = content[lang],
-    [copied, setCopied] = useState(false);
-  return (
-    <button
-      className="copy-email"
-      type="button"
-      onClick={async () => {
-        await navigator.clipboard.writeText("info@nikvisuals.de");
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1800);
-      }}
-    >
-      {copied ? c.copied : c.copy}
-    </button>
-  );
-}
 function InternshipVideoCard({ video, lang }: { video: InternshipVideo; lang: Language }) {
   const { playVideo } = useMediaConsent();
   const base = import.meta.env.BASE_URL;
@@ -150,7 +135,6 @@ function InternshipVideoCard({ video, lang }: { video: InternshipVideo; lang: La
 }
 function Internships({ lang }: { lang: Language }) {
   const [open, setOpen] = useState(false);
-  const applicationSubject = lang === "de" ? "Praktikum / Initiativbewerbung bei NikVisuals" : "Internship / unsolicited application at NikVisuals";
   return (
     <section id="praktikum" className="internships" aria-labelledby="internships-title">
       <div className="wrap internships-layout">
@@ -160,8 +144,8 @@ function Internships({ lang }: { lang: Language }) {
         </div>
         <div className="internships-copy">
           <p>{lang === "de" ? "Praktika passen am besten ab etwa acht Wochen. Remote oder hybrid ist je nach Aufgabe möglich. Initiativbewerbungen sind ausdrücklich willkommen – zum Beispiel für Content- und Videoproduktion, Marketing & Research, AI-/Prozess-Themen oder Business Development." : "Internships work best from around eight weeks onwards. Remote or hybrid setups are possible depending on the role. Unsolicited applications are explicitly welcome – for example in content and video production, marketing and research, AI/process topics or business development."}</p>
-          <a className="button button-accent" href={`mailto:info@nikvisuals.de?subject=${encodeURIComponent(applicationSubject)}`}>{lang === "de" ? "Initiativ bewerben" : "Apply proactively"}<Arrow diagonal /></a>
-          <p className="internships-note">{lang === "de" ? "Kurze Vorstellung, Zeitraum und Interessensbereich reichen für den ersten Kontakt." : "A short introduction, preferred timeframe and area of interest are enough for the first contact."}</p>
+          <p className="internships-note">{lang === "de" ? "Interesse? Schick mir deinen Lebenslauf per E-Mail und nenne kurz deinen gewünschten Zeitraum und den Bereich, in dem du mitarbeiten möchtest. Wenn du bereits eigene Arbeiten, Projekte oder ein Portfolio hast, schick gerne direkt einen Link dazu mit." : "Interested? Send me your CV by email and briefly mention your preferred timeframe and the area you would like to work in. If you already have work samples, projects or a portfolio, feel free to include a link."}</p>
+          <div className="email-line internships-email"><a className="email" href={links.email}>info@nikvisuals.de</a><CopyEmailButton lang={lang} /></div>
           <button className="text-link internship-toggle" type="button" aria-expanded={open} aria-controls="internship-video-gallery" onClick={() => setOpen((value) => !value)}>{open ? lang === "de" ? "Einblicke schließen" : "Hide internship experiences" : lang === "de" ? "Einblicke aus Praktika ansehen" : "See internship experiences"}<Arrow /></button>
         </div>
         {open && <div id="internship-video-gallery" className="internship-gallery" aria-live="polite"><div className="videos-grid">{internshipVideos.map((video) => <InternshipVideoCard key={video.id} video={video} lang={lang} />)}</div></div>}
@@ -770,9 +754,8 @@ function WorkshopCase({ lang }: { lang: Language }) {
   );
 }
 function BehindTheScenes({ lang }: { lang: Language }) {
-  const viewport = useRef<HTMLDivElement>(null);
+  const viewport = useRef<HTMLDivElement>(null), main = useRef<HTMLDivElement>(null);
   const pauseUntil = useRef(0);
-  const resetTimer = useRef<number | undefined>(undefined);
   const [paused, setPaused] = useState(false);
   const base = import.meta.env.BASE_URL;
   const items = [
@@ -783,48 +766,62 @@ function BehindTheScenes({ lang }: { lang: Language }) {
     { image: "production-bts-salon-gimbal.webp", de: "Gimbal-Setup bei einer Kundenproduktion", en: "Gimbal setup on a client production" },
     { image: "production-bts-lemonaid-tabletop.webp", de: "Tabletop- und Produktproduktion", en: "Tabletop and product production" },
   ];
-  const pauseForInteraction = () => {
-    pauseUntil.current = performance.now() + 5200;
-    if (resetTimer.current) window.clearTimeout(resetTimer.current);
-  };
+  const pauseForInteraction = () => { pauseUntil.current = performance.now() + 5200; };
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const node = viewport.current;
-    if (!node) return;
+    const node = viewport.current, canonical = main.current;
+    if (!node || !canonical) return;
     let timeout: number | undefined;
+    let settleTimer: number | undefined;
     let visible = false;
+    let initialized = false;
+    const sets = () => Array.from(node.querySelectorAll<HTMLElement>(".bts-set"));
+    const recenter = () => {
+      const width = canonical.offsetWidth, start = canonical.offsetLeft;
+      if (!width) return;
+      if (node.scrollLeft < start) node.scrollLeft += width;
+      if (node.scrollLeft >= start + width) node.scrollLeft -= width;
+    };
+    const initialize = () => {
+      if (initialized) return;
+      if (node.scrollLeft <= 1) node.scrollLeft = canonical.offsetLeft;
+      recenter();
+      initialized = true;
+    };
     const schedule = () => {
       if (timeout) window.clearTimeout(timeout);
       if (!visible || paused || document.hidden || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      if (performance.now() < pauseUntil.current) {
-        timeout = window.setTimeout(schedule, pauseUntil.current - performance.now() + 20);
-        return;
-      }
+      const wait = Math.max(0, pauseUntil.current - performance.now());
       timeout = window.setTimeout(() => {
-        const slides = Array.from(node.querySelectorAll<HTMLElement>("figure"));
-        if (slides.length < 2) return;
-        const step = slides[1].offsetLeft - slides[0].offsetLeft;
-        const current = Math.round(node.scrollLeft / step);
-        if (current >= items.length - 1) {
-          node.scrollTo({ left: slides[items.length].offsetLeft, behavior: "smooth" });
-          resetTimer.current = window.setTimeout(() => node.scrollTo({ left: slides[0].offsetLeft, behavior: "auto" }), 680);
-        } else node.scrollTo({ left: slides[current + 1].offsetLeft, behavior: "smooth" });
+        if (!visible || paused || document.hidden) return;
+        recenter();
+        const slides = Array.from(canonical.querySelectorAll<HTMLElement>("figure"));
+        const nextSet = sets()[2];
+        if (!slides.length || !nextSet) return;
+        const current = slides.reduce((closest, slide, index) => Math.abs(slide.offsetLeft - node.scrollLeft) < Math.abs(slides[closest].offsetLeft - node.scrollLeft) ? index : closest, 0);
+        const next = current === slides.length - 1 ? nextSet.querySelector<HTMLElement>("figure") : slides[current + 1];
+        if (next) node.scrollTo({ left: next.offsetLeft, behavior: "smooth" });
+        if (settleTimer) window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(recenter, 700);
         schedule();
-      }, 4800);
+      }, wait || 4900);
     };
-    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; schedule(); }, { rootMargin: "0px" });
+    const onScroll = () => {
+      if (settleTimer) window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(recenter, 700);
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) requestAnimationFrame(() => { initialize(); schedule(); });
+      else if (timeout) window.clearTimeout(timeout);
+    }, { rootMargin: "0px" });
+    const onVisibilityChange = () => { if (!document.hidden) schedule(); };
     observer.observe(node);
-    const onVisibilityChange = () => schedule();
+    node.addEventListener("scroll", onScroll, { passive: true });
     document.addEventListener("visibilitychange", onVisibilityChange);
-    return () => {
-      if (timeout) window.clearTimeout(timeout);
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-      if (resetTimer.current) window.clearTimeout(resetTimer.current);
-    };
+    return () => { if (timeout) window.clearTimeout(timeout); if (settleTimer) window.clearTimeout(settleTimer); observer.disconnect(); node.removeEventListener("scroll", onScroll); document.removeEventListener("visibilitychange", onVisibilityChange); };
   }, [paused]);
-  const slides = [...items, items[0]];
-  return <section className="bts section"><div className="wrap"><div className="bts-heading"><div><p className="eyebrow">Behind the scenes</p><h2>{lang === "de" ? "Produktion in der Praxis." : "Production behind the scenes."}</h2></div><p>{lang === "de" ? "Von kompakten Content-Produktionen bis zu Corporate- und Eventdrehs: Je nach Projekt arbeite ich mit professionellem Kamera-, Audio- und Rigging-Equipment sowie spezialisierten Freelancern und Projektteams." : "From compact content productions to corporate and event shoots, each project uses professional camera, audio and rigging equipment alongside specialist freelancers and project teams where useful."}</p></div><div className="bts-window" ref={viewport} tabIndex={0} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)} onPointerDown={pauseForInteraction} onTouchStart={pauseForInteraction} onWheel={pauseForInteraction}>{slides.map((item, index) => <figure key={`${item.image}-${index}`} aria-hidden={index === items.length || undefined}><img src={base + "images/" + item.image} alt={index === items.length ? "" : lang === "de" ? item.de : item.en} width="1600" height={item.image.includes("lemonaid") ? "900" : "1066"} loading="lazy" decoding="async" /><figcaption>{lang === "de" ? item.de : item.en}</figcaption></figure>)}</div></div></section>;
+  return <section className="bts section"><div className="wrap"><div className="bts-heading"><div><p className="eyebrow">Behind the scenes</p><h2>{lang === "de" ? "Produktion in der Praxis." : "Production behind the scenes."}</h2></div><p>{lang === "de" ? "Von kompakten Content-Produktionen bis zu Corporate- und Eventdrehs: Je nach Projekt arbeite ich mit professionellem Kamera-, Audio- und Rigging-Equipment sowie spezialisierten Freelancern und Projektteams." : "From compact content productions to corporate and event shoots, each project uses professional camera, audio and rigging equipment alongside specialist freelancers and project teams where useful."}</p></div><div className="bts-window" ref={viewport} tabIndex={0} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)} onPointerDown={pauseForInteraction} onTouchStart={pauseForInteraction} onWheel={pauseForInteraction}><div className="bts-track">{[0, 1, 2].map((setIndex) => <div className="bts-set" key={setIndex} ref={setIndex === 1 ? main : undefined} aria-hidden={setIndex !== 1 || undefined}>{items.map((item) => <figure key={`${item.image}-${setIndex}`}><img src={base + "images/" + item.image} alt={setIndex === 1 ? lang === "de" ? item.de : item.en : ""} width="1600" height={item.image.includes("lemonaid") ? "900" : "1066"} loading="lazy" decoding="async" /><figcaption>{lang === "de" ? item.de : item.en}</figcaption></figure>)}</div>)}</div></div></div></section>;
 }
 function AmbientMedia({ lang }: { lang: Language }) {
   const ref = useRef<HTMLElement>(null),
@@ -1133,7 +1130,6 @@ export function Home({ lang }: { lang: Language }) {
   const c = content[lang],
     base = import.meta.env.BASE_URL,
     [menu, setMenu] = useState(false),
-    { openSettings } = useMediaConsent(),
     situations =
       lang === "de"
         ? [
@@ -1410,43 +1406,7 @@ export function Home({ lang }: { lang: Language }) {
           </div>
         </section>
       </main>
-      <footer className="footer">
-        <div className="wrap">
-          <div className="footer-top">
-            <a className="brand" href={home}>
-              nikvisuals<span className="brand-mark">.</span>
-            </a>
-            <div className="socials">
-              {links.socials
-                .filter((x) => x.platform !== "facebook")
-                .map((x) => (
-                  <a
-                    className="social-link"
-                    href={x.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    key={x.label}
-                  >
-                    <span>
-                      <SocialIcon platform={x.platform} />
-                      {x.label}
-                    </span>
-                  </a>
-                ))}
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <span>{c.preview}</span>
-            <a href={archive}>{lang === "de" ? "Videos" : "Video work"}</a>
-            <a href="#praktikum">{lang === "de" ? "Praktikum" : "Internships"}</a>
-            <a href={base + "impressum/"}>{lang === "de" ? "Impressum" : "Imprint"}</a>
-            <a href={base + "datenschutz/"}>{lang === "de" ? "Datenschutz" : "Privacy"}</a>
-            <button className="media-settings" onClick={openSettings}>
-              {lang === "de" ? "Medien-Einstellungen" : "Media settings"}
-            </button>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang={lang} isHome />
     </>
   );
 }

@@ -117,6 +117,7 @@
 .internships-copy>p:first-child{max-width:680px;color:var(--muted);line-height:1.65}
 .internships-copy .button{margin-top:22px}
 .internships-note{margin-top:12px;color:var(--muted);font-size:12px;line-height:1.5}
+.internships-email{margin-top:18px}
 .internship-toggle{margin-top:18px;border:0;background:transparent;color:var(--ink);padding:0}
 .internship-gallery{grid-column:1/-1;margin-top:4px;padding-top:26px;border-top:1px solid var(--line)}
 .internship-gallery .video-card{min-height:385px}
@@ -135,3 +136,7 @@
 .video-section h2{font-size:clamp(31px,3.1vw,44px);line-height:1;letter-spacing:-.065em}
 .video-section .videos-grid{margin-top:26px}
 @media(max-width:560px){.video-actions{gap:8px 15px;padding-top:18px}.video-actions .video-open{min-height:32px;font-size:11px}.video-section{scroll-margin-top:88px}.video-section+.video-section{margin-top:54px;padding-top:54px}.video-section h2{font-size:31px}.video-section .videos-grid{margin-top:20px}}
+
+/* Shared footer and mobile About presentation. */
+.bts-window{display:block}.bts-track,.bts-set{display:flex;width:max-content;gap:16px}.bts-set{padding-right:16px}.bts-set figure{flex:0 0 min(720px,58vw);margin:0;scroll-snap-align:start}.bts-set img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px}.bts-set figcaption{margin-top:8px;color:var(--muted);font-size:11px;line-height:1.35}
+@media(max-width:560px){.about-media{width:min(280px,100%);max-width:none;margin-inline:auto}.about figure img{aspect-ratio:1/1;object-fit:cover;object-position:center 28%}.about figcaption{text-align:left}.bts-set figure{flex-basis:88vw}}

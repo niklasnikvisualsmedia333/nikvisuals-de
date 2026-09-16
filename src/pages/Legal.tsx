@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Language } from '../content/site';
 import { ThemeIcon } from '../components/ThemeIcon';
-import { useMediaConsent } from '../components/MediaConsent';
+import { SiteFooter } from '../components/SiteFooter';
 
 type LegalPage = 'impressum' | 'datenschutz';
 
@@ -13,14 +13,9 @@ function ThemeToggle({ lang }: { lang: Language }) {
   return <button className="theme-toggle" type="button" aria-label={next === 'dark' ? (lang === 'de' ? 'Dunklen Modus aktivieren' : 'Activate dark mode') : (lang === 'de' ? 'Hellen Modus aktivieren' : 'Activate light mode')} onClick={() => setTheme(next)}><ThemeIcon light={theme === 'dark'} /></button>;
 }
 
-function LegalFooter({ lang }: { lang: Language }) {
-  const base = import.meta.env.BASE_URL, { openSettings } = useMediaConsent();
-  return <footer className="legal-footer"><div className="wrap"><a href={base + (lang === 'en' ? 'en/' : '')}>{lang === 'de' ? 'Zur Startseite' : 'Back to home'}</a><a href={base + 'impressum/'}>{lang === 'de' ? 'Impressum' : 'Imprint'}</a><a href={base + 'datenschutz/'}>{lang === 'de' ? 'Datenschutz' : 'Privacy'}</a><button className="media-settings" type="button" onClick={openSettings}>{lang === 'de' ? 'Medien-Einstellungen' : 'Media settings'}</button></div></footer>;
-}
-
 export function Legal({ page, lang }: { page: LegalPage; lang: Language }) {
   const base = import.meta.env.BASE_URL, imprint = page === 'impressum';
-  return <><header className="legal-header"><div className="wrap"><a className="brand" href={base + (lang === 'en' ? 'en/' : '')}>nikvisuals<span className="brand-mark">.</span></a><ThemeToggle lang={lang} /></div></header><main className="legal-page"><article className="legal-copy"><p className="eyebrow">NikVisuals</p>{imprint ? <Imprint /> : <Privacy />}</article></main><LegalFooter lang={lang} /></>;
+  return <><header className="legal-header"><div className="wrap"><a className="brand" href={base + (lang === 'en' ? 'en/' : '')}>nikvisuals<span className="brand-mark">.</span></a><ThemeToggle lang={lang} /></div></header><main className="legal-page"><article className="legal-copy"><p className="eyebrow">NikVisuals</p>{imprint ? <Imprint /> : <Privacy />}</article></main><SiteFooter lang={lang} /></>;
 }
 
 function Imprint() { return <><h1>Impressum</h1><p className="legal-updated">Stand: September 2026</p><section><h2>Angaben gemäß § 5 DDG</h2><p>NikVisuals Media<br />Niklas Alexander Brüne<br />Am Bühlberg 18<br />57271 Hilchenbach</p></section><section><h2>Kontakt</h2><p>E-Mail: <a href="mailto:info@nikvisuals.de">info@nikvisuals.de</a></p></section><section><h2>Umsatzsteuer-ID</h2><p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br />DE364451609</p></section><section><h2>Verantwortlich für journalistisch-redaktionelle Inhalte</h2><p>Niklas Alexander Brüne<br />Am Bühlberg 18<br />57271 Hilchenbach</p></section></> }

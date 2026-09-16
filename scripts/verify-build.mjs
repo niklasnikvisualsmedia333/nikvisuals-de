@@ -3,8 +3,8 @@ import { access, readFile, readdir } from 'node:fs/promises';
 
 const read = (path) => readFile(path, 'utf8');
 const production = process.env.SITE_MODE === 'production';
-const [videos, internshipVideos, videoPage, home, site, links, consent, reviews, css, legal, packageJson] = await Promise.all([
-  read('src/content/videos.ts'), read('src/content/internshipVideos.ts'), read('src/pages/Videos.tsx'), read('src/pages/Home.tsx'), read('src/content/site.ts'), read('src/pages/Links.tsx'), read('src/components/MediaConsent.tsx'), read('src/content/reviews.ts'), read('src/styles/global.css'), read('src/pages/Legal.tsx'), read('package.json'),
+const [videos, internshipVideos, videoPage, home, site, links, consent, reviews, css, legal, siteFooter, copyEmail, packageJson] = await Promise.all([
+  read('src/content/videos.ts'), read('src/content/internshipVideos.ts'), read('src/pages/Videos.tsx'), read('src/pages/Home.tsx'), read('src/content/site.ts'), read('src/pages/Links.tsx'), read('src/components/MediaConsent.tsx'), read('src/content/reviews.ts'), read('src/styles/global.css'), read('src/pages/Legal.tsx'), read('src/components/SiteFooter.tsx'), read('src/components/CopyEmailButton.tsx'), read('package.json'),
 ]);
 
 const videoIds = [...videos.matchAll(/^make\('([^']+)'/gm)].map((match) => match[1]);
@@ -26,14 +26,18 @@ for (const id of internshipIds) {
   await access(`dist/images/internships/${id}.webp`);
 }
 assert(home.includes('id="praktikum"') && home.includes('Internships at NikVisuals.'), 'DE/EN internship section must exist');
-assert(home.includes('mailto:info@nikvisuals.de') && home.includes('Praktikum / Initiativbewerbung bei NikVisuals'), 'internship application must use the email CTA');
+assert(home.includes('Lebenslauf per E-Mail') && home.includes('work samples, projects or a portfolio'), 'internship section must include the CV and portfolio guidance');
+assert(!home.includes('Initiativ bewerben') && !home.includes('Apply proactively'), 'internship section must not retain the old application button');
+assert(home.includes('<CopyEmailButton lang={lang} />') && copyEmail.includes("navigator.clipboard.writeText('info@nikvisuals.de')"), 'internship email must use the reusable copy control');
 assert(home.includes('aria-controls="internship-video-gallery"') && home.includes('open && <div id="internship-video-gallery"'), 'internship gallery must remain collapsed until requested');
+assert(siteFooter.includes('useMediaConsent') && siteFooter.includes("home + '#praktikum'") && siteFooter.includes('impressum/') && siteFooter.includes('datenschutz/'), 'shared footer must provide settings and correct legal/internship links');
+assert(home.includes('<SiteFooter lang={lang} isHome />') && videoPage.includes('<SiteFooter lang={lang} />') && links.includes('<SiteFooter lang={lang} />') && legal.includes('<SiteFooter lang={lang} />'), 'every public page must use the shared footer');
 assert(/<button[\s\S]*data-thumbnail-play/.test(videoPage), 'thumbnail play overlay must be an accessible button');
 assert.equal((videoPage.match(/data-thumbnail-play/g) || []).length, 1, 'VideoCard must render one thumbnail overlay control');
 
 assert(/<a href=\{base\}>DE<\/a>[\s\S]*?<span>\/<\/span>[\s\S]*?<a href=\{base \+ "en\/"\}>EN<\/a>/.test(home), 'language switch must remain DE / EN');
 assert(css.includes('.languages>span{display:inline-flex;align-items:center;justify-content:center;height:42px'), 'language slash must use flex centering');
-assert(home.includes('data-ambient-media') && home.includes('href={archive}'), 'homepage media panel and video archive link must exist');
+assert(home.includes('data-ambient-media') && home.includes('en/videos/'), 'homepage media panel and video archive link must exist');
 assert(home.includes('fetchPriority="high"') && /className="hero-image"[\s\S]*?width="1440"[\s\S]*?height="960"/.test(home), 'hero must reserve space and receive high fetch priority');
 assert(!home.includes('../content/videos') && home.includes('../content/smsVideos'), 'homepage must not import the full video archive');
 assert(home.includes('preload="none"') && home.includes('{ rootMargin: "0px" }'), 'ambient media must remain delayed and use no eager video preload');
@@ -48,6 +52,7 @@ for (const asset of ['production-bts-konekt-event-rig.webp', 'production-bts-kon
   await access(`public/images/${asset}`);
 }
 assert(!btsComponent.includes('niklas-speaking-desk-office.webp') && !btsComponent.includes('niklas-bschool-workshop-facilitation.webp'), 'behind-the-scenes must use only production BTS imagery');
+assert(!btsComponent.includes('const slides = [...items, items[0]]') && btsComponent.includes('[0, 1, 2].map'), 'BTS must use clone sets without a visible duplicate first slide');
 assert(!/lapstore-logo-web\.png/.test(site + home), 'broken LapStore PNG path must not return');
 assert(!/University of Tulsa|B-School|histori/i.test(home + site), 'removed copy must not return');
 assert(home.includes('project.organization !== "LapStore"'), 'LapStore project badge must be excluded');
@@ -94,7 +99,7 @@ assert(legal.includes('GitHub Pages') && legal.includes('nikvisuals-theme') && l
 assert(legal.includes('www.youtube-nocookie.com') && legal.includes('Microsoft 365 / Outlook'), 'privacy must document YouTube and mail handling');
 assert(!/TMG|RStV/.test(legal), 'imprint must use current terminology');
 assert(!/wix\.com.*impressum/i.test(home + links), 'footer must not link to old Wix legal pages');
-assert(home.includes('"impressum/"') && home.includes('"datenschutz/"'), 'homepage footer must use internal legal links');
+assert(siteFooter.includes("'impressum/'") && siteFooter.includes("'datenschutz/'"), 'shared footer must use internal legal links');
 assert(packageJson.includes('build:production'), 'production indexing build command must exist');
 
 for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.html']]) {
@@ -103,19 +108,27 @@ for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.htm
   assert.equal((html.match(/data-selected-project/g) || []).length, 4, `${path}: exactly four selected projects`);
   assert(!html.includes('<iframe'), `${path}: no initial iframe`);
   assert(html.includes('id="praktikum"') && html.includes('mailto:info@nikvisuals.de'), `${path}: internship section missing`);
+  assert(html.includes('Lebenslauf per E-Mail') || html.includes('Send me your CV by email'), `${path}: internship email guidance missing`);
+  assert(!html.includes('Initiativ bewerben') && !html.includes('Apply proactively'), `${path}: old internship button must not return`);
+  assert(html.includes('footer-top') && html.includes('impressum/') && html.includes('datenschutz/'), `${path}: shared legal footer missing`);
   for (const id of internshipIds) assert(!html.includes(id), `${path}: collapsed internship gallery must not prerender video cards`);
 }
 for (const path of ['dist/impressum/index.html', 'dist/datenschutz/index.html']) {
   const html = await read(path);
-  assert(html.includes('NikVisuals') && !html.includes('<iframe'), `${path}: legal route missing or unsafe`);
+  assert(html.includes('NikVisuals') && html.includes('footer-top') && html.includes('impressum/') && html.includes('datenschutz/') && !html.includes('<iframe'), `${path}: legal route/footer missing or unsafe`);
 }
+const internshipFooterHref = (lang) => production
+  ? (lang === 'de' ? '/#praktikum' : '/en/#praktikum')
+  : (lang === 'de' ? '/nikvisuals-de/#praktikum' : '/nikvisuals-de/en/#praktikum');
 for (const [lang, path] of [['de', 'dist/links/index.html'], ['en', 'dist/en/links/index.html']]) {
   const html = await read(path);
-  assert(html.includes(`lang="${lang}"`) && html.includes('hub-social-label') && !html.includes('<iframe'), `${path}: link hub incomplete`);
+  assert(html.includes(`lang="${lang}"`) && html.includes('hub-social-label') && html.includes('footer-top') && !html.includes('<iframe'), `${path}: link hub/footer incomplete`);
+  assert(html.includes(`href="${internshipFooterHref(lang)}"`), `${path}: internship footer link must target the language home`);
 }
 for (const [lang, path] of [['de', 'dist/videos/index.html'], ['en', 'dist/en/videos/index.html']]) {
   const html = await read(path);
-  assert(html.includes(`lang="${lang}"`) && !html.includes('<iframe'), `${path}: video archive unsafe`);
+  assert(html.includes(`lang="${lang}"`) && html.includes('footer-top') && !html.includes('<iframe'), `${path}: video archive/footer unsafe`);
+  assert(html.includes(`href="${internshipFooterHref(lang)}"`), `${path}: video footer internship link must target the language home`);
   assert.equal((html.match(/youtube\.com\/watch\?v=/g) || []).length, 34, `${path}: missing video records`);
   assert.equal((html.match(/data-thumbnail-play/g) || []).length, 34, `${path}: missing playable overlays`);
   assert(!/i\.ytimg\.com|img\.youtube\.com/.test(html), `${path}: remote thumbnail request`);
