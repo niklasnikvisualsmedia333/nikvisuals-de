@@ -40,7 +40,7 @@ export const reviews: Review[] = [
     }, exactQuote: true, source: 'google', sourceUrl: googleProfile, featured: true,
   },
   {
-    id: 'joern-muellers', name: 'Jörn Müllers', projectContext: 'Videoproduktion', stars: 5,
+    id: 'joern-muellers', name: 'Jörn Müllers', roleOrCompany: 'SMS group', projectContext: 'Videoproduktion', stars: 5,
     quote: {
       de: 'Die Zusammenarbeit hat dank der strukturierten und kreativen Arbeit von NikVisuals sehr reibungslos funktioniert! Das Team hat jederzeit gute Ideen für die Umsetzung mit eingebracht und hochwertige Videoprodukte erstellt :)',
       en: 'Jörn Müllers highlights a smooth process, structured and creative work, practical ideas and high-quality video results.',
@@ -58,21 +58,21 @@ export const reviews: Review[] = [
     quote: {
       de: 'Steffen Kellermann hebt die strukturierte, entspannte Begleitung hervor. Auch ohne Erfahrung mit Videoproduktion wusste er jederzeit, was als Nächstes passiert. Das Ergebnis übertraf seine Erwartungen deutlich.',
       en: 'Steffen Kellermann highlights the structured, relaxed guidance. Even without production experience, he always knew what would happen next, and the result clearly exceeded his expectations.',
-    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=3AwzEKP8DTU', featured: true,
+    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=wFaeFX5gxeA', featured: true,
   },
   {
     id: 'kerstin-broh', name: 'Kerstin Broh', roleOrCompany: 'Tourismus & Stadtmarketing · Stadt Hilchenbach', projectContext: 'Content & Veröffentlichung', stars: 5,
     quote: {
       de: 'Kerstin Broh beschreibt die Zusammenarbeit als professionell, reibungslos und termintreu. Die abgestimmte Veröffentlichung sorgte zusätzlich für starke organische Reichweite und regionale Medienresonanz.',
       en: 'Kerstin Broh describes the work as professional, smooth and on schedule. Coordinated publishing also led to strong organic reach and regional media coverage.',
-    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=DZSGpVBBo10', featured: true,
+    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=ObgIseEQ0ME', featured: true,
   },
   {
     id: 'yvonne-strasser', name: 'Yvonne Straßer', roleOrCompany: 'Siegerland Center', projectContext: 'Videoproduktion', stars: 5,
     quote: {
       de: 'Yvonne Straßer hebt die unkomplizierte Abstimmung, die professionelle Umsetzung und das Ergebnis der gemeinsamen Videoproduktion hervor.',
       en: 'Yvonne Straßer highlights the straightforward coordination, professional production and the final video result.',
-    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=2DHytVUR2Fc', featured: true,
+    }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=oE9I8w93pvc', featured: true,
   },
   {
     id: 'dierk-stamer', name: 'Dierk Stamer', projectContext: 'Oldtimer-Treffen & Ausfahrt', stars: 5,
@@ -84,7 +84,7 @@ export const reviews: Review[] = [
   {
     id: 'erik-van-den-bril', name: 'Erik Van den Bril', roleOrCompany: 'Vesprima', projectContext: 'Video-Feedback', stars: 5,
     quote: { de: 'Absolut empfehlenswert!', en: 'Erik Van den Bril recommends the collaboration without reservation.' },
-    exactQuote: true, source: 'google', sourceUrl: googleProfile, featured: true,
+    exactQuote: true, source: 'google', sourceUrl: googleProfile, featured: false,
   },
   {
     id: 'leander-solms', name: 'Leander Solms', projectContext: 'Einblick in die Medienproduktion', stars: 5,
@@ -96,12 +96,12 @@ export const reviews: Review[] = [
   {
     id: 'thorsten-becker', name: 'Thorsten Becker', projectContext: 'G2FNH Edersee Tour 2022', stars: 5,
     quote: { de: 'Top Bilder und Videos von der #G2FNH Edersee Tour 2022, bin begeistert', en: 'Thorsten Becker was impressed by the photos and videos from the 2022 G2FNH Edersee tour.' },
-    exactQuote: true, source: 'google', sourceUrl: googleProfile, featured: true,
+    exactQuote: true, source: 'google', sourceUrl: googleProfile, featured: false,
   },
   {
     id: 'smd-1206', name: 'SMD 1206', projectContext: 'G2FNH Edersee Tour', stars: 5,
     quote: { de: 'Er hat unsere #G2FNH Ausfahrt zur Staumauer Überfahrt am Edersee videotechnisch festgehalten. Danke für die schönen Aufnahmen!', en: 'SMD 1206 thanks NikVisuals for documenting the G2FNH drive across the Edersee dam.' },
-    exactQuote: true, source: 'google', sourceUrl: googleProfile, featured: true,
+    exactQuote: true, source: 'google', sourceUrl: googleProfile, featured: false,
   },
   {
     id: 'sylvia-paul', name: 'Sylvia Paul', projectContext: 'Musikvideo „Tempo machen“', stars: 5,
