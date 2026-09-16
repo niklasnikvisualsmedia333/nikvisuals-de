@@ -1,6 +1,7 @@
 import React, { type FormEvent, useEffect, useRef, useState } from "react";
 import { content, links, type Language, type Project } from "../content/site";
 import { smsVideos } from "../content/smsVideos";
+import { internshipVideos, type InternshipVideo } from "../content/internshipVideos";
 import { Arrow } from "../components/Arrow";
 import { PlayIcon } from "../components/PlayIcon";
 import { ThemeIcon } from "../components/ThemeIcon";
@@ -121,6 +122,51 @@ function CopyEmailButton({ lang }: { lang: Language }) {
     >
       {copied ? c.copied : c.copy}
     </button>
+  );
+}
+function InternshipVideoCard({ video, lang }: { video: InternshipVideo; lang: Language }) {
+  const { playVideo } = useMediaConsent();
+  const base = import.meta.env.BASE_URL;
+  const open = (trigger: HTMLElement) => playVideo({ id: video.id, title: video.title[lang], trigger });
+  return (
+    <article className="video-card">
+      <div className="video-thumb">
+        <img src={base + "images/" + video.thumbnail} alt="" width="640" height="360" loading="lazy" decoding="async" />
+        <button className="play" type="button" aria-label={lang === "de" ? `${video.title.de} hier ansehen` : `Watch ${video.title.en}`} onClick={(event) => open(event.currentTarget)}>
+          <PlayIcon />
+        </button>
+      </div>
+      <div className="video-card-body">
+        <p className="video-category">{lang === "de" ? "Praktikum · NikVisuals" : "Internship · NikVisuals"}</p>
+        <h3>{video.title[lang]}</h3>
+        <p className="video-summary">{lang === "de" ? "Einblick aus einem Praktikum bei NikVisuals." : "An insight from an internship at NikVisuals."}</p>
+        <div className="video-actions">
+          <button className="video-open" type="button" onClick={(event) => open(event.currentTarget)}><PlayIcon />{lang === "de" ? "Hier ansehen" : "Watch here"}</button>
+          <a href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noreferrer"><SocialIcon platform="youtube" />{lang === "de" ? "Auf YouTube ansehen" : "Watch on YouTube"}<Arrow diagonal /></a>
+        </div>
+      </div>
+    </article>
+  );
+}
+function Internships({ lang }: { lang: Language }) {
+  const [open, setOpen] = useState(false);
+  const applicationSubject = lang === "de" ? "Praktikum / Initiativbewerbung bei NikVisuals" : "Internship / unsolicited application at NikVisuals";
+  return (
+    <section id="praktikum" className="internships" aria-labelledby="internships-title">
+      <div className="wrap internships-layout">
+        <div>
+          <p className="eyebrow">{lang === "de" ? "Praktikum & Mitarbeit" : "Internships & opportunities"}</p>
+          <h2 id="internships-title">{lang === "de" ? "Praktikum bei NikVisuals." : "Internships at NikVisuals."}</h2>
+        </div>
+        <div className="internships-copy">
+          <p>{lang === "de" ? "Praktika passen am besten ab etwa acht Wochen. Remote oder hybrid ist je nach Aufgabe möglich. Initiativbewerbungen sind ausdrücklich willkommen – zum Beispiel für Content- und Videoproduktion, Marketing & Research, AI-/Prozess-Themen oder Business Development." : "Internships work best from around eight weeks onwards. Remote or hybrid setups are possible depending on the role. Unsolicited applications are explicitly welcome – for example in content and video production, marketing and research, AI/process topics or business development."}</p>
+          <a className="button button-accent" href={`mailto:info@nikvisuals.de?subject=${encodeURIComponent(applicationSubject)}`}>{lang === "de" ? "Initiativ bewerben" : "Apply proactively"}<Arrow diagonal /></a>
+          <p className="internships-note">{lang === "de" ? "Kurze Vorstellung, Zeitraum und Interessensbereich reichen für den ersten Kontakt." : "A short introduction, preferred timeframe and area of interest are enough for the first contact."}</p>
+          <button className="text-link internship-toggle" type="button" aria-expanded={open} aria-controls="internship-video-gallery" onClick={() => setOpen((value) => !value)}>{open ? lang === "de" ? "Einblicke schließen" : "Hide internship experiences" : lang === "de" ? "Einblicke aus Praktika ansehen" : "See internship experiences"}<Arrow /></button>
+        </div>
+        {open && <div id="internship-video-gallery" className="internship-gallery" aria-live="polite"><div className="videos-grid">{internshipVideos.map((video) => <InternshipVideoCard key={video.id} video={video} lang={lang} />)}</div></div>}
+      </div>
+    </section>
   );
 }
 function Career({ lang }: { lang: Language }) {
@@ -1343,6 +1389,7 @@ export function Home({ lang }: { lang: Language }) {
             </div>
           </div>
         </section>
+        <Internships lang={lang} />
         <section id="kontakt" className="contact section">
           <div className="wrap contact-grid">
             <div className="contact-intro">
@@ -1391,6 +1438,7 @@ export function Home({ lang }: { lang: Language }) {
           <div className="footer-bottom">
             <span>{c.preview}</span>
             <a href={archive}>{lang === "de" ? "Videos" : "Video work"}</a>
+            <a href="#praktikum">{lang === "de" ? "Praktikum" : "Internships"}</a>
             <a href={base + "impressum/"}>{lang === "de" ? "Impressum" : "Imprint"}</a>
             <a href={base + "datenschutz/"}>{lang === "de" ? "Datenschutz" : "Privacy"}</a>
             <button className="media-settings" onClick={openSettings}>

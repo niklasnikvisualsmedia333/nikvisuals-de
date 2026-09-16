@@ -3,8 +3,8 @@ import { access, readFile, readdir } from 'node:fs/promises';
 
 const read = (path) => readFile(path, 'utf8');
 const production = process.env.SITE_MODE === 'production';
-const [videos, videoPage, home, site, links, consent, reviews, css, legal, packageJson] = await Promise.all([
-  read('src/content/videos.ts'), read('src/pages/Videos.tsx'), read('src/pages/Home.tsx'), read('src/content/site.ts'), read('src/pages/Links.tsx'), read('src/components/MediaConsent.tsx'), read('src/content/reviews.ts'), read('src/styles/global.css'), read('src/pages/Legal.tsx'), read('package.json'),
+const [videos, internshipVideos, videoPage, home, site, links, consent, reviews, css, legal, packageJson] = await Promise.all([
+  read('src/content/videos.ts'), read('src/content/internshipVideos.ts'), read('src/pages/Videos.tsx'), read('src/pages/Home.tsx'), read('src/content/site.ts'), read('src/pages/Links.tsx'), read('src/components/MediaConsent.tsx'), read('src/content/reviews.ts'), read('src/styles/global.css'), read('src/pages/Legal.tsx'), read('package.json'),
 ]);
 
 const videoIds = [...videos.matchAll(/^make\('([^']+)'/gm)].map((match) => match[1]);
@@ -16,6 +16,18 @@ assert(sections.every((section) => section.length >= 2), 'every video section ne
 assert.deepEqual([...sections.flat()].sort(), [...videoIds].sort(), 'every video must appear once');
 assert.equal((await readdir('public/images/videos')).filter((name) => name.endsWith('.webp')).length, 34, 'all local video thumbnails must exist');
 assert.equal((await readdir('dist/images/videos')).filter((name) => name.endsWith('.webp')).length, 34, 'all thumbnails must be deployed');
+const internshipIds = ['YBKWRVq8sGM', 'jGzVRJDaDu4', '01bz0IA-YV0', 'sg-ftfKm4wM', 'w0y8nuyZkHw', 'aNgkK6kAB4M', '5MXS-PU7vEg', 'slaLdlLGJfQ'];
+const internshipRecords = [...internshipVideos.matchAll(/id: '([^']+)'/g)].map((match) => match[1]);
+assert.deepEqual(internshipRecords, internshipIds, 'internship videos must preserve the supplied priority order');
+assert.equal(new Set(internshipRecords).size, 8, 'internship video IDs must be unique');
+for (const id of internshipIds) {
+  assert(!videos.includes(id), `internship video ${id} must not enter the portfolio archive`);
+  await access(`public/images/internships/${id}.webp`);
+  await access(`dist/images/internships/${id}.webp`);
+}
+assert(home.includes('id="praktikum"') && home.includes('Internships at NikVisuals.'), 'DE/EN internship section must exist');
+assert(home.includes('mailto:info@nikvisuals.de') && home.includes('Praktikum / Initiativbewerbung bei NikVisuals'), 'internship application must use the email CTA');
+assert(home.includes('aria-controls="internship-video-gallery"') && home.includes('open && <div id="internship-video-gallery"'), 'internship gallery must remain collapsed until requested');
 assert(/<button[\s\S]*data-thumbnail-play/.test(videoPage), 'thumbnail play overlay must be an accessible button');
 assert.equal((videoPage.match(/data-thumbnail-play/g) || []).length, 1, 'VideoCard must render one thumbnail overlay control');
 
@@ -90,6 +102,8 @@ for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.htm
   assert(html.includes(`lang="${lang}"`) && html.includes('mailto:info@nikvisuals.de') && html.includes('data-ambient-media'), `${path}: homepage output incomplete`);
   assert.equal((html.match(/data-selected-project/g) || []).length, 4, `${path}: exactly four selected projects`);
   assert(!html.includes('<iframe'), `${path}: no initial iframe`);
+  assert(html.includes('id="praktikum"') && html.includes('mailto:info@nikvisuals.de'), `${path}: internship section missing`);
+  for (const id of internshipIds) assert(!html.includes(id), `${path}: collapsed internship gallery must not prerender video cards`);
 }
 for (const path of ['dist/impressum/index.html', 'dist/datenschutz/index.html']) {
   const html = await read(path);
