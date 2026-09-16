@@ -162,6 +162,8 @@ const collaborations = [
   {
     name: "LapStore",
     logo: "lapstore-logo-tight.webp",
+    width: 660,
+    height: 228,
     href: "https://www.lapstore.de/",
     scale: 1.06,
     surface: "light",
@@ -169,6 +171,8 @@ const collaborations = [
   {
     name: "SMS group",
     logo: "sms-group-logo.png",
+    width: 1598,
+    height: 221,
     href: "https://www.sms-group.com/",
     scale: 1.04,
     surface: "light",
@@ -176,6 +180,8 @@ const collaborations = [
   {
     name: "Stadt Hilchenbach",
     logo: "hilchenbach-logo.png",
+    width: 1000,
+    height: 828,
     href: "https://hilchenbach.de/",
     scale: 1.38,
     surface: "light",
@@ -183,6 +189,8 @@ const collaborations = [
   {
     name: "IHK Siegen",
     logo: "ihk-siegen-logo.png",
+    width: 794,
+    height: 236,
     href: "https://www.ihk-siegen.de/",
     scale: 1.08,
     surface: "light",
@@ -190,6 +198,8 @@ const collaborations = [
   {
     name: "Startpunkt57",
     logo: "startpunkt57-logo.svg",
+    width: 437,
+    height: 78,
     href: "https://www.startpunkt57.de/",
     scale: 1.24,
     surface: "light",
@@ -197,6 +207,8 @@ const collaborations = [
   {
     name: "Entrepreneurship Center Universität Siegen",
     logo: "entrepreneurship-center-logo.png",
+    width: 1827,
+    height: 436,
     href: "https://www.uni-siegen.de/ec",
     scale: 1.08,
     surface: "dark",
@@ -204,6 +216,8 @@ const collaborations = [
   {
     name: "Siegerland Center",
     logo: "siegerland-center-logo.svg",
+    width: 498,
+    height: 470,
     href: "https://siegerlandcenter.de/",
     scale: 1.22,
     surface: "light",
@@ -211,6 +225,8 @@ const collaborations = [
   {
     name: "Reifen Thomas",
     logo: "reifen-thomas-logo.png",
+    width: 567,
+    height: 307,
     href: "https://www.reifenthomas.de/",
     scale: 1.08,
     surface: "dark",
@@ -218,6 +234,8 @@ const collaborations = [
   {
     name: "Vorländer Sanitär · Heizung · Solar",
     logo: "vorlaender-logo.svg",
+    width: 2500,
+    height: 648,
     href: "https://www.baeder-heizung.com/",
     scale: 1.12,
     surface: "light",
@@ -245,16 +263,15 @@ function useSeamlessCarousel(
       m = main.current;
     if (!v || !m) return;
     let frame = 0,
-      last = performance.now(),
       initialized = false,
+      active = false,
       position = 0,
+      last = performance.now(),
+      lastWidth = 0,
       autoUntil = 0;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    let visible = false;
     const recenter = () => {
-      const start = m.offsetLeft,
-        width = m.offsetWidth,
-        left = v.scrollLeft;
+      const start = m.offsetLeft, width = m.offsetWidth, left = v.scrollLeft;
       if (!width) return null;
       if (left < start) {
         v.scrollLeft = left + width;
@@ -266,29 +283,19 @@ function useSeamlessCarousel(
       }
       return null;
     };
-    let lastWidth = 0;
     const syncToCanonical = () => {
-      if (!m.offsetWidth) return;
-      if (!initialized || Math.abs(lastWidth - m.offsetWidth) > 1) {
-        position = m.offsetLeft;
+      const width = m.offsetWidth, start = m.offsetLeft;
+      if (!width) return;
+      if (!initialized || Math.abs(lastWidth - width) > 1) {
+        position = start;
         v.scrollLeft = position;
         position = v.scrollLeft;
-        lastWidth = m.offsetWidth;
+        lastWidth = width;
         initialized = true;
+      } else {
+        position = v.scrollLeft;
       }
     };
-    const init = requestAnimationFrame(syncToCanonical);
-    const resizeObserver = new ResizeObserver(syncToCanonical);
-    resizeObserver.observe(v);
-    resizeObserver.observe(m);
-    const visibilityObserver = new IntersectionObserver(
-      ([entry]) => {
-        visible = entry.isIntersecting;
-        if (visible && !document.hidden && !frame) frame = requestAnimationFrame(tick);
-      },
-      { rootMargin: "80px 0px" },
-    );
-    visibilityObserver.observe(v);
     const onScroll = () => {
       if (initialized && performance.now() >= autoUntil) {
         position = recenter() ?? v.scrollLeft;
@@ -319,23 +326,13 @@ function useSeamlessCarousel(
         pause(1000);
       }
     };
-    v.addEventListener("scroll", onScroll, { passive: true });
-    for (const event of ["pointerdown", "touchstart"])
-      v.addEventListener(event, onStart, { passive: true });
-    v.addEventListener("wheel", onWheel, { passive: true });
-    for (const event of ["pointerup", "touchend", "pointercancel"])
-      v.addEventListener(event, onEnd, { passive: true });
-    v.addEventListener("mouseenter", onEnter);
-    v.addEventListener("mouseleave", onLeave);
-    v.addEventListener("focusin", onFocusIn);
-    v.addEventListener("focusout", onFocusOut);
     const tick = (now: number) => {
+      frame = 0;
+      if (!active || document.hidden) return;
       const elapsed = Math.min(32, now - last);
       last = now;
       if (
         initialized &&
-        visible &&
-        !document.hidden &&
         !reduced.matches &&
         !externalPause.current &&
         !hovered.current &&
@@ -349,28 +346,56 @@ function useSeamlessCarousel(
         const wrapped = recenter();
         if (wrapped !== null) position = wrapped;
       }
-      frame = visible && !document.hidden ? requestAnimationFrame(tick) : 0;
+      if (active && !document.hidden) frame = requestAnimationFrame(tick);
     };
+    let resizeObserver: ResizeObserver | undefined;
+    const attach = () => {
+      v.addEventListener("scroll", onScroll, { passive: true });
+      for (const event of ["pointerdown", "touchstart"]) v.addEventListener(event, onStart, { passive: true });
+      v.addEventListener("wheel", onWheel, { passive: true });
+      for (const event of ["pointerup", "touchend", "pointercancel"]) v.addEventListener(event, onEnd, { passive: true });
+      v.addEventListener("mouseenter", onEnter); v.addEventListener("mouseleave", onLeave);
+      v.addEventListener("focusin", onFocusIn); v.addEventListener("focusout", onFocusOut);
+    };
+    const detach = () => {
+      v.removeEventListener("scroll", onScroll);
+      for (const event of ["pointerdown", "touchstart"]) v.removeEventListener(event, onStart);
+      v.removeEventListener("wheel", onWheel);
+      for (const event of ["pointerup", "touchend", "pointercancel"]) v.removeEventListener(event, onEnd);
+      v.removeEventListener("mouseenter", onEnter); v.removeEventListener("mouseleave", onLeave);
+      v.removeEventListener("focusin", onFocusIn); v.removeEventListener("focusout", onFocusOut);
+    };
+    const activate = () => {
+      if (active) return;
+      active = true;
+      requestAnimationFrame(() => {
+        if (!active) return;
+        syncToCanonical();
+        resizeObserver = new ResizeObserver(syncToCanonical);
+        resizeObserver.observe(v); resizeObserver.observe(m);
+        attach();
+        last = performance.now();
+        if (!document.hidden && !frame) frame = requestAnimationFrame(tick);
+      });
+    };
+    const deactivate = () => {
+      active = false;
+      cancelAnimationFrame(frame); frame = 0;
+      resizeObserver?.disconnect(); resizeObserver = undefined;
+      detach();
+    };
+    const viewportObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) activate(); else deactivate();
+    }, { rootMargin: "250px 0px" });
+    viewportObserver.observe(v);
     const onVisibilityChange = () => {
-      if (!document.hidden && visible && !frame) frame = requestAnimationFrame(tick);
+      if (!document.hidden && active && !frame) { last = performance.now(); frame = requestAnimationFrame(tick); }
     };
     document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
-      cancelAnimationFrame(init);
-      cancelAnimationFrame(frame);
-      resizeObserver.disconnect();
-      visibilityObserver.disconnect();
+      deactivate();
+      viewportObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibilityChange);
-      v.removeEventListener("scroll", onScroll);
-      for (const event of ["pointerdown", "touchstart"])
-        v.removeEventListener(event, onStart);
-      v.removeEventListener("wheel", onWheel);
-      for (const event of ["pointerup", "touchend", "pointercancel"])
-        v.removeEventListener(event, onEnd);
-      v.removeEventListener("mouseenter", onEnter);
-      v.removeEventListener("mouseleave", onLeave);
-      v.removeEventListener("focusin", onFocusIn);
-      v.removeEventListener("focusout", onFocusOut);
     };
   }, [speed]);
   return { pause };
@@ -392,6 +417,8 @@ function CollaborationStrip({ lang }: { lang: Language }) {
           <img
             src={import.meta.env.BASE_URL + "images/" + x.logo}
             alt={clone ? "" : x.name}
+            width={x.width}
+            height={x.height}
             loading="lazy"
             decoding="async"
             style={{ "--logo-scale": x.scale } as React.CSSProperties}
@@ -539,6 +566,8 @@ function SmsCase({ lang }: { lang: Language }) {
             className="project-logo"
             src={import.meta.env.BASE_URL + "images/sms-group-logo.png"}
             alt=""
+            width="1598"
+            height="221"
           />
         </span>
       </div>
@@ -564,6 +593,10 @@ function SmsCase({ lang }: { lang: Language }) {
               <img
                 src={import.meta.env.BASE_URL + "images/" + v.thumbnail}
                 alt=""
+                width="640"
+                height="360"
+                loading="lazy"
+                decoding="async"
               />
               <div>
                 <strong>{v.displayTitle[lang]}</strong>

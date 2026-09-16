@@ -72,6 +72,10 @@ for (const id of ['wFaeFX5gxeA', 'ObgIseEQ0ME', 'oE9I8w93pvc']) assert(reviews.i
 assert(home.includes('review.exactQuote && lang === "de"') && home.includes('review-more'), 'reviews need exact quote handling and inline expansion');
 assert(/5,0 \/ 5/.test(site) && /49 Google-Bewertungen/.test(site), 'Google aggregate must remain 5.0 / 49');
 assert(home.includes('data-seamless-carousel="logos"') && home.includes('data-seamless-carousel="reviews"'), 'both proof rows need carousel hooks');
+assert(home.includes('{ rootMargin: "250px 0px" }') && home.includes('const activate = () =>'), 'proof carousels must defer geometry work until near the viewport');
+assert(/logo: "lapstore-logo-tight\.webp",\s*width: 660,\s*height: 228/.test(home), 'collaboration logos must reserve their intrinsic dimensions');
+assert(home.includes('width={x.width}') && home.includes('height={x.height}'), 'collaboration images must expose intrinsic dimensions');
+assert(home.includes('width="640"') && home.includes('height="360"'), 'expanded SMS thumbnails must reserve their aspect ratio');
 
 assert(consent.includes('youtube-nocookie.com/embed/') && consent.includes('setActive(null)'), 'YouTube must stay consent-gated and revocable');
 assert(legal.includes('GitHub Pages') && legal.includes('nikvisuals-theme') && legal.includes('nikvisuals-media-consent-v1'), 'privacy must document hosting and local settings');
