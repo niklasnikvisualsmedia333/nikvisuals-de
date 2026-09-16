@@ -12,13 +12,13 @@ const project=(title:string,organization:string,text:string,image:string,alt:str
 const deBusiness:Project[]=[
   project('Corporate Media','SMS group','SMS group ist ein internationaler Maschinen- und Anlagenbauer für die Metallindustrie. Für das Unternehmen entstanden wiederholt Corporate-, Industrie- und Eventproduktionen mit komplexer Abstimmung.','sms-group-event.webp','Bühne bei einer SMS-group-Veranstaltung.',videoUrl('8Nb_wHCHVk8'),'video','sms-group-logo.png'),
   project('Workshops','IHK Siegen','Praxisnahe Workshops zu digitaler Kommunikation, Social Media, Short-Form-Video und Content.','ihk-workshop-presenting.webp','Niklas Brüne bei einem IHK-Siegen-Workshop.',undefined,undefined,undefined,'center 30%','center 26%','1.12','1.08'),
-  project('Content & Business Development','LapStore','Langjährige Produkt-Content-Arbeit. Später kamen Wettbewerbsanalyse, B2B-Strategie und Business-Development-Themen hinzu.','lapstore.jpg','Vorschau eines LapStore Videos.',videoUrl('hWaSx8RWAg8'),'video','lapstore-logo-web.png'),
+  project('Content & Business Development','LapStore','Langjährige Produkt-Content-Arbeit. Später kamen Wettbewerbsanalyse, B2B-Strategie und Business-Development-Themen hinzu.','lapstore.jpg','Vorschau eines LapStore Videos.',videoUrl('hWaSx8RWAg8'),'video','lapstore-logo-web.webp'),
   project('Community-Format','Tech Meets Problems','Ein 2026 mitentwickeltes Community-Format in Siegen. Ich unterstütze Strategie, Organisation, Marketing und Kommunikation.','tmp-tech-talk.webp','Tech Meets Problems Veranstaltung.',links.tmp,'website')
 ];
 const enBusiness:Project[]=[
   project('Corporate media','SMS group','SMS group is an international plant and mechanical engineering company for the metals industry. I have repeatedly produced corporate, industrial and event media for the company, involving complex coordination.','sms-group-event.webp','Stage at an SMS group event.',videoUrl('8Nb_wHCHVk8'),'video','sms-group-logo.png'),
   project('Workshops','IHK Siegen','Practical workshops on digital communication, social media, short-form video and content.','ihk-workshop-presenting.webp','Niklas Brüne leading an IHK Siegen workshop.',undefined,undefined,undefined,'center 30%','center 26%','1.12','1.08'),
-  project('Content & Business Development','LapStore','Long-term product-content work, later joined by competitor analysis, B2B strategy and business-development topics.','lapstore.jpg','Preview of a LapStore video.',videoUrl('hWaSx8RWAg8'),'video','lapstore-logo-web.png'),
+  project('Content & Business Development','LapStore','Long-term product-content work, later joined by competitor analysis, B2B strategy and business-development topics.','lapstore.jpg','Preview of a LapStore video.',videoUrl('hWaSx8RWAg8'),'video','lapstore-logo-web.webp'),
   project('Community format','Tech Meets Problems','A community format co-developed in Siegen in 2026. I support strategy, organisation, marketing and communication.','tmp-tech-talk.webp','Tech Meets Problems event.',links.tmp,'website')
 ];
 const deMedia:Project[]=[];
