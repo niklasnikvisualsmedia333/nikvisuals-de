@@ -10,6 +10,7 @@
 - The video archive is grouped into seven anchor-linked sections with B2B & Corporate first. A local consent choice is required before an in-site YouTube player is created; direct YouTube links remain available without it.
 - The review strip uses eight supported summaries only and reserves space for its cards on mobile. Collaboration and review strips use native scrolling, visible controls and reduced-motion support.
 - Dark-by-default theme with saved light choice, local email-preparing form and preview safety.
+- Native `/impressum/` and `/datenschutz/` routes, plus a production-only root-path build that generates route-specific robots, canonical/hreflang, Open Graph/Twitter metadata, structured data, sitemap and `llms.txt`. The normal Pages build remains noindex.
 
 ## Temporary/placeholders
 
@@ -23,4 +24,4 @@ None for this preview.
 
 1. Reverify the Google rating and review count before production launch.
 2. Recheck external YouTube titles and availability periodically.
-3. Complete production-domain, metadata and legal work only with explicit launch authorization.
+3. Choose production hosting and complete domain migration only with explicit launch authorization.

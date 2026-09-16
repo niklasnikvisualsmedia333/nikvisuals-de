@@ -110,15 +110,42 @@ for (const asset of ['media-loop-desktop.mp4', 'media-loop-mobile.mp4', 'media-l
 for (const asset of ['ihk-workshop-2026-presenting-card.webp', 'ihk-workshop-2026-presenting-screen.webp', 'ihk-workshop-2026-presenting-portrait.webp', 'ihk-workshop-2026-participant-support.webp', 'niklas-bschool-workshop-facilitation.webp', 'niklas-speaking-entrepreneurship-talk-screenshot.webp', 'production-bts-konekt-event-rig.webp', 'production-bts-konekt-event-wide.webp', 'production-bts-vorlaender-team.webp', 'production-bts-konekt-camera-operator.webp', 'production-bts-salon-gimbal.webp', 'production-bts-lemonaid-tabletop.webp']) await access(`dist/images/${asset}`);
 const robots = await read('dist/robots.txt');
 if (production) {
-  assert(robots.includes('User-agent: OAI-SearchBot') && robots.includes('Allow: /') && robots.includes('Sitemap:'), 'production robots must allow public crawling');
-  const homeHtml = await read('dist/index.html');
-  assert(homeHtml.includes('index,follow') && homeHtml.includes('https://www.nikvisuals.de/') && homeHtml.includes('hreflang="en"'), 'production metadata must be crawlable');
-  assert((await read('dist/sitemap.xml')).includes('https://www.nikvisuals.de/videos/'), 'production sitemap must exist');
-  assert((await read('dist/llms.txt')).includes('NikVisuals'), 'production llms.txt must exist');
+  assert(packageJson.includes('SITE_MODE=production VITE_BASE_PATH=/'), 'production build must explicitly use the root base path');
+  for (const crawler of ['OAI-SearchBot', 'GPTBot', 'Googlebot', 'Google-Extended', 'PerplexityBot', 'User-agent: *']) assert(robots.includes(crawler) && robots.includes('Allow: /'), `production robots must allow ${crawler}`);
+  assert(robots.includes('Sitemap: https://www.nikvisuals.de/sitemap.xml'), 'production robots must reference the canonical sitemap');
+  const indexable = [
+    ['dist/index.html', 'https://www.nikvisuals.de/', 'de_DE', 'https://www.nikvisuals.de/en/'],
+    ['dist/en/index.html', 'https://www.nikvisuals.de/en/', 'en_US', 'https://www.nikvisuals.de/'],
+    ['dist/videos/index.html', 'https://www.nikvisuals.de/videos/', 'de_DE', 'https://www.nikvisuals.de/en/videos/'],
+    ['dist/en/videos/index.html', 'https://www.nikvisuals.de/en/videos/', 'en_US', 'https://www.nikvisuals.de/videos/'],
+  ];
+  for (const [path, url, locale, alternate] of indexable) {
+    const html = await read(path);
+    assert(html.includes('index,follow') && html.includes(`<link rel="canonical" href="${url}" />`), `${path}: production canonical/indexing missing`);
+    assert(html.includes(`hreflang="${locale === 'de_DE' ? 'de' : 'en'}"`) && html.includes(`href="${alternate}"`) && html.includes('hreflang="x-default"'), `${path}: hreflang pair missing`);
+    for (const required of ['og:title', 'og:description', 'og:type', 'og:url', 'og:site_name', 'og:locale', 'og:image', 'og:image:width', 'og:image:height', 'og:image:alt', 'twitter:card', 'twitter:title', 'twitter:description', 'twitter:image', 'twitter:image:alt']) assert(html.includes(required), `${path}: social metadata missing ${required}`);
+    assert(html.includes('https://www.nikvisuals.de/images/nikvisuals-social-preview.jpg') && !html.includes('/nikvisuals-de/'), `${path}: production base path must be root`);
+  }
+  for (const path of ['dist/links/index.html', 'dist/en/links/index.html', 'dist/impressum/index.html', 'dist/datenschutz/index.html']) {
+    const html = await read(path);
+    assert(html.includes('noindex,follow') && !html.includes('hreflang='), `${path}: utility route must be noindex without hreflang`);
+    assert(!html.includes('/nikvisuals-de/'), `${path}: production base path must be root`);
+  }
+  const sitemap = await read('dist/sitemap.xml');
+  assert.deepEqual([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]), ['https://www.nikvisuals.de/', 'https://www.nikvisuals.de/en/', 'https://www.nikvisuals.de/videos/', 'https://www.nikvisuals.de/en/videos/'], 'production sitemap must include exactly the four indexable URLs');
+  assert((await read('dist/llms.txt')).includes('NikVisuals') && (await read('dist/llms.txt')).includes('mailto:info@nikvisuals.de'), 'production llms.txt must be factual');
+  const schema = (await read('dist/index.html')).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
+  assert(schema, 'production homepage needs structured data');
+  const graph = JSON.parse(schema)['@graph'];
+  assert.equal(graph.length, 2, 'structured data must contain one concise Person/WebSite graph');
+  assert(graph.some((item) => item['@type'] === 'Person') && graph.some((item) => item['@type'] === 'WebSite'), 'structured data types must remain factual');
+  await access('dist/images/nikvisuals-social-preview.jpg');
 } else {
   assert(robots.includes('Disallow: /'), 'preview robots protection must remain');
-  const homeHtml = await read('dist/index.html');
-  assert(homeHtml.includes('noindex,nofollow'), 'preview must remain noindex');
+  for (const path of ['dist/index.html', 'dist/en/index.html', 'dist/videos/index.html', 'dist/en/videos/index.html', 'dist/links/index.html', 'dist/en/links/index.html', 'dist/impressum/index.html', 'dist/datenschutz/index.html']) {
+    const html = await read(path);
+    assert(html.includes('noindex,nofollow,noarchive') && !html.includes('<link rel="canonical"'), `${path}: preview must remain noindex without a production canonical`);
+  }
   await assert.rejects(access('dist/sitemap.xml'), 'preview must not generate sitemap');
   await assert.rejects(access('dist/llms.txt'), 'preview must not generate llms.txt');
 }

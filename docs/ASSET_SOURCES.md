@@ -5,6 +5,7 @@ Only approved local copies are committed. The owner supplied the Master Media Po
 | Local file | Source | Intended use and guardrail |
 | --- | --- | --- |
 | `public/images/niklas-speaking-desk-office.webp` and `niklas-speaking-desk-office-{960,1440}.webp` | Owner-supplied Master Media Pool, Bundle 01 Founder & Personal | Default Hero only; responsive WebP derivatives retain the original framing and make no client or service claim. |
+| `public/images/nikvisuals-social-preview.jpg` | 1200×630 derivative of the owner-supplied `niklas-speaking-desk-office.webp` | Production Open Graph and Twitter preview only; retains the founder visual without making a client or service claim. |
 | `public/images/niklas-working-desk-office.webp`, `niklas-working-desk-office-{480,768}.webp`, `niklas-startpunkt57-seated-portrait.webp` | Owner-supplied Master Media Pool, Bundle 01 Founder & Personal | Mobile Hero variants only; derivatives retain the original framing. |
 | `public/images/niklas-current-profile.webp` and `niklas-current-profile-{480,800}.webp` | [Google Drive profile portrait](https://drive.google.com/file/d/1L-t8oZZclESu9WgplwYMYs017_yZVNkR/view) | About and `/links/`; responsive derivatives are personal-introduction imagery only. |
 | `public/images/media-loop-*` and posters | Owner-supplied Master Media Pool, Bundle 03 | Silent Media & Production panel; it remains off under reduced motion or Save-Data. |
