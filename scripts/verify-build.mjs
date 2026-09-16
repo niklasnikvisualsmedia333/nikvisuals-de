@@ -22,6 +22,14 @@ assert.equal((videoPage.match(/data-thumbnail-play/g) || []).length, 1, 'VideoCa
 assert(/<a href=\{base\}>DE<\/a>[\s\S]*?<span>\/<\/span>[\s\S]*?<a href=\{base \+ "en\/"\}>EN<\/a>/.test(home), 'language switch must remain DE / EN');
 assert(css.includes('.languages>span{display:inline-flex;align-items:center;justify-content:center;height:42px'), 'language slash must use flex centering');
 assert(home.includes('data-ambient-media') && home.includes('href={archive}'), 'homepage media panel and video archive link must exist');
+assert(home.includes('fetchPriority="high"') && /className="hero-image"[\s\S]*?width="1440"[\s\S]*?height="960"/.test(home), 'hero must reserve space and receive high fetch priority');
+assert(!home.includes('../content/videos') && home.includes('../content/smsVideos'), 'homepage must not import the full video archive');
+assert(home.includes('preload="none"') && home.includes('{ rootMargin: "0px" }'), 'ambient media must remain delayed and use no eager video preload');
+assert(!/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(css), 'local font delivery must not add Google Fonts');
+for (const asset of ['niklas-working-desk-office-480.webp', 'niklas-working-desk-office-768.webp', 'niklas-speaking-desk-office-960.webp', 'niklas-speaking-desk-office-1440.webp', 'sms-group-event-480.webp', 'sms-group-event-800.webp', 'lapstore-480.webp', 'lapstore-800.webp', 'tmp-tech-talk-480.webp', 'tmp-tech-talk-800.webp', 'niklas-current-profile-480.webp', 'niklas-current-profile-800.webp', 'ihk-workshop-2026-presenting-card-480.webp', 'ihk-workshop-2026-presenting-card-800.webp']) {
+  await access(`public/images/${asset}`);
+  await access(`dist/images/${asset}`);
+}
 const btsComponent = home.match(/function BehindTheScenes[\s\S]*?function AmbientMedia/)?.[0] || '';
 for (const asset of ['production-bts-konekt-event-rig.webp', 'production-bts-konekt-event-wide.webp', 'production-bts-vorlaender-team.webp', 'production-bts-konekt-camera-operator.webp', 'production-bts-salon-gimbal.webp', 'production-bts-lemonaid-tabletop.webp']) {
   assert(btsComponent.includes(asset), `behind-the-scenes must reference ${asset}`);

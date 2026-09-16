@@ -1,6 +1,6 @@
 import React, { type FormEvent, useEffect, useRef, useState } from "react";
 import { content, links, type Language, type Project } from "../content/site";
-import { videos } from "../content/videos";
+import { smsVideos } from "../content/smsVideos";
 import { Arrow } from "../components/Arrow";
 import { PlayIcon } from "../components/PlayIcon";
 import { ThemeIcon } from "../components/ThemeIcon";
@@ -8,6 +8,10 @@ import { SocialIcon } from "../components/SocialIcon";
 import { useMediaConsent } from "../components/MediaConsent";
 import { featuredReviews, type Review } from "../content/reviews";
 const ids = ["leistungen", "arbeiten", "bewertungen", "ueber-mich"];
+const responsiveImages: Record<string, { width: number; height: number; srcSet: string }> = {
+  "lapstore.jpg": { width: 1280, height: 720, srcSet: "lapstore-480.webp 480w, lapstore-800.webp 800w" },
+  "tmp-tech-talk.webp": { width: 2048, height: 1365, srcSet: "tmp-tech-talk-480.webp 480w, tmp-tech-talk-800.webp 800w" },
+};
 function ThemeToggle({ lang }: { lang: Language }) {
   const c = content[lang],
     [theme, setTheme] = useState<"light" | "dark">("dark");
@@ -246,6 +250,7 @@ function useSeamlessCarousel(
       position = 0,
       autoUntil = 0;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = false;
     const recenter = () => {
       const start = m.offsetLeft,
         width = m.offsetWidth,
@@ -276,6 +281,14 @@ function useSeamlessCarousel(
     const resizeObserver = new ResizeObserver(syncToCanonical);
     resizeObserver.observe(v);
     resizeObserver.observe(m);
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible && !document.hidden && !frame) frame = requestAnimationFrame(tick);
+      },
+      { rootMargin: "80px 0px" },
+    );
+    visibilityObserver.observe(v);
     const onScroll = () => {
       if (initialized && performance.now() >= autoUntil) {
         position = recenter() ?? v.scrollLeft;
@@ -319,8 +332,6 @@ function useSeamlessCarousel(
     const tick = (now: number) => {
       const elapsed = Math.min(32, now - last);
       last = now;
-      const rect = v.getBoundingClientRect(),
-        visible = rect.bottom > 0 && rect.top < innerHeight;
       if (
         initialized &&
         visible &&
@@ -338,12 +349,18 @@ function useSeamlessCarousel(
         const wrapped = recenter();
         if (wrapped !== null) position = wrapped;
       }
-      frame = requestAnimationFrame(tick);
+      frame = visible && !document.hidden ? requestAnimationFrame(tick) : 0;
     };
-    frame = requestAnimationFrame(tick);
+    const onVisibilityChange = () => {
+      if (!document.hidden && visible && !frame) frame = requestAnimationFrame(tick);
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
       cancelAnimationFrame(init);
+      cancelAnimationFrame(frame);
       resizeObserver.disconnect();
+      visibilityObserver.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       v.removeEventListener("scroll", onScroll);
       for (const event of ["pointerdown", "touchstart"])
         v.removeEventListener(event, onStart);
@@ -443,6 +460,7 @@ function CollaborationStrip({ lang }: { lang: Language }) {
   );
 }
 function ProjectCard({ project, c }: { project: Project; c: any }) {
+  const image = responsiveImages[project.image];
   const style = {
     "--image-position": project.imagePosition,
     "--mobile-image-position": project.mobileImagePosition,
@@ -454,9 +472,11 @@ function ProjectCard({ project, c }: { project: Project; c: any }) {
       <div className="project-media">
         <img
           src={import.meta.env.BASE_URL + "images/" + project.image}
+          srcSet={image ? image.srcSet.split(", ").map((source) => `${import.meta.env.BASE_URL}images/${source}`).join(", ") : undefined}
+          sizes={image ? "(max-width: 560px) calc(100vw - 40px), (max-width: 900px) calc(100vw - 48px), 50vw" : undefined}
           alt={project.alt}
-          width="1280"
-          height="800"
+          width={image?.width || 1280}
+          height={image?.height || 800}
           loading="lazy"
           decoding="async"
           style={style}
@@ -501,14 +521,14 @@ function ProjectCard({ project, c }: { project: Project; c: any }) {
 function SmsCase({ lang }: { lang: Language }) {
   const [open, setOpen] = useState(false),
     { playVideo } = useMediaConsent(),
-    items = ["8Nb_wHCHVk8", "WR4BBw6HSGc", "WwuJh_wi3dE"].map(
-      (id) => videos.find((v) => v.id === id)!,
-    );
+    items = smsVideos;
   return (
     <article className="project-card sms-card" data-selected-project>
       <div className="project-media">
         <img
           src={import.meta.env.BASE_URL + "images/sms-group-event.webp"}
+          srcSet={`${import.meta.env.BASE_URL}images/sms-group-event-480.webp 480w, ${import.meta.env.BASE_URL}images/sms-group-event-800.webp 800w`}
+          sizes="(max-width: 560px) calc(100vw - 40px), (max-width: 900px) calc(100vw - 48px), 50vw"
           alt="SMS group event"
           width="1280"
           height="800"
@@ -613,6 +633,8 @@ function WorkshopCase({ lang }: { lang: Language }) {
       <div className="project-media">
         <img
           src={base + "images/ihk-workshop-2026-presenting-card.webp"}
+          srcSet={`${base}images/ihk-workshop-2026-presenting-card-480.webp 480w, ${base}images/ihk-workshop-2026-presenting-card-800.webp 800w`}
+          sizes="(max-width: 560px) calc(100vw - 40px), (max-width: 900px) calc(100vw - 48px), 50vw"
           alt={
             lang === "de"
               ? "Niklas Brüne bei einem Workshop der IHK Siegen."
@@ -690,23 +712,35 @@ function BehindTheScenes({ lang }: { lang: Language }) {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const node = viewport.current;
     if (!node) return;
-    const timer = window.setInterval(() => {
-      if (paused || document.hidden || performance.now() < pauseUntil.current) return;
-      const slides = Array.from(node.querySelectorAll<HTMLElement>("figure"));
-      if (slides.length < 2) return;
-      const step = slides[1].offsetLeft - slides[0].offsetLeft;
-      const current = Math.round(node.scrollLeft / step);
-      if (current >= items.length - 1) {
-        node.scrollTo({ left: slides[items.length].offsetLeft, behavior: "smooth" });
-        resetTimer.current = window.setTimeout(() => {
-          node.scrollTo({ left: slides[0].offsetLeft, behavior: "auto" });
-        }, 680);
-      } else {
-        node.scrollTo({ left: slides[current + 1].offsetLeft, behavior: "smooth" });
+    let timeout: number | undefined;
+    let visible = false;
+    const schedule = () => {
+      if (timeout) window.clearTimeout(timeout);
+      if (!visible || paused || document.hidden || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (performance.now() < pauseUntil.current) {
+        timeout = window.setTimeout(schedule, pauseUntil.current - performance.now() + 20);
+        return;
       }
-    }, 4800);
+      timeout = window.setTimeout(() => {
+        const slides = Array.from(node.querySelectorAll<HTMLElement>("figure"));
+        if (slides.length < 2) return;
+        const step = slides[1].offsetLeft - slides[0].offsetLeft;
+        const current = Math.round(node.scrollLeft / step);
+        if (current >= items.length - 1) {
+          node.scrollTo({ left: slides[items.length].offsetLeft, behavior: "smooth" });
+          resetTimer.current = window.setTimeout(() => node.scrollTo({ left: slides[0].offsetLeft, behavior: "auto" }), 680);
+        } else node.scrollTo({ left: slides[current + 1].offsetLeft, behavior: "smooth" });
+        schedule();
+      }, 4800);
+    };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; schedule(); }, { rootMargin: "0px" });
+    observer.observe(node);
+    const onVisibilityChange = () => schedule();
+    document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
-      window.clearInterval(timer);
+      if (timeout) window.clearTimeout(timeout);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       if (resetTimer.current) window.clearTimeout(resetTimer.current);
     };
   }, [paused]);
@@ -730,7 +764,7 @@ function AmbientMedia({ lang }: { lang: Language }) {
           o.disconnect();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: "0px" },
     );
     o.observe(n);
     return () => o.disconnect();
@@ -1139,16 +1173,24 @@ export function Home({ lang }: { lang: Language }) {
           <picture>
             <source
               media="(max-width: 560px)"
-              srcSet={base + "images/niklas-working-desk-office.webp"}
+              srcSet={`${base}images/niklas-working-desk-office-480.webp 480w, ${base}images/niklas-working-desk-office-768.webp 768w`}
+              sizes="100vw"
             />
             <img
               className="hero-image"
-              src={base + "images/niklas-speaking-desk-office.webp"}
+              src={base + "images/niklas-speaking-desk-office-1440.webp"}
+              srcSet={`${base}images/niklas-speaking-desk-office-960.webp 960w, ${base}images/niklas-speaking-desk-office-1440.webp 1440w`}
+              sizes="(max-width: 767px) 100vw, 72vw"
               alt={
                 lang === "de"
                   ? "Niklas Brüne bei der Arbeit am Schreibtisch."
                   : "Niklas Brüne working at a desk."
               }
+              width="1440"
+              height="960"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
             />
           </picture>
           <div className="hero-shade" />
@@ -1245,7 +1287,13 @@ export function Home({ lang }: { lang: Language }) {
             <figure className="about-media">
               <img
                 src={base + "images/niklas-current-profile.webp"}
+                srcSet={`${base}images/niklas-current-profile-480.webp 480w, ${base}images/niklas-current-profile-800.webp 800w`}
+                sizes="(max-width: 900px) 280px, 420px"
                 alt={c.aboutAlt}
+                width="1800"
+                height="1800"
+                loading="lazy"
+                decoding="async"
               />
               <figcaption>{c.aboutCaption}</figcaption>
             </figure>
