@@ -677,6 +677,7 @@ function BehindTheScenes({ lang }: { lang: Language }) {
   const items = [
     { image: "production-bts-konekt-event-rig.webp", de: "Eventproduktion mit Kamera-Rig", en: "Event production with camera rig" },
     { image: "production-bts-konekt-event-wide.webp", de: "Kameraarbeit in größerer Eventproduktion", en: "Camera work on a larger event production" },
+    { image: "production-bts-vorlaender-team.webp", de: "Kameraarbeit mit dem Vorländer-Team", en: "Camera work with the Vorländer team" },
     { image: "production-bts-konekt-camera-operator.webp", de: "Kameraoperator bei einer Eventproduktion", en: "Camera operator on an event production" },
     { image: "production-bts-salon-gimbal.webp", de: "Gimbal-Setup bei einer Kundenproduktion", en: "Gimbal setup on a client production" },
     { image: "production-bts-lemonaid-tabletop.webp", de: "Tabletop- und Produktproduktion", en: "Tabletop and product production" },

@@ -23,7 +23,7 @@ assert(/<a href=\{base\}>DE<\/a>[\s\S]*?<span>\/<\/span>[\s\S]*?<a href=\{base \
 assert(css.includes('.languages>span{display:inline-flex;align-items:center;justify-content:center;height:42px'), 'language slash must use flex centering');
 assert(home.includes('data-ambient-media') && home.includes('href={archive}'), 'homepage media panel and video archive link must exist');
 const btsComponent = home.match(/function BehindTheScenes[\s\S]*?function AmbientMedia/)?.[0] || '';
-for (const asset of ['production-bts-konekt-event-rig.webp', 'production-bts-konekt-event-wide.webp', 'production-bts-konekt-camera-operator.webp', 'production-bts-salon-gimbal.webp', 'production-bts-lemonaid-tabletop.webp']) {
+for (const asset of ['production-bts-konekt-event-rig.webp', 'production-bts-konekt-event-wide.webp', 'production-bts-vorlaender-team.webp', 'production-bts-konekt-camera-operator.webp', 'production-bts-salon-gimbal.webp', 'production-bts-lemonaid-tabletop.webp']) {
   assert(btsComponent.includes(asset), `behind-the-scenes must reference ${asset}`);
   await access(`public/images/${asset}`);
 }
@@ -95,7 +95,7 @@ for (const [lang, path] of [['de', 'dist/videos/index.html'], ['en', 'dist/en/vi
   assert(!/i\.ytimg\.com|img\.youtube\.com/.test(html), `${path}: remote thumbnail request`);
 }
 for (const asset of ['media-loop-desktop.mp4', 'media-loop-mobile.mp4', 'media-loop-desktop-poster.webp', 'media-loop-mobile-poster.webp']) await access(`dist/images/${asset}`);
-for (const asset of ['ihk-workshop-2026-presenting-card.webp', 'ihk-workshop-2026-presenting-screen.webp', 'ihk-workshop-2026-presenting-portrait.webp', 'ihk-workshop-2026-participant-support.webp', 'niklas-bschool-workshop-facilitation.webp', 'niklas-speaking-entrepreneurship-talk-screenshot.webp', 'production-bts-konekt-event-rig.webp', 'production-bts-konekt-event-wide.webp', 'production-bts-konekt-camera-operator.webp', 'production-bts-salon-gimbal.webp', 'production-bts-lemonaid-tabletop.webp']) await access(`dist/images/${asset}`);
+for (const asset of ['ihk-workshop-2026-presenting-card.webp', 'ihk-workshop-2026-presenting-screen.webp', 'ihk-workshop-2026-presenting-portrait.webp', 'ihk-workshop-2026-participant-support.webp', 'niklas-bschool-workshop-facilitation.webp', 'niklas-speaking-entrepreneurship-talk-screenshot.webp', 'production-bts-konekt-event-rig.webp', 'production-bts-konekt-event-wide.webp', 'production-bts-vorlaender-team.webp', 'production-bts-konekt-camera-operator.webp', 'production-bts-salon-gimbal.webp', 'production-bts-lemonaid-tabletop.webp']) await access(`dist/images/${asset}`);
 const robots = await read('dist/robots.txt');
 if (production) {
   assert(robots.includes('User-agent: OAI-SearchBot') && robots.includes('Allow: /') && robots.includes('Sitemap:'), 'production robots must allow public crawling');
