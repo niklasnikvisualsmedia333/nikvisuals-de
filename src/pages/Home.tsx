@@ -142,7 +142,7 @@ function InternshipVideoCard({ video, lang }: { video: InternshipVideo; lang: La
         <p className="video-summary">{lang === "de" ? "Einblick aus einem Praktikum bei NikVisuals." : "An insight from an internship at NikVisuals."}</p>
         <div className="video-actions">
           <button className="video-open" type="button" onClick={(event) => open(event.currentTarget)}><PlayIcon />{lang === "de" ? "Hier ansehen" : "Watch here"}</button>
-          <a href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noreferrer"><SocialIcon platform="youtube" />{lang === "de" ? "Auf YouTube ansehen" : "Watch on YouTube"}<Arrow diagonal /></a>
+          <a className="video-open" href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noreferrer"><SocialIcon platform="youtube" />{lang === "de" ? "Auf YouTube ansehen" : "Watch on YouTube"}</a>
         </div>
       </div>
     </article>
