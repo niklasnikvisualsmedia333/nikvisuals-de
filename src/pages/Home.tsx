@@ -157,9 +157,9 @@ function Career({ lang }: { lang: Language }) {
 const collaborations = [
   {
     name: "LapStore",
-    logo: "lapstore-logo-web.webp",
+    logo: "lapstore-logo-tight.webp",
     href: "https://www.lapstore.de/",
-    scale: 1.95,
+    scale: 1.06,
     surface: "light",
   },
   {
@@ -583,14 +583,14 @@ function WorkshopCase({ lang }: { lang: Language }) {
     base = import.meta.env.BASE_URL;
   const items = [
     {
-      image: "ihk-workshop-2026-presenting-wide.webp",
-      de: "Workshop bei der IHK Siegen",
-      en: "Workshop at IHK Siegen",
-    },
-    {
       image: "ihk-workshop-2026-presenting-screen.webp",
       de: "Präsentation im IHK-Workshop",
       en: "Presentation during an IHK workshop",
+    },
+    {
+      image: "ihk-workshop-2026-presenting-portrait.webp",
+      de: "Vortrag im IHK-Workshop",
+      en: "Presenting during an IHK workshop",
     },
     {
       image: "ihk-workshop-2026-participant-support.webp",
@@ -612,14 +612,14 @@ function WorkshopCase({ lang }: { lang: Language }) {
     <article className="project-card workshop-card" data-selected-project>
       <div className="project-media">
         <img
-          src={base + "images/ihk-workshop-2026-presenting-wide.webp"}
+          src={base + "images/ihk-workshop-2026-presenting-screen.webp"}
           alt={
             lang === "de"
               ? "Niklas Brüne bei einem Workshop der IHK Siegen."
               : "Niklas Brüne leading an IHK Siegen workshop."
           }
-          width="1280"
-          height="800"
+          width="1365"
+          height="2048"
           loading="lazy"
           decoding="async"
         />
@@ -669,25 +669,47 @@ function WorkshopCase({ lang }: { lang: Language }) {
   );
 }
 function BehindTheScenes({ lang }: { lang: Language }) {
-  const viewport = useRef<HTMLDivElement>(null), [paused, setPaused] = useState(false);
+  const viewport = useRef<HTMLDivElement>(null);
+  const pauseUntil = useRef(0);
+  const resetTimer = useRef<number | undefined>(undefined);
+  const [paused, setPaused] = useState(false);
   const base = import.meta.env.BASE_URL;
   const items = [
-    { image: "production-rig-winter.webp", de: "Kamera-Setup bei einer Winterproduktion", en: "Camera rig on a winter production" },
-    { image: "niklas-bschool-workshop-facilitation.webp", de: "Produktion und Facilitation im Business-Kontext", en: "Production and facilitation in a business setting" },
-    { image: "niklas-speaking-desk-office.webp", de: "Vorbereitung und Umsetzung am Set", en: "Preparing and working on set" },
+    { image: "production-bts-konekt-event-rig.webp", de: "Eventproduktion mit Kamera-Rig", en: "Event production with camera rig" },
+    { image: "production-bts-konekt-camera-operator.webp", de: "Kameraarbeit bei einer Eventproduktion", en: "Camera operation on an event production" },
+    { image: "production-bts-salon-gimbal.webp", de: "Gimbal-Setup bei einer Kundenproduktion", en: "Gimbal setup on a client production" },
+    { image: "production-bts-lemonaid-tabletop.webp", de: "Tabletop- und Produktproduktion", en: "Tabletop and product production" },
   ];
+  const pauseForInteraction = () => {
+    pauseUntil.current = performance.now() + 5200;
+    if (resetTimer.current) window.clearTimeout(resetTimer.current);
+  };
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const node = viewport.current;
     if (!node) return;
     const timer = window.setInterval(() => {
-      if (paused || document.hidden) return;
-      const next = node.scrollLeft + node.clientWidth * 0.86;
-      node.scrollTo({ left: next >= node.scrollWidth - node.clientWidth - 4 ? 0 : next, behavior: "smooth" });
-    }, 4600);
-    return () => window.clearInterval(timer);
+      if (paused || document.hidden || performance.now() < pauseUntil.current) return;
+      const slides = Array.from(node.querySelectorAll<HTMLElement>("figure"));
+      if (slides.length < 2) return;
+      const step = slides[1].offsetLeft - slides[0].offsetLeft;
+      const current = Math.round(node.scrollLeft / step);
+      if (current >= items.length - 1) {
+        node.scrollTo({ left: slides[items.length].offsetLeft, behavior: "smooth" });
+        resetTimer.current = window.setTimeout(() => {
+          node.scrollTo({ left: slides[0].offsetLeft, behavior: "auto" });
+        }, 680);
+      } else {
+        node.scrollTo({ left: slides[current + 1].offsetLeft, behavior: "smooth" });
+      }
+    }, 4800);
+    return () => {
+      window.clearInterval(timer);
+      if (resetTimer.current) window.clearTimeout(resetTimer.current);
+    };
   }, [paused]);
-  return <section className="bts section"><div className="wrap"><div className="bts-heading"><div><p className="eyebrow">Behind the scenes</p><h2>{lang === "de" ? "Produktion in der Praxis." : "Production behind the scenes."}</h2></div><p>{lang === "de" ? "NikVisuals ist founder-led. Je nach Umfang arbeite ich mit professionellem Equipment sowie spezialisierten Freelancern und Projektteams." : "NikVisuals is founder-led. Depending on the scope, productions use professional equipment and specialist freelancers or project teams."}</p></div><div className="bts-window" ref={viewport} tabIndex={0} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>{items.map((item) => <figure key={item.image}><img src={base + "images/" + item.image} alt={lang === "de" ? item.de : item.en} width="1280" height="800" loading="lazy" decoding="async" /><figcaption>{lang === "de" ? item.de : item.en}</figcaption></figure>)}</div></div></section>;
+  const slides = [...items, items[0]];
+  return <section className="bts section"><div className="wrap"><div className="bts-heading"><div><p className="eyebrow">Behind the scenes</p><h2>{lang === "de" ? "Produktion in der Praxis." : "Production behind the scenes."}</h2></div><p>{lang === "de" ? "Von kompakten Content-Produktionen bis zu Corporate- und Eventdrehs: Je nach Projekt arbeite ich mit professionellem Kamera-, Audio- und Rigging-Equipment sowie spezialisierten Freelancern und Projektteams." : "From compact content productions to corporate and event shoots, each project uses professional camera, audio and rigging equipment alongside specialist freelancers and project teams where useful."}</p></div><div className="bts-window" ref={viewport} tabIndex={0} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)} onPointerDown={pauseForInteraction} onTouchStart={pauseForInteraction} onWheel={pauseForInteraction}>{slides.map((item, index) => <figure key={`${item.image}-${index}`} aria-hidden={index === items.length || undefined}><img src={base + "images/" + item.image} alt={index === items.length ? "" : lang === "de" ? item.de : item.en} width="1600" height={item.image.includes("lemonaid") ? "900" : "1066"} loading="lazy" decoding="async" /><figcaption>{lang === "de" ? item.de : item.en}</figcaption></figure>)}</div></div></section>;
 }
 function AmbientMedia({ lang }: { lang: Language }) {
   const ref = useRef<HTMLElement>(null),

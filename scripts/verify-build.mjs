@@ -22,20 +22,29 @@ assert.equal((videoPage.match(/data-thumbnail-play/g) || []).length, 1, 'VideoCa
 assert(/<a href=\{base\}>DE<\/a>[\s\S]*?<span>\/<\/span>[\s\S]*?<a href=\{base \+ "en\/"\}>EN<\/a>/.test(home), 'language switch must remain DE / EN');
 assert(css.includes('.languages>span{display:inline-flex;align-items:center;justify-content:center;height:42px'), 'language slash must use flex centering');
 assert(home.includes('data-ambient-media') && home.includes('href={archive}'), 'homepage media panel and video archive link must exist');
-assert(home.includes('BehindTheScenes') && home.includes('production-rig-winter.webp') && home.includes('niklas-bschool-workshop-facilitation.webp'), 'behind-the-scenes gallery must exist');
+const btsComponent = home.match(/function BehindTheScenes[\s\S]*?function AmbientMedia/)?.[0] || '';
+for (const asset of ['production-bts-konekt-event-rig.webp', 'production-bts-konekt-camera-operator.webp', 'production-bts-salon-gimbal.webp', 'production-bts-lemonaid-tabletop.webp']) {
+  assert(btsComponent.includes(asset), `behind-the-scenes must reference ${asset}`);
+  await access(`public/images/${asset}`);
+}
+assert(!btsComponent.includes('niklas-speaking-desk-office.webp') && !btsComponent.includes('niklas-bschool-workshop-facilitation.webp'), 'behind-the-scenes must use only production BTS imagery');
 assert(!/lapstore-logo-web\.png/.test(site + home), 'broken LapStore PNG path must not return');
 assert(!/University of Tulsa|B-School|histori/i.test(home + site), 'removed copy must not return');
 assert(home.includes('project.organization !== "LapStore"'), 'LapStore project badge must be excluded');
 assert(home.includes('WorkshopCase') && home.includes('Einblicke ansehen'), 'workshops need the expandable gallery');
+assert(!/src=\{base \+ "images\/ihk-workshop-2026-presenting-wide\.webp"/.test(home), 'the cropped wide IHK image must not be the workshop thumbnail');
+assert(home.includes('ihk-workshop-2026-presenting-portrait.webp'), 'workshop gallery must reference the IHK portrait');
+await access('public/images/ihk-workshop-2026-presenting-portrait.webp');
 for (const id of ['BDR6sHFXoiI', 'ObgIseEQ0ME', 'oE9I8w93pvc', 'wFaeFX5gxeA', '-9XjGPp35Ds']) assert(reviews.includes(`testimonialVideoId: '${id}'`), `review testimonial video missing: ${id}`);
 assert(home.includes('Video-Feedback ansehen') && home.includes('!clone'), 'canonical review cards need video actions without clone controls');
 
-const logos = ['lapstore-logo-web.webp', 'sms-group-logo.png', 'hilchenbach-logo.png', 'ihk-siegen-logo.png', 'startpunkt57-logo.svg', 'entrepreneurship-center-logo.png', 'siegerland-center-logo.svg', 'reifen-thomas-logo.png', 'vorlaender-logo.svg'];
+const logos = ['lapstore-logo-tight.webp', 'sms-group-logo.png', 'hilchenbach-logo.png', 'ihk-siegen-logo.png', 'startpunkt57-logo.svg', 'entrepreneurship-center-logo.png', 'siegerland-center-logo.svg', 'reifen-thomas-logo.png', 'vorlaender-logo.svg'];
 for (const logo of logos) { assert(home.includes(logo), `missing logo reference: ${logo}`); await access(`public/images/${logo}`); await access(`dist/images/${logo}`); }
 assert(!home.includes('entrepreneurship-center-logo.svg'), 'generic university asset must not represent Entrepreneurship Center');
 for (const href of ['lapstore.de', 'sms-group.com', 'hilchenbach.de', 'ihk-siegen.de', 'startpunkt57.de', 'uni-siegen.de/ec', 'siegerlandcenter.de', 'reifenthomas.de', 'baeder-heizung.com']) assert(home.includes(href), `missing collaboration href: ${href}`);
 assert(!/grayscale\(|filter:\s*invert\(/.test(css), 'brand logos must not use grayscale or invert filters');
 assert(!home.includes('collab-controls'), 'logo carousel must not have permanent arrow controls');
+assert(!home.includes('scale: 1.95'), 'LapStore must use the tightly cropped asset at a normal scale');
 
 assert(links.includes('hub-social-label'), 'link hub needs inline social labels');
 for (const name of ['linkedin', 'instagram', 'youtube', 'facebook']) assert(site.includes(`platform:'${name}'`), `missing social platform: ${name}`);
@@ -83,7 +92,7 @@ for (const [lang, path] of [['de', 'dist/videos/index.html'], ['en', 'dist/en/vi
   assert(!/i\.ytimg\.com|img\.youtube\.com/.test(html), `${path}: remote thumbnail request`);
 }
 for (const asset of ['media-loop-desktop.mp4', 'media-loop-mobile.mp4', 'media-loop-desktop-poster.webp', 'media-loop-mobile-poster.webp']) await access(`dist/images/${asset}`);
-for (const asset of ['ihk-workshop-2026-presenting-wide.webp', 'ihk-workshop-2026-presenting-screen.webp', 'ihk-workshop-2026-participant-support.webp', 'niklas-bschool-workshop-facilitation.webp', 'niklas-speaking-entrepreneurship-talk-screenshot.webp']) await access(`dist/images/${asset}`);
+for (const asset of ['ihk-workshop-2026-presenting-screen.webp', 'ihk-workshop-2026-presenting-portrait.webp', 'ihk-workshop-2026-participant-support.webp', 'niklas-bschool-workshop-facilitation.webp', 'niklas-speaking-entrepreneurship-talk-screenshot.webp', 'production-bts-konekt-event-rig.webp', 'production-bts-konekt-camera-operator.webp', 'production-bts-salon-gimbal.webp', 'production-bts-lemonaid-tabletop.webp']) await access(`dist/images/${asset}`);
 const robots = await read('dist/robots.txt');
 if (production) {
   assert(robots.includes('User-agent: OAI-SearchBot') && robots.includes('Allow: /') && robots.includes('Sitemap:'), 'production robots must allow public crawling');
