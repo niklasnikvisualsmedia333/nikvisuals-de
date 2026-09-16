@@ -612,14 +612,14 @@ function WorkshopCase({ lang }: { lang: Language }) {
     <article className="project-card workshop-card" data-selected-project>
       <div className="project-media">
         <img
-          src={base + "images/ihk-workshop-2026-presenting-screen.webp"}
+          src={base + "images/ihk-workshop-2026-presenting-card.webp"}
           alt={
             lang === "de"
               ? "Niklas Brüne bei einem Workshop der IHK Siegen."
               : "Niklas Brüne leading an IHK Siegen workshop."
           }
-          width="1365"
-          height="2048"
+          width="1600"
+          height="900"
           loading="lazy"
           decoding="async"
         />
@@ -676,7 +676,8 @@ function BehindTheScenes({ lang }: { lang: Language }) {
   const base = import.meta.env.BASE_URL;
   const items = [
     { image: "production-bts-konekt-event-rig.webp", de: "Eventproduktion mit Kamera-Rig", en: "Event production with camera rig" },
-    { image: "production-bts-konekt-camera-operator.webp", de: "Kameraarbeit bei einer Eventproduktion", en: "Camera operation on an event production" },
+    { image: "production-bts-konekt-event-wide.webp", de: "Kameraarbeit in größerer Eventproduktion", en: "Camera work on a larger event production" },
+    { image: "production-bts-konekt-camera-operator.webp", de: "Kameraoperator bei einer Eventproduktion", en: "Camera operator on an event production" },
     { image: "production-bts-salon-gimbal.webp", de: "Gimbal-Setup bei einer Kundenproduktion", en: "Gimbal setup on a client production" },
     { image: "production-bts-lemonaid-tabletop.webp", de: "Tabletop- und Produktproduktion", en: "Tabletop and product production" },
   ];
@@ -827,23 +828,25 @@ function ReviewCard({
         {text}
         {quoted ? "”" : ""}
       </p>
-      {long && !clone && (
-        <button
-          type="button"
-          className="review-more"
-          aria-expanded={expanded}
-          onClick={onToggle}
-        >
-          {expanded
-            ? lang === "de"
-              ? "Weniger anzeigen"
-              : "Show less"
-            : lang === "de"
-              ? "Mehr lesen"
-              : "Read more"}
-        </button>
-      )}
-      {review.testimonialVideoId && !clone && onPlayVideo && <button type="button" className="review-video-link" onClick={(event) => onPlayVideo(review, event.currentTarget)}>{lang === "de" ? "Video-Feedback ansehen" : "Watch video testimonial"}</button>}
+      <div className="review-card-actions">
+        {long && !clone && (
+          <button
+            type="button"
+            className="review-more"
+            aria-expanded={expanded}
+            onClick={onToggle}
+          >
+            {expanded
+              ? lang === "de"
+                ? "Weniger anzeigen"
+                : "Show less"
+              : lang === "de"
+                ? "Mehr lesen"
+                : "Read more"}
+          </button>
+        )}
+        {review.testimonialVideoId && !clone && onPlayVideo && <button type="button" className="review-video-link" onClick={(event) => onPlayVideo(review, event.currentTarget)}>{lang === "de" ? "Video-Feedback ansehen" : "Watch video testimonial"}</button>}
+      </div>
       <span className="review-context">{review.projectContext}</span>
       <footer>
         <strong>{review.name}</strong>
