@@ -3,6 +3,7 @@ import { access, readFile, readdir } from 'node:fs/promises';
 
 const read = (path) => readFile(path, 'utf8');
 const production = process.env.SITE_MODE === 'production';
+const staging = process.env.SITE_MODE === 'staging';
 const [videos, internshipVideos, videoPage, home, site, links, consent, reviews, css, legal, siteFooter, copyEmail, packageJson] = await Promise.all([
   read('src/content/videos.ts'), read('src/content/internshipVideos.ts'), read('src/pages/Videos.tsx'), read('src/pages/Home.tsx'), read('src/content/site.ts'), read('src/pages/Links.tsx'), read('src/components/MediaConsent.tsx'), read('src/content/reviews.ts'), read('src/styles/global.css'), read('src/pages/Legal.tsx'), read('src/components/SiteFooter.tsx'), read('src/components/CopyEmailButton.tsx'), read('package.json'),
 ]);
@@ -100,7 +101,7 @@ assert(legal.includes('www.youtube-nocookie.com') && legal.includes('Microsoft 3
 assert(!/TMG|RStV/.test(legal), 'imprint must use current terminology');
 assert(!/wix\.com.*impressum/i.test(home + links), 'footer must not link to old Wix legal pages');
 assert(siteFooter.includes("'impressum/'") && siteFooter.includes("'datenschutz/'"), 'shared footer must use internal legal links');
-assert(packageJson.includes('build:production'), 'production indexing build command must exist');
+assert(packageJson.includes('build:staging') && packageJson.includes('build:production'), 'staging and production indexing build commands must exist');
 
 for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.html']]) {
   const html = await read(path);
@@ -117,7 +118,7 @@ for (const path of ['dist/impressum/index.html', 'dist/datenschutz/index.html'])
   const html = await read(path);
   assert(html.includes('NikVisuals') && html.includes('footer-top') && html.includes('impressum/') && html.includes('datenschutz/') && !html.includes('<iframe'), `${path}: legal route/footer missing or unsafe`);
 }
-const internshipFooterHref = (lang) => production
+const internshipFooterHref = (lang) => production || staging
   ? (lang === 'de' ? '/#praktikum' : '/en/#praktikum')
   : (lang === 'de' ? '/nikvisuals-de/#praktikum' : '/nikvisuals-de/en/#praktikum');
 for (const [lang, path] of [['de', 'dist/links/index.html'], ['en', 'dist/en/links/index.html']]) {
@@ -175,6 +176,16 @@ if (production) {
   }
   await assert.rejects(access('dist/sitemap.xml'), 'preview must not generate sitemap');
   await assert.rejects(access('dist/llms.txt'), 'preview must not generate llms.txt');
+  if (staging) {
+    assert(packageJson.includes('SITE_MODE=staging VITE_BASE_PATH=/'), 'staging build must explicitly use the root base path');
+    for (const path of ['dist/index.html', 'dist/en/index.html', 'dist/videos/index.html', 'dist/en/videos/index.html', 'dist/links/index.html', 'dist/en/links/index.html', 'dist/impressum/index.html', 'dist/datenschutz/index.html']) {
+      const html = await read(path);
+      assert(!html.includes('/nikvisuals-de/'), `${path}: staging base path must be root`);
+    }
+  } else {
+    const home = await read('dist/index.html');
+    assert(home.includes('/nikvisuals-de/assets/'), 'preview base path must remain /nikvisuals-de/');
+  }
 }
 await assert.rejects(access('dist/CNAME'), 'preview must not contain CNAME');
-console.log(`Verified ${production ? 'production' : 'preview'} build: legal pages, privacy, metadata, 34 videos, nine logos, reviews and consent safety.`);
+console.log(`Verified ${production ? 'production' : staging ? 'staging' : 'preview'} build: legal pages, privacy, metadata, 34 videos, nine logos, reviews and consent safety.`);

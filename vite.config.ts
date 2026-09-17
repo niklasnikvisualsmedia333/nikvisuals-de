@@ -24,7 +24,8 @@ const socialTags = (route: typeof routes[number], production: boolean) => {
   return `<meta property="og:title" content="${route.title}" /><meta property="og:description" content="${route.description}" /><meta property="og:type" content="website" />${url}<meta property="og:site_name" content="NikVisuals" /><meta property="og:locale" content="${locale}" /><meta property="og:locale:alternate" content="${alternate}" /><meta property="og:image" content="${image}" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="NikVisuals — Niklas Brüne" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="${route.title}" /><meta name="twitter:description" content="${route.description}" /><meta name="twitter:image" content="${image}" /><meta name="twitter:image:alt" content="NikVisuals — Niklas Brüne" />`;
 };
 
-function siteMode(production: boolean): Plugin {
+function siteMode(mode: 'preview' | 'staging' | 'production'): Plugin {
+  const production = mode === 'production';
   return {
     name: 'nikvisuals-site-mode',
     transformIndexHtml(html, ctx) {
@@ -76,7 +77,7 @@ export default defineConfig(({ mode, isSsrBuild }) => {
   if (!base.startsWith('/') || !base.endsWith('/')) throw new Error('VITE_BASE_PATH must start and end with /');
   return {
     base,
-    plugins: [react(), tailwindcss(), !isSsrBuild && siteMode(env.SITE_MODE === 'production')],
+    plugins: [react(), tailwindcss(), !isSsrBuild && siteMode(env.SITE_MODE === 'production' ? 'production' : env.SITE_MODE === 'staging' ? 'staging' : 'preview')],
     build: { rollupOptions: isSsrBuild ? {} : { input: {
       de: resolve('index.html'), en: resolve('en/index.html'), links: resolve('links/index.html'), enLinks: resolve('en/links/index.html'), videos: resolve('videos/index.html'), enVideos: resolve('en/videos/index.html'), impressum: resolve('impressum/index.html'), datenschutz: resolve('datenschutz/index.html'),
     } } },
