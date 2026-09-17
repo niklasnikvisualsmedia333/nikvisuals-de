@@ -75,7 +75,9 @@ for (const logo of logos) { assert(home.includes(logo), `missing logo reference:
 assert(!home.includes('entrepreneurship-center-logo.svg'), 'generic university asset must not represent Entrepreneurship Center');
 for (const href of ['lapstore.de', 'sms-group.com', 'hilchenbach.de', 'ihk-siegen.de', 'startpunkt57.de', 'uni-siegen.de/ec', 'siegerlandcenter.de', 'reifenthomas.de', 'baeder-heizung.com']) assert(home.includes(href), `missing collaboration href: ${href}`);
 assert(!/grayscale\(|filter:\s*invert\(/.test(css), 'brand logos must not use grayscale or invert filters');
-assert(!home.includes('collab-controls'), 'logo carousel must not have permanent arrow controls');
+assert(home.includes('className="logo-controls"') && home.includes('Vorheriges Kundenlogo') && home.includes('Nächstes Kundenlogo') && home.includes('Previous client logo') && home.includes('Next client logo'), 'logo carousel must expose accessible previous and next controls in both languages');
+assert(home.includes('moveBy(-1)') && home.includes('moveBy(1)') && home.includes('item.offsetLeft'), 'logo controls must navigate one logo using measured geometry');
+assert(css.includes('.video-jumps{display:flex;flex-wrap:wrap') && css.includes('.video-jumps a{display:inline-flex;align-items:center;min-height:32px'), 'video category navigation must use wrapped flex spacing');
 assert(!home.includes('scale: 1.95'), 'LapStore must use the tightly cropped asset at a normal scale');
 
 assert(links.includes('hub-social-label'), 'link hub needs inline social labels');

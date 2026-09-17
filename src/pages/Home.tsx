@@ -283,12 +283,14 @@ function useSeamlessCarousel(
   main: React.RefObject<HTMLDivElement | null>,
   speed: number,
   paused = false,
+  itemSelector?: string,
 ) {
   const pauseUntil = useRef(0),
     hovered = useRef(false),
     focused = useRef(false),
     externalPause = useRef(paused),
-    manual = useRef(false);
+    manual = useRef(false),
+    moveByRef = useRef<(direction: -1 | 1) => void>(() => {});
   useEffect(() => {
     externalPause.current = paused;
   }, [paused]);
@@ -305,7 +307,8 @@ function useSeamlessCarousel(
       position = 0,
       last = performance.now(),
       lastWidth = 0,
-      autoUntil = 0;
+      autoUntil = 0,
+      navigationTimer: number | undefined;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const recenter = () => {
       const start = m.offsetLeft, width = m.offsetWidth, left = v.scrollLeft;
@@ -338,6 +341,26 @@ function useSeamlessCarousel(
         position = recenter() ?? v.scrollLeft;
       }
     };
+    const moveBy = (direction: -1 | 1) => {
+      if (!itemSelector) return;
+      syncToCanonical();
+      position = recenter() ?? v.scrollLeft;
+      const items = Array.from(v.querySelectorAll<HTMLElement>(itemSelector));
+      if (!items.length) return;
+      const current = items.reduce((closest, item, index) => Math.abs(item.offsetLeft - v.scrollLeft) < Math.abs(items[closest].offsetLeft - v.scrollLeft) ? index : closest, 0);
+      const target = items[current + direction];
+      if (!target) return;
+      manual.current = true;
+      pause();
+      autoUntil = performance.now() + 800;
+      v.scrollTo({ left: target.offsetLeft, behavior: reduced.matches ? "auto" : "smooth" });
+      if (navigationTimer) window.clearTimeout(navigationTimer);
+      navigationTimer = window.setTimeout(() => {
+        manual.current = false;
+        position = recenter() ?? v.scrollLeft;
+      }, reduced.matches ? 0 : 800);
+    };
+    moveByRef.current = moveBy;
     const onStart = () => {
       manual.current = true;
       pause();
@@ -431,16 +454,18 @@ function useSeamlessCarousel(
     document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
       deactivate();
+      if (navigationTimer) window.clearTimeout(navigationTimer);
+      moveByRef.current = () => {};
       viewportObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, [speed]);
-  return { pause };
+  }, [speed, itemSelector]);
+  return { pause, moveBy: (direction: -1 | 1) => moveByRef.current(direction) };
 }
 function CollaborationStrip({ lang }: { lang: Language }) {
   const viewport = useRef<HTMLDivElement>(null),
-    main = useRef<HTMLDivElement>(null);
-  useSeamlessCarousel(viewport, main, 0.052);
+    main = useRef<HTMLDivElement>(null),
+    { pause, moveBy } = useSeamlessCarousel(viewport, main, 0.052, false, ".collaboration-logo");
   const set = (clone: boolean, canonical = false, key: string) => (
     <div
       key={key}
@@ -506,6 +531,10 @@ function CollaborationStrip({ lang }: { lang: Language }) {
               </span>
             </div>
           </div>
+        </div>
+        <div className="logo-controls" aria-label={lang === "de" ? "Kundenlogos steuern" : "Control client logos"} onMouseEnter={() => pause()} onFocus={() => pause()}>
+          <button className="review-control prev" type="button" aria-label={lang === "de" ? "Vorheriges Kundenlogo" : "Previous client logo"} onClick={() => moveBy(-1)}><Arrow /></button>
+          <button className="review-control" type="button" aria-label={lang === "de" ? "Nächstes Kundenlogo" : "Next client logo"} onClick={() => moveBy(1)}><Arrow /></button>
         </div>
         <div
           className="logo-window"
