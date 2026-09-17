@@ -57,8 +57,8 @@ export const reviews: Review[] = [
   {
     id: 'steffen-kellermann', name: 'Steffen Kellermann', roleOrCompany: 'Bezirksschornsteinfeger & Energieberater', projectContext: 'Videoproduktion', stars: 5,
     quote: {
-      de: 'Steffen Kellermann hebt die strukturierte, entspannte Begleitung hervor. Auch ohne Erfahrung mit Videoproduktion wusste er jederzeit, was als Nächstes passiert. Das Ergebnis übertraf seine Erwartungen deutlich.',
-      en: 'Steffen Kellermann highlights the structured, relaxed guidance. Even without production experience, he always knew what would happen next, and the result clearly exceeded his expectations.',
+      de: 'Steffen Kellermann hebt die strukturierte und entspannte Begleitung sowie die klare Abstimmung während der Videoproduktion hervor. Das Ergebnis übertraf seine Erwartungen deutlich.',
+      en: 'Steffen Kellermann highlights the structured, relaxed support and clear coordination throughout the video production. The result clearly exceeded his expectations.',
     }, exactQuote: false, source: 'video', sourceUrl: 'https://www.youtube.com/watch?v=wFaeFX5gxeA', testimonialVideoId: 'wFaeFX5gxeA', featured: true,
   },
   {

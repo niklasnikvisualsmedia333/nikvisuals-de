@@ -42,6 +42,11 @@ assert(css.includes('.languages>span{display:inline-flex;align-items:center;just
 assert(home.includes('data-ambient-media') && home.includes('en/videos/'), 'homepage media panel and video archive link must exist');
 assert(home.includes('fetchPriority="high"') && /className="hero-image"[\s\S]*?width="1440"[\s\S]*?height="960"/.test(home), 'hero must reserve space and receive high fetch priority');
 assert(!home.includes('../content/videos') && home.includes('../content/smsVideos'), 'homepage must not import the full video archive');
+assert(site.includes("headline:'Business Development, Growth & Marketing'") && site.includes("headlineEnd:'für B2B-Unternehmen.'") && site.includes("headlineEnd:'for B2B companies.'"), 'homepage hero must lead with business development, growth and marketing');
+assert(site.includes('KI im Arbeitsalltag & digitale Tools') && site.includes('AI in day-to-day work & digital tools') && site.includes('Marketing, Content & Medienproduktion') && site.includes('Marketing, Content & Media Production'), 'focus areas must use the current practical AI and media positioning');
+assert(home.includes('Passt zum Beispiel, wenn') && home.includes('For example, if'), 'focus situations must use constructive framing');
+for (const phrase of ['komplexer Abstimmung', 'complex coordination', 'ohne Erfahrung mit Videoproduktion', 'without video-production experience', 'bindet qualifizierte Arbeitszeit', 'takes up skilled time', 'zu stark auf Annahmen', 'too heavily on assumptions', 'noch kein klares System', 'no clear system', 'founder-led', 'Medienproduktion bleibt Teil', 'für ambitionierte', 'for ambitious']) assert(![home, site, reviews].join('\n').includes(phrase), `stale positioning copy must not return: ${phrase}`);
+assert(reviews.includes('die klare Abstimmung während der Videoproduktion') && reviews.includes('clear coordination throughout the video production'), 'Steffen Kellermann paraphrase must remain client-positive and source-faithful');
 assert(home.includes('preload="none"') && home.includes('{ rootMargin: "0px" }'), 'ambient media must remain delayed and use no eager video preload');
 assert(!/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(css), 'local font delivery must not add Google Fonts');
 for (const asset of ['niklas-working-desk-office-480.webp', 'niklas-working-desk-office-768.webp', 'niklas-speaking-desk-office-960.webp', 'niklas-speaking-desk-office-1440.webp', 'sms-group-event-480.webp', 'sms-group-event-800.webp', 'lapstore-480.webp', 'lapstore-800.webp', 'tmp-tech-talk-480.webp', 'tmp-tech-talk-800.webp', 'niklas-current-profile-480.webp', 'niklas-current-profile-800.webp', 'ihk-workshop-2026-presenting-card-480.webp', 'ihk-workshop-2026-presenting-card-800.webp']) {
@@ -187,7 +192,9 @@ if (production) {
   const llms = await read('dist/llms.txt');
   assert(llms.includes('# NikVisuals') && llms.includes('## Main pages') && llms.includes('[Website](https://www.nikvisuals.de/)') && llms.includes('[Contact](https://www.nikvisuals.de/#kontakt)') && llms.includes('Email: info@nikvisuals.de'), 'production llms.txt must use concise linked Markdown sections');
   const deVideos = await read('dist/videos/index.html'), enVideos = await read('dist/en/videos/index.html');
-  assert(deVideos.includes('NikVisuals — Videoarbeiten, Projekte &amp; Testimonials') && enVideos.includes('NikVisuals — Video Work, Projects &amp; Testimonials'), 'production video pages must use their route-specific document titles');
+  assert(deVideos.includes('Videoproduktion für Unternehmen | NikVisuals') && enVideos.includes('Video Production for Companies | NikVisuals'), 'production video pages must use the refined route-specific document titles');
+  assert((await read('dist/index.html')).includes('<title>Business Development, Growth & Marketing | NikVisuals</title>') && (await read('dist/en/index.html')).includes('<title>Business Development, Growth & Marketing | NikVisuals</title>'), 'production home metadata must use the refined positioning');
+  assert(llms.includes('business development, growth, go-to-market and marketing') && llms.includes('professional media production'), 'production llms summary must use the current positioning');
   const schema = (await read('dist/index.html')).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
   assert(schema, 'production homepage needs structured data');
   const graph = JSON.parse(schema)['@graph'];

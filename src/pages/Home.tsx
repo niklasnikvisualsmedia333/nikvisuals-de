@@ -150,7 +150,7 @@ function Internships({ lang }: { lang: Language }) {
           <h2 id="internships-title">{lang === "de" ? "Praktikum bei NikVisuals." : "Internships at NikVisuals."}</h2>
         </div>
         <div className="internships-copy">
-          <p>{lang === "de" ? "Praktika passen am besten ab etwa acht Wochen. Remote oder hybrid ist je nach Aufgabe möglich. Initiativbewerbungen sind ausdrücklich willkommen – zum Beispiel für Content- und Videoproduktion, Marketing & Research, AI-/Prozess-Themen oder Business Development." : "Internships work best from around eight weeks onwards. Remote or hybrid setups are possible depending on the role. Unsolicited applications are explicitly welcome – for example in content and video production, marketing and research, AI/process topics or business development."}</p>
+          <p>{lang === "de" ? "Praktika passen am besten ab etwa acht Wochen. Remote oder hybrid ist je nach Aufgabe möglich. Initiativbewerbungen sind ausdrücklich willkommen, zum Beispiel für Content- und Videoproduktion, Marketing & Research, KI-Anwendungen und digitale Tools oder Business Development." : "Internships work best from around eight weeks onwards. Remote or hybrid setups are possible depending on the role. Unsolicited applications are explicitly welcome, for example in content and video production, marketing and research, AI applications and digital tools or business development."}</p>
           <p className="internships-note">{lang === "de" ? "Interesse? Schicken Sie mir Ihren Lebenslauf per E-Mail und nennen Sie kurz Ihren gewünschten Zeitraum und den Bereich, in dem Sie mitarbeiten möchten. Wenn Sie bereits eigene Arbeiten, Projekte oder ein Portfolio haben, schicken Sie gerne direkt einen Link dazu mit." : "Interested? Send me your CV by email and briefly mention your preferred timeframe and the area you would like to work in. If you already have work samples, projects or a portfolio, feel free to include a link."}</p>
           <div className="email-line internships-email"><a className="email" href={links.email}>info@nikvisuals.de</a><CopyEmailButton lang={lang} /></div>
           <button className="text-link internship-toggle" type="button" aria-expanded={open} aria-controls="internship-video-gallery" onClick={() => setOpen((value) => !value)}>{open ? lang === "de" ? "Einblicke schließen" : "Hide internship experiences" : lang === "de" ? "Einblicke aus Praktika ansehen" : "See internship experiences"}<Arrow /></button>
@@ -176,8 +176,8 @@ function Career({ lang }: { lang: Language }) {
           </h2>
           <p>
             {lang === "de"
-              ? "Seit 2021 verbinde ich mit NikVisuals praktische Projekte mit Studium und unternehmerischer Arbeit. Medien und Marketing bilden meinen operativen Hintergrund; heute liegt mein Fokus stärker auf AI, Growth und Business Development."
-              : "Since 2021, I have combined practical projects through NikVisuals with my studies and entrepreneurial work. Media and marketing are my operational foundation; today my focus is increasingly on AI, growth and business development."}
+              ? "Seit 2021 verbinde ich mit NikVisuals Kundenprojekte mit Studium und unternehmerischer Arbeit. Mein Hintergrund liegt in Medien und Marketing. Heute arbeite ich zusätzlich an Business Development, Growth, digitalen Geschäftsmodellen und praktischen KI-Anwendungen."
+              : "Since 2021, I have combined client projects through NikVisuals with my studies and entrepreneurial work. My background is in media and marketing. Today, I also work on business development, growth, digital business models and practical AI applications."}
           </p>
         </div>
         <ol className="timeline is-visible">
@@ -526,8 +526,8 @@ function CollaborationStrip({ lang }: { lang: Language }) {
               </strong>
               <span>
                 {lang === "de"
-                  ? "Mehrere Millionen digitale Aufrufe mit Kundencontent"
-                  : "Several million digital views from client content"}
+                  ? "Mehrere Millionen Aufrufe mit Inhalten aus Kundenprojekten"
+                  : "Several million views for content from client projects"}
               </span>
             </div>
           </div>
@@ -641,8 +641,8 @@ function SmsCase({ lang }: { lang: Language }) {
       <h3>SMS group</h3>
       <p>
         {lang === "de"
-          ? "SMS group ist ein internationaler Maschinen- und Anlagenbauer für die Metallindustrie. Für das Unternehmen entstanden wiederholt Corporate-, Industrie- und Eventproduktionen mit komplexer Abstimmung."
-          : "SMS group is an international plant and mechanical engineering company for the metals industry. I have repeatedly produced corporate, industrial and event media for the company, involving complex coordination."}
+          ? "Für SMS group habe ich wiederholt Corporate-, Industrie- und Eventproduktionen umgesetzt, darunter Eventfilme, Interviews und Content für die Unternehmenskommunikation."
+          : "For SMS group, I have produced corporate, industrial and event media across several projects, including event films, interviews and content for corporate communications."}
       </p>
       <button
         className="card-link project-toggle"
@@ -751,8 +751,8 @@ function WorkshopCase({ lang }: { lang: Language }) {
       </h3>
       <p>
         {lang === "de"
-          ? "Ich bin Referent für die IHK Siegen und habe außerdem individuelle Workshops für Unternehmen durchgeführt. Je nach Kontext geht es um digitale Kommunikation, Social Media, Content, Short-Form-Video und praktische Medienproduktion – ebenso wie um Vorträge zu Selbstständigkeit und Entrepreneurship."
-          : "I speak for IHK Siegen and have also run individual workshops for companies. Depending on the context, topics include digital communication, social media, content, short-form video and practical media production, as well as talks on self-employment and entrepreneurship."}
+          ? "Für die IHK Siegen und Unternehmen habe ich Workshops zu digitaler Kommunikation, Social Media, Content und Short-Form-Video durchgeführt. Dazu kommen Vorträge zu Selbstständigkeit und Entrepreneurship."
+          : "For IHK Siegen and companies, I have run workshops on digital communication, social media, content and short-form video. I also give talks on self-employment and entrepreneurship."}
       </p>
       <button
         className="card-link project-toggle"
@@ -899,11 +899,13 @@ function AmbientMedia({ lang }: { lang: Language }) {
     return () => o.disconnect();
   }, []);
   const title =
-      lang === "de" ? "Ausgewählte Videoarbeiten" : "Selected video work",
+      lang === "de"
+        ? "Videoproduktion für Unternehmen und Events."
+        : "Video production for companies and events.",
     copy =
       lang === "de"
-        ? "Medienproduktion bleibt Teil meiner praktischen Umsetzung. Im Video-Archiv finden Sie ausgewählte Corporate-, Imagefilm-, Produkt-, Event-, Drohnen- und Testimonial-Arbeiten."
-        : "Media production remains part of my hands-on work. The video archive includes selected corporate, image-film, product, event, drone and testimonial projects.";
+        ? "Ich produziere Corporate-, Image-, Produkt- und Eventvideos sowie Interviews und Video-Content für die Unternehmenskommunikation. Je nach Projekt gehören auch Fotoproduktion, Drohnenaufnahmen und Social-Media-Formate dazu."
+        : "I produce corporate, brand, product and event videos, interviews and video content for corporate communications. Depending on the project, this can also include photography, drone footage and social-media formats.";
   return (
     <section ref={ref} className="ambient-media section" data-ambient-media>
       <div className="wrap">
@@ -939,7 +941,7 @@ function AmbientMedia({ lang }: { lang: Language }) {
             </picture>
           )}
           <div className="ambient-copy">
-            <p className="eyebrow">Media &amp; Production</p>
+            <p className="eyebrow">Video &amp; Media Production</p>
             <h2>{title}</h2>
             <p>{copy}</p>
             <a
@@ -947,8 +949,8 @@ function AmbientMedia({ lang }: { lang: Language }) {
               href={base + (lang === "en" ? "en/videos/" : "videos/")}
             >
               {lang === "de"
-                ? "Ausgewählte Videos ansehen"
-                : "View selected videos"}
+                ? "Videoportfolio ansehen"
+                : "View video portfolio"}
               <Arrow />
             </a>
           </div>
@@ -1186,58 +1188,17 @@ export function Home({ lang }: { lang: Language }) {
     situations =
       lang === "de"
         ? [
-            "Recherche, Dokumentation oder Informationsübertragung wiederholt sich im Team und bindet qualifizierte Arbeitszeit.",
-            "Ein Markt, Segment oder Angebot wirkt interessant, aber die Entscheidung basiert noch zu stark auf Annahmen.",
-            "Es gibt viele einzelne Content-Aktivitäten, aber noch kein klares System für Research, Erstellung und Distribution.",
+            "Sie möchten konkrete KI-Anwendungen oder digitale Tools prüfen, bevor Sie Zeit oder Budget in eine größere Lösung investieren.",
+            "Sie möchten einen neuen Markt, ein Angebot oder ein Geschäftsmodell fundierter bewerten und die nächsten Schritte strukturieren.",
+            "Sie möchten Marketing, Content oder Medienproduktion klarer planen und professionell umsetzen.",
           ]
         : [
-            "Research, documentation or information transfer keeps repeating across the team and takes up skilled time.",
-            "A market, segment or offer looks promising, but the decision still relies too heavily on assumptions.",
-            "There are many separate content activities, but no clear system for research, production and distribution yet.",
+            "You want to assess concrete AI applications or digital tools before investing time or budget in a larger solution.",
+            "You want to evaluate a new market, offer or business model on a stronger basis and structure the next steps.",
+            "You want to plan marketing, content or media production more clearly and deliver it professionally.",
           ];
-  const services = c.services.map((s: any, i: number) =>
-    i !== 2
-      ? s
-      : lang === "de"
-        ? {
-            ...s,
-            text: "Ich strukturiere Marketing und Content von der Strategie bis zur Umsetzung – einschließlich Content-Produktion für Social Media, Short-Form-Video und ausgewählte B2B- und Unternehmensformate.",
-            tags: [
-              "Marketingstrategie",
-              "Content-Systeme",
-              "Content-Produktion",
-            ],
-            details: [
-              "Marketingstrategie und Prioritäten strukturieren",
-              "Content- und Social-Media-Systeme effizient organisieren",
-              "Content-Produktion für Social Media, Short-Form-Video und ausgewählte Unternehmensformate",
-              "AI-gestützte Research- und Content-Prozesse sinnvoll einsetzen",
-            ],
-          }
-        : {
-            ...s,
-            text: "I structure marketing and content from strategy through delivery, including hands-on production for social media, short-form video and selected B2B and corporate formats.",
-            tags: [
-              "Marketing strategy",
-              "Content systems",
-              "Content production",
-            ],
-            details: [
-              "Structure marketing strategy and priorities",
-              "Organise content and social-media systems efficiently",
-              "Produce content for social media, short-form video and selected corporate formats",
-              "Use AI-supported research and content processes where they add value",
-            ],
-          },
-  );
-  const lapstore = {
-      ...c.business[2],
-      text:
-        lang === "de"
-          ? "LapStore ist ein Anbieter für refurbished IT-Hardware. Die Zusammenarbeit umfasst langjährige Produkt-Content-Arbeit; später kamen Wettbewerbsanalyse, B2B-Strategie und Business-Development-Themen hinzu."
-          : "LapStore supplies refurbished IT hardware. Our work spans long-term product content, later joined by competitor analysis, B2B strategy and business-development topics.",
-    },
-    home = base + (lang === "en" ? "en/" : ""),
+  const services = c.services;
+  const home = base + (lang === "en" ? "en/" : ""),
     hub = base + (lang === "en" ? "en/links/" : "links/"),
     archive = base + (lang === "en" ? "en/videos/" : "videos/");
   return (
@@ -1326,13 +1287,8 @@ export function Home({ lang }: { lang: Language }) {
             <div className="hero-copy">
               <p className="hero-kicker">nikvisuals</p>
               <h1>
-                <span>AI, Growth &amp; Marketing</span>
-                <span className="hero-line-two">
-                  {lang === "de" ? "für ambitionierte" : "for ambitious"}
-                </span>
-                <span className="hero-b2b">
-                  {lang === "de" ? "B2B-Unternehmen." : "B2B companies."}
-                </span>
+                <span>{c.headline}</span>
+                <span className="hero-b2b">{c.headlineEnd}</span>
               </h1>
               <p className="hero-intro">{c.intro}</p>
               <div className="hero-actions">
@@ -1372,8 +1328,8 @@ export function Home({ lang }: { lang: Language }) {
                     <p className="situation">
                       <strong>
                         {lang === "de"
-                          ? "Typische Situation"
-                          : "Typical situation"}
+                          ? "Passt zum Beispiel, wenn"
+                          : "For example, if"}
                       </strong>
                       {situations[i]}
                     </p>
@@ -1402,7 +1358,7 @@ export function Home({ lang }: { lang: Language }) {
             <div className="project-grid">
           <SmsCase lang={lang} />
           <WorkshopCase lang={lang} />
-              <ProjectCard project={lapstore} c={c} />
+              <ProjectCard project={c.business[2]} c={c} />
               <ProjectCard project={c.business[3]} c={c} />
             </div>
           </div>
@@ -1431,8 +1387,8 @@ export function Home({ lang }: { lang: Language }) {
               <p>{c.about}</p>
               <p>
                 {lang === "de"
-                  ? "NikVisuals ist founder-led. Je nach Projekt ergänze ich die Umsetzung mit spezialisierten Freelancern und Partnern aus meinem Netzwerk. Bei größeren Medienproduktionen habe ich Projektteams mit bis zu sechs Personen geführt."
-                  : "NikVisuals is founder-led. Depending on the project, I bring in specialist freelancers and partners from my network. For larger media productions, I have led project teams of up to six people."}
+                  ? "Ich führe NikVisuals selbst und arbeite je nach Projekt mit spezialisierten Freelancern und Partnern aus meinem Netzwerk. Bei größeren Medienproduktionen habe ich Teams mit bis zu sechs Personen koordiniert."
+                  : "I run NikVisuals myself and work with specialist freelancers and partners from my network depending on the project. For larger media productions, I have coordinated teams of up to six people."}
               </p>
               <p className="about-signal">{c.aboutSignal}</p>
             </div>

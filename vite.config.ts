@@ -6,11 +6,11 @@ import { defineConfig, loadEnv, type Plugin } from 'vite';
 
 const canonical = 'https://www.nikvisuals.de';
 const routes = [
-  { path: '/', lang: 'de', indexable: true, title: 'NikVisuals — AI, Growth & Marketing | Niklas Brüne', description: 'NikVisuals von Niklas Brüne: AI, Growth und Marketing für ambitionierte B2B-Unternehmen. Research, Workflows, Go-to-Market und Content.' },
-  { path: '/en/', lang: 'en', indexable: true, title: 'NikVisuals — AI, Growth & Marketing | Niklas Brüne', description: 'NikVisuals by Niklas Brüne: AI, growth and marketing for ambitious B2B companies. Research, workflows, go-to-market and content.' },
+  { path: '/', lang: 'de', indexable: true, title: 'Business Development, Growth & Marketing | NikVisuals', description: 'Business Development, Growth, Go-to-Market und Marketing für B2B-Unternehmen. Dazu praktische KI-Use-Cases sowie Video- und Medienproduktion.' },
+  { path: '/en/', lang: 'en', indexable: true, title: 'Business Development, Growth & Marketing | NikVisuals', description: 'Business development, growth, go-to-market and marketing for B2B companies, plus practical AI use cases and video and media production.' },
   { path: '/links/', lang: 'de', indexable: false }, { path: '/en/links/', lang: 'en', indexable: false },
-  { path: '/videos/', lang: 'de', indexable: true, title: 'NikVisuals — Videoarbeiten, Projekte & Testimonials', description: 'Ausgewählte Videoarbeiten von NikVisuals: Kundenprojekte, Produktionen, Testimonials und eigene Formate.' },
-  { path: '/en/videos/', lang: 'en', indexable: true, title: 'NikVisuals — Video Work, Projects & Testimonials', description: 'Selected video work by NikVisuals: client projects, productions, testimonials and original formats.' },
+  { path: '/videos/', lang: 'de', indexable: true, title: 'Videoproduktion für Unternehmen | NikVisuals', description: 'Corporate-, Image-, Produkt- und Eventvideos von NikVisuals. Ausgewählte Videoproduktionen für Unternehmen, Events und Unternehmenskommunikation.' },
+  { path: '/en/videos/', lang: 'en', indexable: true, title: 'Video Production for Companies | NikVisuals', description: 'Corporate, brand, product and event video production by NikVisuals, with selected work for companies, events and corporate communications.' },
   { path: '/impressum/', lang: 'de', indexable: false }, { path: '/datenschutz/', lang: 'de', indexable: false },
 ] as const;
 
@@ -66,7 +66,7 @@ function siteMode(mode: 'preview' | 'staging' | 'production'): Plugin {
       }
       const urls = routes.filter((route) => route.indexable).map((route) => `  <url><loc>${canonical}${route.path}</loc></url>`).join('\n');
       await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
-      await writeFile('dist/llms.txt', `# NikVisuals\n\n> NikVisuals by Niklas Brüne: AI, Growth & Marketing for ambitious B2B companies.\n\n## Main pages\n\n- [Website](${canonical}/)\n- [English](${canonical}/en/)\n- [Selected video work](${canonical}/videos/)\n- [English video work](${canonical}/en/videos/)\n\n## Contact\n\n- [Contact](${canonical}/#kontakt)\n- Email: info@nikvisuals.de\n`);
+      await writeFile('dist/llms.txt', `# NikVisuals\n\n> NikVisuals by Niklas Brüne works with B2B companies on business development, growth, go-to-market and marketing, with practical AI use cases and professional media production.\n\n## Main pages\n\n- [Website](${canonical}/)\n- [English](${canonical}/en/)\n- [Selected video work](${canonical}/videos/)\n- [English video work](${canonical}/en/videos/)\n\n## Contact\n\n- [Contact](${canonical}/#kontakt)\n- Email: info@nikvisuals.de\n`);
     },
   };
 }
