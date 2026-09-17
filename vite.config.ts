@@ -66,7 +66,7 @@ function siteMode(mode: 'preview' | 'staging' | 'production'): Plugin {
       }
       const urls = routes.filter((route) => route.indexable).map((route) => `  <url><loc>${canonical}${route.path}</loc></url>`).join('\n');
       await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
-      await writeFile('dist/llms.txt', `# NikVisuals\n\nNikVisuals by Niklas Brüne: AI & Prozesse, Growth, GTM & Business Development, and Marketing & Content for B2B companies.\n\n- Website: ${canonical}/\n- English: ${canonical}/en/\n- Selected projects: ${canonical}/#arbeiten\n- Video archive: ${canonical}/videos/\n- Contact: mailto:info@nikvisuals.de\n`);
+      await writeFile('dist/llms.txt', `# NikVisuals\n\n> NikVisuals by Niklas Brüne: AI, Growth & Marketing for ambitious B2B companies.\n\n## Main pages\n\n- [Website](${canonical}/)\n- [English](${canonical}/en/)\n- [Selected video work](${canonical}/videos/)\n- [English video work](${canonical}/en/videos/)\n\n## Contact\n\n- [Contact](${canonical}/#kontakt)\n- Email: info@nikvisuals.de\n`);
     },
   };
 }

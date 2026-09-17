@@ -102,6 +102,8 @@ assert(legal.includes('www.youtube-nocookie.com') && legal.includes('Gmail-Verbi
 assert(!/TMG|RStV/.test(legal), 'imprint must use current terminology');
 assert(!/wix\.com.*impressum/i.test(home + links), 'footer must not link to old Wix legal pages');
 assert(siteFooter.includes("'impressum/'") && siteFooter.includes("'datenschutz/'"), 'shared footer must use internal legal links');
+assert(!siteFooter.includes('Vorschau · Nicht zur Indexierung') && !siteFooter.includes('Preview · Not for indexing'), 'footer must not expose stale preview labels');
+assert(legal.includes('Die Website wird über GitHub Pages bereitgestellt.') && !legal.includes('Die aktuelle Vorschau wird über GitHub Pages bereitgestellt.'), 'privacy notice must use current hosting wording');
 assert(packageJson.includes('build:staging') && packageJson.includes('build:production'), 'staging and production indexing build commands must exist');
 assert.equal(legacyRedirects.length, 25, 'all documented legacy Wix paths must have an explicit redirect target');
 assert(legacyGenerator.includes('location.replace') && legacyGenerator.includes('window.location.search'), 'legacy redirects must preserve query strings through a replace redirect');
@@ -178,7 +180,10 @@ if (production) {
   }
   const sitemap = await read('dist/sitemap.xml');
   assert.deepEqual([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]), ['https://www.nikvisuals.de/', 'https://www.nikvisuals.de/en/', 'https://www.nikvisuals.de/videos/', 'https://www.nikvisuals.de/en/videos/'], 'production sitemap must include exactly the four indexable URLs');
-  assert((await read('dist/llms.txt')).includes('NikVisuals') && (await read('dist/llms.txt')).includes('mailto:info@nikvisuals.de'), 'production llms.txt must be factual');
+  const llms = await read('dist/llms.txt');
+  assert(llms.includes('# NikVisuals') && llms.includes('## Main pages') && llms.includes('[Website](https://www.nikvisuals.de/)') && llms.includes('[Contact](https://www.nikvisuals.de/#kontakt)') && llms.includes('Email: info@nikvisuals.de'), 'production llms.txt must use concise linked Markdown sections');
+  const deVideos = await read('dist/videos/index.html'), enVideos = await read('dist/en/videos/index.html');
+  assert(deVideos.includes('NikVisuals — Videoarbeiten, Projekte &amp; Testimonials') && enVideos.includes('NikVisuals — Video Work, Projects &amp; Testimonials'), 'production video pages must use their route-specific document titles');
   const schema = (await read('dist/index.html')).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
   assert(schema, 'production homepage needs structured data');
   const graph = JSON.parse(schema)['@graph'];
