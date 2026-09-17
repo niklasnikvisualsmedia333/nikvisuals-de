@@ -1,11 +1,12 @@
 import assert from 'node:assert/strict';
 import { access, readFile, readdir } from 'node:fs/promises';
+import { legacyRedirects } from './legacy-routes.mjs';
 
 const read = (path) => readFile(path, 'utf8');
 const production = process.env.SITE_MODE === 'production';
 const staging = process.env.SITE_MODE === 'staging';
-const [videos, internshipVideos, videoPage, home, site, links, consent, reviews, css, legal, siteFooter, copyEmail, packageJson] = await Promise.all([
-  read('src/content/videos.ts'), read('src/content/internshipVideos.ts'), read('src/pages/Videos.tsx'), read('src/pages/Home.tsx'), read('src/content/site.ts'), read('src/pages/Links.tsx'), read('src/components/MediaConsent.tsx'), read('src/content/reviews.ts'), read('src/styles/global.css'), read('src/pages/Legal.tsx'), read('src/components/SiteFooter.tsx'), read('src/components/CopyEmailButton.tsx'), read('package.json'),
+const [videos, internshipVideos, videoPage, home, site, links, consent, reviews, css, legal, siteFooter, copyEmail, packageJson, legacyGenerator] = await Promise.all([
+  read('src/content/videos.ts'), read('src/content/internshipVideos.ts'), read('src/pages/Videos.tsx'), read('src/pages/Home.tsx'), read('src/content/site.ts'), read('src/pages/Links.tsx'), read('src/components/MediaConsent.tsx'), read('src/content/reviews.ts'), read('src/styles/global.css'), read('src/pages/Legal.tsx'), read('src/components/SiteFooter.tsx'), read('src/components/CopyEmailButton.tsx'), read('package.json'), read('scripts/generate-legacy-pages.mjs'),
 ]);
 
 const videoIds = [...videos.matchAll(/^make\('([^']+)'/gm)].map((match) => match[1]);
@@ -102,6 +103,13 @@ assert(!/TMG|RStV/.test(legal), 'imprint must use current terminology');
 assert(!/wix\.com.*impressum/i.test(home + links), 'footer must not link to old Wix legal pages');
 assert(siteFooter.includes("'impressum/'") && siteFooter.includes("'datenschutz/'"), 'shared footer must use internal legal links');
 assert(packageJson.includes('build:staging') && packageJson.includes('build:production'), 'staging and production indexing build commands must exist');
+assert.equal(legacyRedirects.length, 25, 'all documented legacy Wix paths must have an explicit redirect target');
+assert(legacyGenerator.includes('location.replace') && legacyGenerator.includes('window.location.search'), 'legacy redirects must preserve query strings through a replace redirect');
+for (const phrase of ['Schreib kurz', 'deinem E-Mail-Programm', 'findest du', 'Schick mir deinen Lebenslauf', 'wenn du externe Medien erlaubst', 'Bitte fülle alle Pflichtfelder']) {
+  assert(![home, site, consent].join('\n').includes(phrase), `informal German regression: ${phrase}`);
+}
+assert([home, site].join('\n').includes('Schreiben Sie kurz') && [home, site].join('\n').includes('Ihrem E-Mail-Programm') && home.includes('Schicken Sie mir Ihren Lebenslauf'), 'German contact and internship copy must use the formal form');
+assert(consent.includes('wenn Sie externe Medien erlauben'), 'German consent copy must use the formal form');
 
 for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.html']]) {
   const html = await read(path);
@@ -114,6 +122,9 @@ for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.htm
   assert(html.includes('footer-top') && html.includes('impressum/') && html.includes('datenschutz/'), `${path}: shared legal footer missing`);
   for (const id of internshipIds) assert(!html.includes(id), `${path}: collapsed internship gallery must not prerender video cards`);
 }
+const notFound = await read('dist/404.html');
+assert(notFound.includes('noindex,nofollow,noarchive') && notFound.includes('Diese Seite gibt es nicht mehr.') && notFound.includes('Zur Startseite') && notFound.includes('Impressum') && notFound.includes('Datenschutz') && !notFound.includes('<iframe'), 'custom 404 must be safe, branded and include legal navigation');
+assert(notFound.includes("relativePath.startsWith('en/')"), 'custom 404 must provide an English variant');
 for (const path of ['dist/impressum/index.html', 'dist/datenschutz/index.html']) {
   const html = await read(path);
   assert(html.includes('NikVisuals') && html.includes('footer-top') && html.includes('impressum/') && html.includes('datenschutz/') && !html.includes('<iframe'), `${path}: legal route/footer missing or unsafe`);
@@ -186,6 +197,18 @@ if (production) {
     const home = await read('dist/index.html');
     assert(home.includes('/nikvisuals-de/assets/'), 'preview base path must remain /nikvisuals-de/');
   }
+}
+if (production || staging) {
+  for (const { from, to } of legacyRedirects) {
+    const html = await read(`dist${from}/index.html`);
+    assert(html.includes('noindex,follow') && html.includes(`https://www.nikvisuals.de${to}`) && html.includes('location.replace'), `${from}: legacy redirect page is incomplete`);
+  }
+  if (production) {
+    const sitemap = await read('dist/sitemap.xml');
+    for (const { from } of legacyRedirects) assert(!sitemap.includes(from), `${from}: legacy redirect must not enter sitemap`);
+  }
+} else {
+  for (const { from } of legacyRedirects) await assert.rejects(access(`dist${from}/index.html`), `${from}: preview must not generate production legacy redirects`);
 }
 await assert.rejects(access('dist/CNAME'), 'preview must not contain CNAME');
 console.log(`Verified ${production ? 'production' : staging ? 'staging' : 'preview'} build: legal pages, privacy, metadata, 34 videos, nine logos, reviews and consent safety.`);

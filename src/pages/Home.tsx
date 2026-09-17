@@ -96,7 +96,7 @@ function ContactForm({ lang }: { lang: Language }) {
         </label>
       </div>
       <p className="form-privacy-note">
-        {lang === "de" ? "Beim Klick wird eine E-Mail in deinem E-Mail-Programm vorbereitet. Hinweise zur Verarbeitung findest du im " : "Clicking prepares an email in your email program. Details on processing are available in the "}
+        {lang === "de" ? "Beim Klick wird eine E-Mail in Ihrem E-Mail-Programm vorbereitet. Hinweise zur Verarbeitung finden Sie im " : "Clicking prepares an email in your email program. Details on processing are available in the "}
         <a href={import.meta.env.BASE_URL + "datenschutz/"}>{lang === "de" ? "Datenschutz" : "Privacy notice"}</a>.
       </p>
       <div className="form-action">
@@ -144,7 +144,7 @@ function Internships({ lang }: { lang: Language }) {
         </div>
         <div className="internships-copy">
           <p>{lang === "de" ? "Praktika passen am besten ab etwa acht Wochen. Remote oder hybrid ist je nach Aufgabe möglich. Initiativbewerbungen sind ausdrücklich willkommen – zum Beispiel für Content- und Videoproduktion, Marketing & Research, AI-/Prozess-Themen oder Business Development." : "Internships work best from around eight weeks onwards. Remote or hybrid setups are possible depending on the role. Unsolicited applications are explicitly welcome – for example in content and video production, marketing and research, AI/process topics or business development."}</p>
-          <p className="internships-note">{lang === "de" ? "Interesse? Schick mir deinen Lebenslauf per E-Mail und nenne kurz deinen gewünschten Zeitraum und den Bereich, in dem du mitarbeiten möchtest. Wenn du bereits eigene Arbeiten, Projekte oder ein Portfolio hast, schick gerne direkt einen Link dazu mit." : "Interested? Send me your CV by email and briefly mention your preferred timeframe and the area you would like to work in. If you already have work samples, projects or a portfolio, feel free to include a link."}</p>
+          <p className="internships-note">{lang === "de" ? "Interesse? Schicken Sie mir Ihren Lebenslauf per E-Mail und nennen Sie kurz Ihren gewünschten Zeitraum und den Bereich, in dem Sie mitarbeiten möchten. Wenn Sie bereits eigene Arbeiten, Projekte oder ein Portfolio haben, schicken Sie gerne direkt einen Link dazu mit." : "Interested? Send me your CV by email and briefly mention your preferred timeframe and the area you would like to work in. If you already have work samples, projects or a portfolio, feel free to include a link."}</p>
           <div className="email-line internships-email"><a className="email" href={links.email}>info@nikvisuals.de</a><CopyEmailButton lang={lang} /></div>
           <button className="text-link internship-toggle" type="button" aria-expanded={open} aria-controls="internship-video-gallery" onClick={() => setOpen((value) => !value)}>{open ? lang === "de" ? "Einblicke schließen" : "Hide internship experiences" : lang === "de" ? "Einblicke aus Praktika ansehen" : "See internship experiences"}<Arrow /></button>
         </div>
@@ -849,7 +849,7 @@ function AmbientMedia({ lang }: { lang: Language }) {
       lang === "de" ? "Ausgewählte Videoarbeiten" : "Selected video work",
     copy =
       lang === "de"
-        ? "Medienproduktion bleibt Teil meiner praktischen Umsetzung. Im Video-Archiv findest du ausgewählte Corporate-, Imagefilm-, Produkt-, Event-, Drohnen- und Testimonial-Arbeiten."
+        ? "Medienproduktion bleibt Teil meiner praktischen Umsetzung. Im Video-Archiv finden Sie ausgewählte Corporate-, Imagefilm-, Produkt-, Event-, Drohnen- und Testimonial-Arbeiten."
         : "Media production remains part of my hands-on work. The video archive includes selected corporate, image-film, product, event, drone and testimonial projects.";
   return (
     <section ref={ref} className="ambient-media section" data-ambient-media>
