@@ -98,7 +98,7 @@ assert(home.includes('width="640"') && home.includes('height="360"'), 'expanded 
 
 assert(consent.includes('youtube-nocookie.com/embed/') && consent.includes('setActive(null)'), 'YouTube must stay consent-gated and revocable');
 assert(legal.includes('GitHub Pages') && legal.includes('nikvisuals-theme') && legal.includes('nikvisuals-media-consent-v1'), 'privacy must document hosting and local settings');
-assert(legal.includes('www.youtube-nocookie.com') && legal.includes('Microsoft 365 / Outlook'), 'privacy must document YouTube and mail handling');
+assert(legal.includes('www.youtube-nocookie.com') && legal.includes('Gmail-Verbindung'), 'privacy must document YouTube and current contact mail handling');
 assert(!/TMG|RStV/.test(legal), 'imprint must use current terminology');
 assert(!/wix\.com.*impressum/i.test(home + links), 'footer must not link to old Wix legal pages');
 assert(siteFooter.includes("'impressum/'") && siteFooter.includes("'datenschutz/'"), 'shared footer must use internal legal links');
@@ -108,8 +108,14 @@ assert(legacyGenerator.includes('location.replace') && legacyGenerator.includes(
 for (const phrase of ['Schreib kurz', 'deinem E-Mail-Programm', 'findest du', 'Schick mir deinen Lebenslauf', 'wenn du externe Medien erlaubst', 'Bitte fülle alle Pflichtfelder']) {
   assert(![home, site, consent].join('\n').includes(phrase), `informal German regression: ${phrase}`);
 }
-assert([home, site].join('\n').includes('Schreiben Sie kurz') && [home, site].join('\n').includes('Ihrem E-Mail-Programm') && home.includes('Schicken Sie mir Ihren Lebenslauf'), 'German contact and internship copy must use the formal form');
+assert([home, site].join('\n').includes('Schreiben Sie kurz') && home.includes('Schicken Sie mir Ihren Lebenslauf'), 'German contact and internship copy must use the formal form');
 assert(consent.includes('wenn Sie externe Medien erlauben'), 'German consent copy must use the formal form');
+assert(home.includes('https://n8n.srv1037647.hstgr.cloud/webhook/nikvisuals-website-contact') && home.includes('formVersion: "nikvisuals-contact-v1"'), 'contact form must use the approved n8n webhook contract');
+assert(home.includes('AbortController') && home.includes('response.json()') && home.includes('.ok !== true'), 'contact form must time out and require an explicit JSON success response');
+assert(home.includes('name="privacyAccepted"') && home.includes('name="website"') && home.includes('aria-hidden="true"'), 'contact form must require privacy consent and include an inaccessible honeypot');
+assert(!home.includes('window.location.href = `mailto:'), 'contact form must not submit with mailto');
+assert(legal.includes('selbst gehostete n8n-Instanz') && legal.includes('Google Sheets') && legal.includes('Gmail-Verbindung'), 'privacy notice must describe the contact-form processing flow');
+assert(!legal.includes('Das Kontaktformular übermittelt keine Daten'), 'privacy notice must not describe the removed mailto-only form');
 
 for (const [lang, path] of [['de', 'dist/index.html'], ['en', 'dist/en/index.html']]) {
   const html = await read(path);

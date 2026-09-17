@@ -44,36 +44,42 @@ function ThemeToggle({ lang }: { lang: Language }) {
     </button>
   );
 }
+const contactWebhook = "https://n8n.srv1037647.hstgr.cloud/webhook/nikvisuals-website-contact";
+type ContactState = "idle" | "submitting" | "success" | "error";
 function ContactForm({ lang }: { lang: Language }) {
-  const c = content[lang],
-    [error, setError] = useState(false);
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const c = content[lang], [state, setState] = useState<ContactState>("idle"), [validationError, setValidationError] = useState(false), statusRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => { if (state === "success" || state === "error") statusRef.current?.focus(); }, [state]);
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (!form.checkValidity()) {
-      setError(true);
+      setValidationError(true);
+      setState("error");
       form.reportValidity();
       return;
     }
-    setError(false);
-    const data = new FormData(form),
-      body = [
-        `${c.form.name}: ${data.get("name")}`,
-        `${c.form.email}: ${data.get("email")}`,
-        `${c.form.company}: ${data.get("company") || "—"}`,
-        "",
-        `${c.form.message}:`,
-        String(data.get("message")),
-      ].join("\n");
-    window.location.href = `mailto:info@nikvisuals.de?subject=${encodeURIComponent("Projektanfrage NikVisuals")}&body=${encodeURIComponent(body)}`;
+    if (state === "submitting") return;
+    setValidationError(false);
+    setState("submitting");
+    const data = new FormData(form), params = new URLSearchParams(window.location.search), controller = new AbortController(), timeout = window.setTimeout(() => controller.abort(), 14000);
+    const payload = {
+      name: String(data.get("name") || ""), email: String(data.get("email") || ""), company: String(data.get("company") || ""), message: String(data.get("message") || ""), language: lang,
+      landingPage: window.location.href, referrer: document.referrer || "", privacyAccepted: data.get("privacyAccepted") === "on", privacyVersion: "2026-09", formVersion: "nikvisuals-contact-v1", submittedAt: new Date().toISOString(), website: String(data.get("website") || ""),
+      utmSource: params.get("utm_source") || "", utmMedium: params.get("utm_medium") || "", utmCampaign: params.get("utm_campaign") || "", utmContent: params.get("utm_content") || "", utmTerm: params.get("utm_term") || "",
+    };
+    try {
+      const response = await fetch(contactWebhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: controller.signal });
+      let result: unknown;
+      try { result = await response.json(); } catch { throw new Error("Invalid response"); }
+      if (!response.ok || !result || typeof result !== "object" || (result as { ok?: unknown }).ok !== true) throw new Error("Submission rejected");
+      form.reset();
+      setState("success");
+    } catch { setState("error"); } finally { window.clearTimeout(timeout); }
   };
   return (
-    <form className="contact-form" noValidate onSubmit={submit}>
-      {error && (
-        <p className="form-error" role="alert">
-          {c.form.error}
-        </p>
-      )}
+    <form className="contact-form" noValidate onSubmit={submit} aria-busy={state === "submitting"}>
+      {state === "success" && <p className="form-success" role="status" aria-live="polite" tabIndex={-1} ref={statusRef}>{c.form.success}</p>}
+      {state === "error" && <p className="form-error" role="alert" tabIndex={-1} ref={statusRef}>{validationError ? c.form.error : <>{c.form.submitError} <a href={links.email}>info@nikvisuals.de</a>.</>}</p>}
       <div className="form-grid">
         <label>
           {c.form.name}
@@ -95,16 +101,17 @@ function ContactForm({ lang }: { lang: Language }) {
           <textarea name="message" required rows={5} />
         </label>
       </div>
+      <div className="form-honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" type="text" autoComplete="off" tabIndex={-1} /></div>
+      <label className="consent"><input name="privacyAccepted" type="checkbox" required /><span>{c.form.consentBefore}<a href={import.meta.env.BASE_URL + "datenschutz/"}>{c.form.privacy}</a>{c.form.consentAfter}</span></label>
       <p className="form-privacy-note">
-        {lang === "de" ? "Beim Klick wird eine E-Mail in Ihrem E-Mail-Programm vorbereitet. Hinweise zur Verarbeitung finden Sie im " : "Clicking prepares an email in your email program. Details on processing are available in the "}
+        {c.form.note + " "}
         <a href={import.meta.env.BASE_URL + "datenschutz/"}>{lang === "de" ? "Datenschutz" : "Privacy notice"}</a>.
       </p>
       <div className="form-action">
-        <button className="button button-accent" type="submit">
-          {c.form.submit}
+        <button className="button button-accent" type="submit" disabled={state === "submitting"}>
+          {state === "submitting" ? c.form.submitting : c.form.submit}
           <Arrow diagonal />
         </button>
-        <span className="form-note">{c.form.note}</span>
       </div>
     </form>
   );
