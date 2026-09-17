@@ -763,7 +763,7 @@ function WorkshopCase({ lang }: { lang: Language }) {
 function BehindTheScenes({ lang }: { lang: Language }) {
   const viewport = useRef<HTMLDivElement>(null), main = useRef<HTMLDivElement>(null);
   const pauseUntil = useRef(0);
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused] = useState(false), [pauseRevision, setPauseRevision] = useState(0);
   const base = import.meta.env.BASE_URL;
   const items = [
     { image: "production-bts-konekt-event-rig.webp", de: "Eventproduktion mit Kamera-Rig", en: "Event production with camera rig" },
@@ -774,6 +774,21 @@ function BehindTheScenes({ lang }: { lang: Language }) {
     { image: "production-bts-lemonaid-tabletop.webp", de: "Tabletop- und Produktproduktion", en: "Tabletop and product production" },
   ];
   const pauseForInteraction = () => { pauseUntil.current = performance.now() + 5200; };
+  const moveSlide = (direction: -1 | 1) => {
+    const node = viewport.current, canonical = main.current;
+    if (!node || !canonical) return;
+    const width = canonical.offsetWidth, start = canonical.offsetLeft;
+    if (width && node.scrollLeft < start) node.scrollLeft += width;
+    if (width && node.scrollLeft >= start + width) node.scrollLeft -= width;
+    const slides = Array.from(node.querySelectorAll<HTMLElement>(".bts-set figure"));
+    if (!slides.length) return;
+    const current = slides.reduce((closest, slide, index) => Math.abs(slide.offsetLeft - node.scrollLeft) < Math.abs(slides[closest].offsetLeft - node.scrollLeft) ? index : closest, 0);
+    const target = slides[current + direction];
+    if (!target) return;
+    pauseForInteraction();
+    setPauseRevision((revision) => revision + 1);
+    node.scrollTo({ left: target.offsetLeft, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  };
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const node = viewport.current, canonical = main.current;
@@ -827,8 +842,10 @@ function BehindTheScenes({ lang }: { lang: Language }) {
     node.addEventListener("scroll", onScroll, { passive: true });
     document.addEventListener("visibilitychange", onVisibilityChange);
     return () => { if (timeout) window.clearTimeout(timeout); if (settleTimer) window.clearTimeout(settleTimer); observer.disconnect(); node.removeEventListener("scroll", onScroll); document.removeEventListener("visibilitychange", onVisibilityChange); };
-  }, [paused]);
-  return <section className="bts section"><div className="wrap"><div className="bts-heading"><div><p className="eyebrow">Behind the scenes</p><h2>{lang === "de" ? "Produktion in der Praxis." : "Production behind the scenes."}</h2></div><p>{lang === "de" ? "Von kompakten Content-Produktionen bis zu Corporate- und Eventdrehs: Je nach Projekt arbeite ich mit professionellem Kamera-, Audio- und Rigging-Equipment sowie spezialisierten Freelancern und Projektteams." : "From compact content productions to corporate and event shoots, each project uses professional camera, audio and rigging equipment alongside specialist freelancers and project teams where useful."}</p></div><div className="bts-window" ref={viewport} tabIndex={0} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)} onPointerDown={pauseForInteraction} onTouchStart={pauseForInteraction} onWheel={pauseForInteraction}><div className="bts-track">{[0, 1, 2].map((setIndex) => <div className="bts-set" key={setIndex} ref={setIndex === 1 ? main : undefined} aria-hidden={setIndex !== 1 || undefined}>{items.map((item) => <figure key={`${item.image}-${setIndex}`}><img src={base + "images/" + item.image} alt={setIndex === 1 ? lang === "de" ? item.de : item.en : ""} width="1600" height={item.image.includes("lemonaid") ? "900" : "1066"} loading="lazy" decoding="async" /><figcaption>{lang === "de" ? item.de : item.en}</figcaption></figure>)}</div>)}</div></div></div></section>;
+  }, [paused, pauseRevision]);
+  const previousLabel = lang === "de" ? "Vorheriges Behind-the-scenes-Bild" : "Previous behind-the-scenes image";
+  const nextLabel = lang === "de" ? "Nächstes Behind-the-scenes-Bild" : "Next behind-the-scenes image";
+  return <section className="bts section"><div className="wrap"><div className="bts-heading"><div><p className="eyebrow">Behind the scenes</p><h2>{lang === "de" ? "Produktion in der Praxis." : "Production behind the scenes."}</h2></div><p>{lang === "de" ? "Von kompakten Content-Produktionen bis zu Corporate- und Eventdrehs: Je nach Projekt arbeite ich mit professionellem Kamera-, Audio- und Rigging-Equipment sowie spezialisierten Freelancern und Projektteams." : "From compact content productions to corporate and event shoots, each project uses professional camera, audio and rigging equipment alongside specialist freelancers and project teams where useful."}</p></div><div className="bts-controls" aria-label={lang === "de" ? "Behind-the-scenes-Bilder steuern" : "Control behind-the-scenes images"}><button className="review-control prev" type="button" aria-label={previousLabel} onClick={() => moveSlide(-1)}><Arrow /></button><button className="review-control" type="button" aria-label={nextLabel} onClick={() => moveSlide(1)}><Arrow /></button></div><div className="bts-window" ref={viewport} tabIndex={0} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)} onPointerDown={pauseForInteraction} onTouchStart={pauseForInteraction} onWheel={pauseForInteraction}><div className="bts-track">{[0, 1, 2].map((setIndex) => <div className="bts-set" key={setIndex} ref={setIndex === 1 ? main : undefined} aria-hidden={setIndex !== 1 || undefined}>{items.map((item) => <figure key={`${item.image}-${setIndex}`}><img src={base + "images/" + item.image} alt={setIndex === 1 ? lang === "de" ? item.de : item.en : ""} width="1600" height={item.image.includes("lemonaid") ? "900" : "1066"} loading="lazy" decoding="async" /><figcaption>{lang === "de" ? item.de : item.en}</figcaption></figure>)}</div>)}</div></div></div></section>;
 }
 function AmbientMedia({ lang }: { lang: Language }) {
   const ref = useRef<HTMLElement>(null),

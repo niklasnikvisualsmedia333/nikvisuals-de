@@ -55,6 +55,8 @@ for (const asset of ['production-bts-konekt-event-rig.webp', 'production-bts-kon
 }
 assert(!btsComponent.includes('niklas-speaking-desk-office.webp') && !btsComponent.includes('niklas-bschool-workshop-facilitation.webp'), 'behind-the-scenes must use only production BTS imagery');
 assert(!btsComponent.includes('const slides = [...items, items[0]]') && btsComponent.includes('[0, 1, 2].map'), 'BTS must use clone sets without a visible duplicate first slide');
+assert(btsComponent.includes('className="bts-controls"') && btsComponent.includes('Vorheriges Behind-the-scenes-Bild') && btsComponent.includes('Nächstes Behind-the-scenes-Bild') && btsComponent.includes('Previous behind-the-scenes image') && btsComponent.includes('Next behind-the-scenes image'), 'BTS must expose accessible previous and next controls in both languages');
+assert(btsComponent.includes('moveSlide(-1)') && btsComponent.includes('moveSlide(1)') && btsComponent.includes('target.offsetLeft'), 'BTS controls must navigate one slide using measured geometry');
 assert(!/lapstore-logo-web\.png/.test(site + home), 'broken LapStore PNG path must not return');
 assert(!/University of Tulsa|B-School|histori/i.test(home + site), 'removed copy must not return');
 assert(home.includes('project.organization !== "LapStore"'), 'LapStore project badge must be excluded');
