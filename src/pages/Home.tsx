@@ -904,7 +904,7 @@ function AmbientMedia({ lang }: { lang: Language }) {
         : "Video production for companies and events.",
     copy =
       lang === "de"
-        ? "Ich produziere Corporate-, Image-, Produkt- und Eventvideos sowie Interviews und Video-Content für die Unternehmenskommunikation. Je nach Projekt gehören auch Fotoproduktion, Drohnenaufnahmen und Social-Media-Formate dazu."
+        ? "Ich produziere Corporate Videos, Imagefilme, Produktvideos und Eventvideos sowie Interviews und Video-Content für die Unternehmenskommunikation. Je nach Projekt gehören auch Fotoproduktion, Drohnenaufnahmen und Social-Media-Formate dazu."
         : "I produce corporate, brand, product and event videos, interviews and video content for corporate communications. Depending on the project, this can also include photography, drone footage and social-media formats.";
   return (
     <section ref={ref} className="ambient-media section" data-ambient-media>
@@ -941,7 +941,7 @@ function AmbientMedia({ lang }: { lang: Language }) {
             </picture>
           )}
           <div className="ambient-copy">
-            <p className="eyebrow">Video &amp; Media Production</p>
+            <p className="eyebrow">{lang === "de" ? "Video & Medienproduktion" : "Video & Media Production"}</p>
             <h2>{title}</h2>
             <p>{copy}</p>
             <a
@@ -1262,7 +1262,7 @@ export function Home({ lang }: { lang: Language }) {
           <picture>
             <source
               media="(max-width: 560px)"
-              srcSet={`${base}images/niklas-working-desk-office-480.webp 480w, ${base}images/niklas-working-desk-office-768.webp 768w`}
+              srcSet={`${base}images/niklas-speaking-desk-office-960.webp 960w`}
               sizes="100vw"
             />
             <img
@@ -1272,8 +1272,8 @@ export function Home({ lang }: { lang: Language }) {
               sizes="(max-width: 767px) 100vw, 72vw"
               alt={
                 lang === "de"
-                  ? "Niklas Brüne bei der Arbeit am Schreibtisch."
-                  : "Niklas Brüne working at a desk."
+                  ? "Niklas Brüne am Schreibtisch."
+                  : "Niklas Brüne at a desk."
               }
               width="1440"
               height="960"

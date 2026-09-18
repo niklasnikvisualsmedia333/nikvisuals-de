@@ -41,6 +41,9 @@ assert(/<a href=\{base\}>DE<\/a>[\s\S]*?<span>\/<\/span>[\s\S]*?<a href=\{base \
 assert(css.includes('.languages>span{display:inline-flex;align-items:center;justify-content:center;height:42px'), 'language slash must use flex centering');
 assert(home.includes('data-ambient-media') && home.includes('en/videos/'), 'homepage media panel and video archive link must exist');
 assert(home.includes('fetchPriority="high"') && /className="hero-image"[\s\S]*?width="1440"[\s\S]*?height="960"/.test(home), 'hero must reserve space and receive high fetch priority');
+assert(home.includes('media="(max-width: 560px)"') && home.includes('niklas-speaking-desk-office-960.webp') && !home.includes('niklas-working-desk-office-480.webp'), 'mobile hero must use the desktop speaking-desk motif without adding a second hero asset');
+assert(site.includes('wo ich konkret unterstützen kann') && site.includes('where I can support you'), 'contact introduction must describe the non-binding first conversation in both languages');
+assert(home.includes('Video & Medienproduktion') && home.includes('Corporate Videos, Imagefilme, Produktvideos und Eventvideos'), 'German media panel copy must use the current video-production wording');
 assert(!home.includes('../content/videos') && home.includes('../content/smsVideos'), 'homepage must not import the full video archive');
 assert(site.includes("headline:'Business Development, Growth & Marketing'") && site.includes("headlineEnd:'für B2B-Unternehmen.'") && site.includes("headlineEnd:'for B2B companies.'"), 'homepage hero must lead with business development, growth and marketing');
 assert(site.includes('KI im Arbeitsalltag & digitale Tools') && site.includes('AI in day-to-day work & digital tools') && site.includes('Marketing, Content & Medienproduktion') && site.includes('Marketing, Content & Media Production'), 'focus areas must use the current practical AI and media positioning');
