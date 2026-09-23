@@ -44,7 +44,7 @@ function ThemeToggle({ lang }: { lang: Language }) {
     </button>
   );
 }
-const contactWebhook = "https://n8n.srv1037647.hstgr.cloud/webhook/nikvisuals-website-contact";
+const contactWebhook = "https://n8n.srv2003679.hstgr.cloud/webhook/nikvisuals-website-contact";
 type ContactState = "idle" | "submitting" | "success" | "error";
 function ContactForm({ lang }: { lang: Language }) {
   const c = content[lang], [state, setState] = useState<ContactState>("idle"), [validationError, setValidationError] = useState(false), statusRef = useRef<HTMLParagraphElement>(null);
