@@ -124,7 +124,7 @@ for (const phrase of ['Schreib kurz', 'deinem E-Mail-Programm', 'findest du', 'S
 }
 assert([home, site].join('\n').includes('Schreiben Sie kurz') && home.includes('Schicken Sie mir Ihren Lebenslauf'), 'German contact and internship copy must use the formal form');
 assert(consent.includes('wenn Sie externe Medien erlauben'), 'German consent copy must use the formal form');
-assert(home.includes('https://n8n.srv1037647.hstgr.cloud/webhook/nikvisuals-website-contact') && home.includes('formVersion: "nikvisuals-contact-v1"'), 'contact form must use the approved n8n webhook contract');
+assert(home.includes('https://n8n.srv2003679.hstgr.cloud/webhook/nikvisuals-website-contact') && !home.includes('n8n.srv1037647.hstgr.cloud') && home.includes('formVersion: "nikvisuals-contact-v1"'), 'contact form must use the approved n8n webhook contract');
 assert(home.includes('AbortController') && home.includes('response.json()') && home.includes('.ok !== true'), 'contact form must time out and require an explicit JSON success response');
 assert(home.includes('name="privacyAccepted"') && home.includes('name="website"') && home.includes('aria-hidden="true"'), 'contact form must require privacy consent and include an inaccessible honeypot');
 assert(!home.includes('window.location.href = `mailto:'), 'contact form must not submit with mailto');
